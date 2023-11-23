@@ -1,12 +1,12 @@
 ##### VARIABLES #####
 
-NAME		= 
+NAME		= phonebook
 CC			= c++
 FLAGS		= -Wall -Wextra -Werror -std=c++98
 
 ##### SOURCES #####
 
-SRC			+= 
+SRC			+= phonebook.cpp
 
 ##### OBJECTS #####
 
