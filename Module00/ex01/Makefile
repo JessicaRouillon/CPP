@@ -1,12 +1,12 @@
 ##### VARIABLES #####
 
-NAME		= megaphone
+NAME		= 
 CC			= c++
 FLAGS		= -Wall -Wextra -Werror -std=c++98
 
 ##### SOURCES #####
 
-SRC			+= megaphone.cpp
+SRC			+= 
 
 ##### OBJECTS #####
 
@@ -26,7 +26,7 @@ $(OBJ) : $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 
 $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) $(OBJ) -o $(NAME)
-	@echo $(GREEN)"\n\n	⤳ Created $(NAME) ✨\n"$(DEF_COLOR)$(END)
+	@echo $(GREEN)"\n\n	⤳ Created $(NAME) ✨\n"$(DEF_COLOR)
 
 clean:
 	@echo $(ORANGE)"\nRemoving .o object files...\n"$(END)
@@ -41,9 +41,7 @@ re: fclean all
 
 .PHONY: all clean fclean re
 
-
 #############################################################################################3
-
 
 ##### DISPLAY #####
 
@@ -54,7 +52,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[1;36m'
 NC='\033[0m' # No Color
 
-NB_OBJ = ${words ${SRC}}
+NB_OBJ = $${words $SRC}
 COUNTER = 1
 PROGRESS = 0
 DONE = 100
@@ -63,13 +61,13 @@ FILL = 0
 EMPTY = 0
 
 define PROGRESS_BAR
-	$(eval PROGRESS=$(shell echo $$(($(COUNTER) * 100 / $(NB_OBJ)))))
-	$(eval DONE=$(shell echo $$(($(PROGRESS) * 30 / 100))))
-	$(eval SPACE=$(shell echo $$((30 - $(DONE)))))
-	$(eval FILL=$(shell printf "%*s" ${DONE} | sed 's/ /▶/g'))
-	$(eval EMPTY=$(shell printf "%*s" ${SPACE} | sed 's/ /◀/g'))
-	printf ${CLEAR}$(BLUE)"\rCompilation : "
-	printf $(LGREEN)${FILL}$(LRED)${EMPTY}
-	printf $(BLUE)" %3d%% %s.c" $(END) ${PROGRESS} $1
-	$(eval COUNTER=$(shell echo $$(($(COUNTER) + 1))))
+	$${eval PROGRESS=$$(shell echo $$(( $$(COUNTER) * 100 / $$(NB_OBJ) )) )}
+	$${eval DONE=$$(shell echo $$(( $$(PROGRESS) * 30 / 100 )) )}
+	$${eval SPACE=$$(shell echo $$(( 30 - $$(DONE) )) )}
+	$${eval FILL=$$(shell printf "%*s" $$(DONE) | sed 's/ /▶/g')}
+	$${eval EMPTY=$$(shell printf "%*s" $$(SPACE) | sed 's/ /◀/g')}
+	printf $CLEAR$$(BLUE)"\rCompilation : "
+	printf $$(LGREEN)$FILL$$(LRED)$EMPTY
+	printf $$(BLUE)" %3d%% %s.c" $$(END) $PROGRESS 
+	$${eval COUNTER=$$(shell echo $$(( $$(COUNTER) + 1 )) )}
 endef

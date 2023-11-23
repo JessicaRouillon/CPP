@@ -3,19 +3,22 @@
 int main(int ac, char **av)
 {
 	std::string const no_arg = "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
-	std::string arg;
+	std::string current_arg;
 
 	if (ac == 1)
 	{
 		std::cout << no_arg << std::endl;
-		return;
+		return 0;
 	}
 	for (int i = 1; i < ac; i++)
 	{
-		arg = av[i];
-		for (int j = 0; j < arg.length(); j++)
+		current_arg = av[i];
+		for (size_t j = 0; j < current_arg.length(); j++)
 		{
-			std::cout << (char)toupper(arg[j]);
+			std::cout << (char)toupper(current_arg[j]);
 		}
+		std::cout << " ";
 	}
+	std::cout << std::endl;
+	return 0;
 }
