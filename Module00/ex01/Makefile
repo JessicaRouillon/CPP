@@ -6,12 +6,19 @@ FLAGS		= -Wall -Wextra -Werror -std=c++98
 
 ##### SOURCES #####
 
+SRC			+= main.cpp
 SRC			+= phonebook.cpp
 
 ##### OBJECTS #####
 
 OBJ_DIR		= ./obj
 OBJ			= $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRC))
+
+##### HEADERS #####
+
+HDR			+= main.hpp
+HDR			+= contact.hpp
+HDR			+= phonebook.hpp
 
 ##### RULES #####
 
@@ -20,8 +27,8 @@ all: $(NAME)
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
-$(OBJ) : $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
-	@$(CC) $(FLAGS) -c $< -o $@ $(INCLUDES)
+$(OBJ) : $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR) $(HDR)
+	@$(CC) $(FLAGS) -c $< -o $@
 	@$(call PROGRESS_BAR, $(basename $(notdir $<)))
 
 $(NAME): $(OBJ)
