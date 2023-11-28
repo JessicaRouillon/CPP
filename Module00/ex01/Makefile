@@ -7,6 +7,7 @@ FLAGS		= -Wall -Wextra -Werror -std=c++98
 ##### SOURCES #####
 
 SRC			+= main.cpp
+SRC			+= utils.cpp
 SRC			+= phonebook.cpp
 
 ##### OBJECTS #####

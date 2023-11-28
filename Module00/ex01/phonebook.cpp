@@ -38,7 +38,6 @@ void	PhoneBook::add_new_contact(size_t i)
 		{
 			std::cout << "Warning: maximum number of contacts reached (8). Overwriting " << this->_phonebook[i % 8].get_first_name();
 			std::cout << "'s contact information." << std::endl;
-			i = i % 8;
 		}
 		// Get first name from user input
 		std::cout << "Type in contact's first name >> ";
@@ -54,7 +53,10 @@ void	PhoneBook::add_new_contact(size_t i)
 				break;
 		}
 		if (all_letters == false)
+		{
+			std::cout << "Incorrect input. First name is letters only" << std::endl;
 			return ;
+		}
 
 		// Get last name from user input
 		std::cout << "Type in " << this->_phonebook[i % 8].get_first_name() <<"'s last name >> ";
@@ -62,7 +64,6 @@ void	PhoneBook::add_new_contact(size_t i)
 			this->_phonebook[i % 8].set_last_name(last_name);
 
 			// Check if last name is only letters
-		bool	all_letters = true;
 		for (char c : last_name)
 		{
 			if (!std::isalpha(c))
@@ -70,7 +71,10 @@ void	PhoneBook::add_new_contact(size_t i)
 				break;
 		}
 		if (all_letters == false)
+		{
+			std::cout << "Incorrect input. Last name is letters only" << std::endl;
 			return ;
+		}
 
 		// Get nickname from user input
 		std::cout << "Type in " << this->_phonebook[i % 8].get_first_name() <<"'s nickname >> ";
@@ -91,7 +95,10 @@ void	PhoneBook::add_new_contact(size_t i)
 				break;
 		}
 		if (all_numbers == false)
+		{
+			std::cout << "Incorrect input. Phone number is numbers only" << std::endl;
 			return ;
+		}
 
 		// Get darkest secret from user input
 		std::cout << "Type in " << this->_phonebook[i % 8].get_first_name() <<"'s darkest secret >> ";
@@ -111,10 +118,15 @@ Contact	PhoneBook::get_contact(size_t i)
 
 /***************************** FUNCTION 3 *****************************/
 
-void	PhoneBook::search_contact(void)
+void	PhoneBook::search_contact(size_t i)
 {
 	std::string		index;
 
-	
+	if (this->_phonebook[0].get_first_name().empty())
+	{
+		std::cout << "Phonebook is empty for now." << std::endl;
+		return ;
+	}
+	else
+		display_contacts(this->_phonebook, i);
 }
-

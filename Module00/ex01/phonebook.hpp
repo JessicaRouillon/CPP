@@ -12,7 +12,7 @@ public:
 	~PhoneBook(); //prototype of destructor
 
 	void	add_new_contact(size_t i);
-	void	search_contact(void);
+	void	search_contact(size_t i);
 	void	print_contacts(Contact contact);
 
 	// Getter

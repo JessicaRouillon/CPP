@@ -23,7 +23,7 @@ int	main()
 		else if (line == "SEARCH")
 		{
 			if (std::cin.eof() == false)
-				phonebook.search_contact();
+				phonebook.search_contact(i);
 		}
 		else
 		{
