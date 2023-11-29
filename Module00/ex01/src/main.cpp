@@ -1,12 +1,15 @@
-#include "main.hpp"
+#include "phonebook.hpp"
+#include "contact.hpp"
 
-int	main()
+int main(void)
 {
-	PhoneBook		phonebook;
-	std::string		line;
-	size_t			i;
+	PhoneBook phonebook;
+	std::string line;
+	size_t i;
 
 	i = 0;
+	std::cout << "WELCOME TO YOUR PERSONAL PHONEBOOK !" << std::endl;
+	std::cout << std::endl;
 	while (std::cin.eof() == false)
 	{
 		std::cout << "Please type in the option you would like to use for your PhoneBook:" << std::endl;
@@ -34,5 +37,6 @@ int	main()
 			}
 		}
 	}
+	std::cout << "Goodbye !" << std::endl;
 	return 0;
 }
