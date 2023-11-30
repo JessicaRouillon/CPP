@@ -3,16 +3,20 @@
 
 int main(void)
 {
-	PhoneBook phonebook;
+	PhoneBook 	phonebook;
 	std::string line;
-	size_t i;
+	size_t 		i;
 
 	i = 0;
-	std::cout << "WELCOME TO YOUR PERSONAL PHONEBOOK !" << std::endl;
-	std::cout << std::endl;
+	std::cout << std::endl
+			  << "     WELCOME TO YOUR PERSONAL PHONEBOOK !" << std::endl
+			  << std::endl;
 	while (std::cin.eof() == false)
 	{
-		std::cout << "Please type in the option you would like to use for your PhoneBook:" << std::endl;
+		std::cout << "-------------------------------------------------------------------" << std::endl;
+		std::cout << std::endl
+				  << "Please type in the option you would like to use for your PhoneBook:" << std::endl
+				  << std::endl;
 		std::cout << "ADD   /   SEARCH   /   EXIT   >>   ";
 		std::getline(std::cin, line);
 
@@ -32,11 +36,12 @@ int main(void)
 		{
 			if (std::cin.eof() == false)
 			{
-				std::cout << "Only ADD, SEARCH, EXIT are accepted." << std::endl;
-				std::cout << std::endl;
+				std::cout << "\033[33m";
+				std::cout << std::endl << "Only ADD, SEARCH, EXIT are accepted." << std::endl << std::endl;
+				std::cout << "\033[0m";
 			}
 		}
 	}
-	std::cout << "Goodbye !" << std::endl;
+	std::cout << std::endl << std::endl << "Goodbye !" << std::endl;
 	return 0;
 }

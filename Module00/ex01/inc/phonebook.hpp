@@ -2,9 +2,11 @@
 #define PHONEBOOK_HPP
 
 #include <iostream> // std::cout
-#include <string> // std::string
-#include <cctype> // ispalpha, isdigit
-#include <iomanip> // setw
+#include <string>	// std::string
+#include <cctype>	// ispalpha, isdigit
+#include <iomanip>	// setw
+#include <cstdlib>	// atoi
+#include <sstream>	// convert string to int
 
 #include "contact.hpp"
 
@@ -21,7 +23,7 @@ public:
 	void print_contact(Contact contact);
 
 	// Getter
-	Contact get_contact(size_t i);
+	Contact get_contact(int i);
 
 private:
 	Contact _contact[8];
