@@ -31,9 +31,9 @@ void PhoneBook::add_new_contact(size_t i)
 	while (std::cin.eof() == false)
 	{
 		std::cout << std::endl;
-
-		// Substitution in case we have reached maximum number of contcts (8)
-		if (i >= 7)
+		std::cout << "i = " << i << "   so Index for this new user = " << i + 1 << std::endl << std::endl;
+		// Substitution in case we have reached maximum number of contacts (8)
+		if (i > 7)
 		{
 			std::cout << "\033[33m";
 			std::cout << std::endl << "/!\\ Warning: maximum number of contacts reached (8). Overwriting " << this->_contact[i % 8].get_first_name();
@@ -70,6 +70,12 @@ void PhoneBook::add_new_contact(size_t i)
 						break ;
 					}
 			}
+			else
+			{
+				std::cout << "\033[33m";
+				std::cout << std::endl << "/!\\ Incorrect input: First Name cannot be empty." << std::endl << std::endl;
+				std::cout << "\033[0m";
+			}
 		}
 
 
@@ -101,13 +107,31 @@ void PhoneBook::add_new_contact(size_t i)
 					break ;
 				}
 			}
+			else
+			{
+				std::cout << "\033[33m";
+				std::cout << std::endl << "/!\\ Incorrect input: Last Name cannot be empty." << std::endl << std::endl;
+				std::cout << "\033[0m";
+			}
 		}
 
 
 		// Get nickname from user input
-		std::cout << "Type in " << this->_contact[i % 8].get_first_name() << "'s nickname >> ";
-		if (std::getline(std::cin, nickname) && nickname != "")
-			this->_contact[i % 8].set_nickname(nickname);
+		while (1)
+		{
+			std::cout << "Type in " << this->_contact[i % 8].get_first_name() << "'s nickname >> ";
+			if (std::getline(std::cin, nickname) && nickname != "")
+			{
+				this->_contact[i % 8].set_nickname(nickname);
+				break ;
+			}
+			else
+			{
+				std::cout << "\033[33m";
+				std::cout << std::endl << "/!\\ Incorrect input: Nickname cannot be empty." << std::endl << std::endl;
+				std::cout << "\033[0m";
+			}
+		}
 
 
 		// Get phone number from user input
@@ -129,7 +153,7 @@ void PhoneBook::add_new_contact(size_t i)
 				if (all_numbers == false)
 				{
 					std::cout << "\033[33m";
-					std::cout << std::endl << "/!\\ Incorrect input: Phone number is numbers only." << std::endl << std::endl;
+					std::cout << std::endl << "/!\\ Incorrect input: Phone Number is numbers only." << std::endl << std::endl;
 					std::cout << "\033[0m";
 				}
 				else
@@ -138,19 +162,35 @@ void PhoneBook::add_new_contact(size_t i)
 					break ;
 				}
 			}
+			else
+			{
+				std::cout << "\033[33m";
+				std::cout << std::endl << "/!\\ Incorrect input: Phone Number cannot be empty." << std::endl << std::endl;
+				std::cout << "\033[0m";
+			}
 		}
 
 
 		// Get darkest secret from user input
-		std::cout << "Type in " << this->_contact[i % 8].get_first_name() << "'s darkest secret >> ";
-		if (std::getline(std::cin, darkest_secret) && darkest_secret != "")
+		while (1)
 		{
-			this->_contact[i % 8].set_darkest_secret(darkest_secret);
-			std::cout << "\033[32m";
-			std::cout << std::endl << "Contact added !" << std::endl;
-			std::cout << "\033[0m";
+			std::cout << "Type in " << this->_contact[i % 8].get_first_name() << "'s darkest secret >> ";
+			if (std::getline(std::cin, darkest_secret) && darkest_secret != "")
+			{
+				this->_contact[i % 8].set_darkest_secret(darkest_secret);
+				std::cout << "\033[32m";
+				std::cout << std::endl << "Contact added !" << std::endl;
+				std::cout << "\033[0m";
+				break ;
+			}
+			else
+			{
+				std::cout << "\033[33m";
+				std::cout << std::endl << "/!\\ Incorrect input: Darkest Secret cannot be empty." << std::endl << std::endl;
+				std::cout << "\033[0m";
+			}
 		}
-		return;
+		return ;
 	}
 }
 
