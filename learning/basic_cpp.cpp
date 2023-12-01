@@ -1,6 +1,6 @@
 #include <iostream>
 
-int	main(void)
+size_t	main(void)
 {
 	char	buff[512];
 
