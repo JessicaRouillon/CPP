@@ -5,7 +5,6 @@
 #include <string>	// std::string
 #include <cctype>	// ispalpha, isdigit
 #include <iomanip>	// setw
-#include <cstdlib>	// atoi
 #include <sstream>	// convert string to int
 
 #include "contact.hpp"

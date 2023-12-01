@@ -1,23 +1,23 @@
-##### VARIABLES #####
+##################################### VARIABLES #####################################
 
 PROJECT_NAME	= phonebook
 NAME			= ./$(PROJECT_NAME)
 CC				= c++
 FLAGS			= -Wall -Wextra -Werror -std=c++98
 
-##### INCLUDES #####
+##################################### INCLUDES #####################################
 
 INC_DIR		= ./inc
 INCLUDES	+= -I $(INC_DIR)
 
-##### HEADERS #####
+##################################### HEADERS #####################################
 
 HDR			+= contact.hpp
 HDR			+= phonebook.hpp
 
 vpath %.h $(INC_DIR)
 
-##### SOURCES #####
+##################################### SOURCES #####################################
 
 SRC_DIR		= ./src
 
@@ -27,18 +27,18 @@ SRC			+= phonebook.cpp
 
 vpath %.cpp $(SRC_DIR)
 
-##### OBJECTS #####
+##################################### OBJECTS #####################################
 
 OBJ_DIR		= ./obj
 OBJ			= $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRC))
 
-##### BUILD #####
+##################################### BUILD #####################################
 
 DEPS_DIR = $(OBJ_DIR)/.deps
 DEPS = $(SRC:%.cpp=$(DEPS_DIR)/%.d)
 DFLAGS = -MT $@ -MMD -MP
 
-##### RULES #####
+##################################### RULES #####################################
 
 all: $(NAME)
 
@@ -72,9 +72,9 @@ re: fclean all
 
 .PHONY: all clean fclean re
 
-#############################################################################################3
 
-##### DISPLAY #####
+
+##################################### DISPLAY #####################################
 
 RED='\033[0;31m'
 GREEN='\033[1;32m'
@@ -102,21 +102,3 @@ define PROGRESS_BAR
 	printf $(BLUE)" %3d%% %s.c" $(END) ${PROGRESS} $1
 	$(eval COUNTER=$(shell echo $$(($(COUNTER) + 1))))
 endef
-
-# NB_OBJ = ${words ${OBJ}}
-# COUNTER = 1
-# PROGRESS = 0
-# DONE = 100
-# SPACE = 0
-# FILL = 0
-# EMPTY = 0
-
-# define PROGRESS_BAR
-# 	$(eval PROGRESS=$(shell echo $$(($(COUNTER) * 100 / $(NB_OBJ)))))
-# 	$(eval DONE=$(shell echo $$(($(PROGRESS) * 30 / 100))))
-# 	$(eval SPACE=$(shell echo $$((30 - $(DONE)))))
-# 	$(eval FILL=$(shell printf "%*s" ${DONE} | sed 's/ /◼/g'))
-# 	$(eval EMPTY=$(shell printf "%*s" ${SPACE} | sed 's/ /◼/g'))
-# 	printf "\r${CLEAR}$(BCYAN)Compile : $(GREEN)${FILL}$(RED)${EMPTY} $(BWHITE)%3d%%$(END) $(CYAN)%s.c " ${PROGRESS} $1
-# 	$(eval COUNTER=$(shell echo $$(($(COUNTER) + 1))))
-# endef

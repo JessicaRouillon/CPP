@@ -5,7 +5,6 @@
 #include <string>	// std::string
 #include <cctype>	// ispalpha, isdigit
 #include <iomanip>	// setw
-#include <cstdlib>	// atoi
 #include <sstream>	// convert string to int
 
 class Contact
@@ -15,14 +14,14 @@ public:
 	Contact();	// prototype of constructor
 	~Contact(); // prototype of destructor
 
-	// Setters - to define them
+	// Setters - to define the attributes
 	void set_first_name(std::string str);
 	void set_last_name(std::string str);
 	void set_nickname(std::string str);
 	void set_phone_number(std::string str);
 	void set_darkest_secret(std::string str);
 
-	// Getters - to display them
+	// Getters - to display the attributes
 	std::string get_first_name(void) const;
 	std::string get_last_name(void) const;
 	std::string get_nickname(void) const;
