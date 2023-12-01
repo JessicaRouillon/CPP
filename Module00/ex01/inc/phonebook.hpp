@@ -17,9 +17,10 @@ public:
 	PhoneBook();  // prototype of constructor
 	~PhoneBook(); // prototype of destructor
 
-	void add_new_contact(size_t i);
-	void search_contact(size_t i);
-	void display_contacts(size_t i);
+	size_t add_new_contact(size_t i);
+	size_t error_and_erase(size_t i, std::string str);
+	void search_contact(void);
+	void display_contacts(void) const;
 	void print_contact(Contact contact);
 
 	// Getter

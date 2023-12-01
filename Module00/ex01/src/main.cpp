@@ -21,23 +21,20 @@ int main(void)
 		std::getline(std::cin, line);
 
 		if (line == "EXIT")
-			return 0;
+			break ;
 		else if (line == "ADD")
-		{
-			phonebook.add_new_contact(i);
-			i++;
-		}
+			i = phonebook.add_new_contact(i);
 		else if (line == "SEARCH")
 		{
 			if (std::cin.eof() == false)
-				phonebook.search_contact(i);
+				phonebook.search_contact();
 		}
 		else
 		{
 			if (std::cin.eof() == false)
 			{
 				std::cout << "\033[33m";
-				std::cout << std::endl << "Only ADD, SEARCH, EXIT are accepted." << std::endl << std::endl;
+				std::cout << std::endl << "/!\\ Only ADD, SEARCH, EXIT are accepted." << std::endl << std::endl;
 				std::cout << "\033[0m";
 			}
 		}
