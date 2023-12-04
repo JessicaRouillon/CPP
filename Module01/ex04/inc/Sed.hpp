@@ -8,8 +8,17 @@ class Sed
 {
 
 public:
+
 	Sed();
 	~Sed();
+
+	void			setFilename(std::string filename);
+	void			setStringOne(std::string s1);
+	void			setStringTwo(std::string s2);
+
+	std::string		getFilename(void) const;
+	std::string		getStringOne(void) const;
+	std::string		getStringTwo(void) const;
 
 private:
 

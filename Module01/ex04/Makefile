@@ -12,7 +12,7 @@ INCLUDES	+= -I $(INC_DIR)
 
 ##################################### HEADERS #####################################
 
-HDR			+= Weapon.hpp
+HDR			+= Sed.hpp
 
 vpath %.h $(INC_DIR)
 
@@ -21,6 +21,7 @@ vpath %.h $(INC_DIR)
 SRC_DIR		= ./src
 
 SRC			+= main.cpp
+SRC			+= Sed.cpp
 
 vpath %.cpp $(SRC_DIR)
 
