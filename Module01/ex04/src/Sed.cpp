@@ -75,10 +75,10 @@ std::string		Sed::replaceString(std::string buffer, const std::string s1, const 
 
 	pos = buffer.find(s1);
 	while (pos != std::string::npos)
-	while ((pos = buffer.find(s1, pos + s2.length())) != std::string::npos)
 	{
 		buffer.erase(pos, s1.length());
 		buffer.insert(pos, s2);
+		pos = buffer.find(s1, pos + s2.length());
 	}
 	return (buffer);
 }

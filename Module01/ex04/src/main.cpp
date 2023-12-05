@@ -34,15 +34,10 @@ int	main(int ac, char **av)
 				return (EXIT_FAILURE);
 			}
 			inputFile.close();
-			if (inputFile.fail() == true)
-			{
-				std::cerr << "Error closing infile." << std::endl;
-				return (EXIT_FAILURE);
-			}
 		}
 		else
 		{
-			std::cerr << "Error opening infile." << std::endl;
+			std::cerr << "Error opening infile. Check that the file exists." << std::endl;
 			return (EXIT_FAILURE);
 		}
 		return (EXIT_SUCCESS);
