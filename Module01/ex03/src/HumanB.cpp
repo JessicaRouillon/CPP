@@ -40,7 +40,7 @@ void	HumanB::attack(void) const
 	}
 }
 
-void	HumanB::setWeapon(Weapon& weapon)
+void	HumanB::setWeapon(Weapon &weapon)
 {
 	this->_weapon = &weapon;
 	this->_is_armed = true;

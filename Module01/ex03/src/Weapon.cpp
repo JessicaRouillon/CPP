@@ -20,7 +20,7 @@ Weapon::~Weapon()
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
-void	Weapon::setType(const std::string& weapon)
+void	Weapon::setType(const std::string &weapon)
 {
 	_type = weapon;
 }

@@ -1,6 +1,6 @@
 ##################################### VARIABLES #####################################
 
-PROJECT_NAME	= zombie
+PROJECT_NAME	= harl
 NAME			= ./$(PROJECT_NAME)
 CC				= c++
 FLAGS			= -Wall -Wextra -Werror -std=c++98
@@ -12,7 +12,7 @@ INCLUDES	+= -I $(INC_DIR)
 
 ##################################### HEADERS #####################################
 
-HDR			+= Zombie.hpp
+HDR			+= Harl.hpp
 
 vpath %.h $(INC_DIR)
 
@@ -21,9 +21,7 @@ vpath %.h $(INC_DIR)
 SRC_DIR		= ./src
 
 SRC			+= main.cpp
-SRC			+= Zombie.cpp
-SRC			+= newZombie.cpp
-SRC			+= randomChump.cpp
+SRC			+= Harl.cpp
 
 vpath %.cpp $(SRC_DIR)
 

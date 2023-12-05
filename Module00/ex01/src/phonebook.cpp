@@ -30,10 +30,6 @@ size_t PhoneBook::add_new_contact(size_t i)
 
 	while (std::cin.eof() == false)
 	{
-		std::cout << std::endl;
-		std::cout << "i = " << i << "   so Index for this new user = " << i + 1 << std::endl
-				  << std::endl;
-
 		// Substitution in case we have reached maximum number of contacts (8)
 		if (i > 7)
 		{
@@ -170,7 +166,7 @@ void PhoneBook::search_contact(void)
 		std::cout << std::endl;
 		std::cout << "Phonebook is empty for now." << std::endl;
 		std::cout << std::endl;
-		return;
+		return ;
 	}
 	else
 	{
@@ -184,7 +180,7 @@ void PhoneBook::search_contact(void)
 				{
 					iss.str(index_input);
 					iss >> index;
-					break;
+					break ;
 				}
 				else
 				{

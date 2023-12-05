@@ -8,7 +8,7 @@ int main(int ac, char **av)
 	if (ac == 1)
 	{
 		std::cout << no_arg << std::endl;
-		return 0;
+		return (EXIT_SUCCESS);
 	}
 	for (int i = 1; i < ac; i++)
 	{
@@ -20,5 +20,5 @@ int main(int ac, char **av)
 		std::cout << " ";
 	}
 	std::cout << std::endl;
-	return 0;
+	return (EXIT_SUCCESS);
 }

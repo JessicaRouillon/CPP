@@ -40,5 +40,5 @@ int main(void)
 		}
 	}
 	std::cout << std::endl << std::endl << "Goodbye !" << std::endl;
-	return 0;
+	return (EXIT_SUCCESS);
 }
