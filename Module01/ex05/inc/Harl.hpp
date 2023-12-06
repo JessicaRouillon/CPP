@@ -2,6 +2,9 @@
 # define HARL_HPP
 
 #include <iostream>
+#include <string>
+#include <cstdlib> // EXIT_SUCCESS / EXIT_FAILURE
+#include <map>
 
 class Harl
 {
