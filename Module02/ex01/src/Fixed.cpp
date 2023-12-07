@@ -83,7 +83,7 @@ int		Fixed::toInt( void ) const
 /********************************************************************************/
 
 // Definition of operator "<<" to output Fixed class instances
-std::stream		&operator<<(std::stream &output_stream, const Fixed &fixed)
+std::ostream		&operator<<(std::ostream &output_stream, const Fixed &fixed)
 {
 	output_stream << fixed.toFloat();
 	return (output_stream);

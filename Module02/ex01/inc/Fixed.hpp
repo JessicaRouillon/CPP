@@ -9,6 +9,8 @@ class Fixed
 public:
 
 	Fixed(); // constructor
+	Fixed( const int intNb ); // constructor
+	Fixed( const float flNb ); // constructor
 	Fixed(const Fixed &copy); // copy constructor
 	Fixed& operator=(const Fixed &src); // move assignment operator
 	~Fixed(); // destructor
