@@ -13,7 +13,7 @@ Fixed::Fixed()
 	this->setRawBits(0);
 }
 
-// Copy constructor
+	// Copy constructor
 Fixed::Fixed(const Fixed &copy)
 {
 	std::cout << "Copy constructor called" << std::endl;
@@ -26,8 +26,8 @@ Fixed::~Fixed()
 	std::cout << "Destructor called" << std::endl;
 }
 
-// Move assignment operator
-Fixed &Fixed::operator=(const Fixed &src)
+// Move assignment operator: Overloaded operators
+Fixed	&Fixed::operator=(const Fixed &src)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &src)

@@ -55,6 +55,94 @@ Fixed	&Fixed::operator=(const Fixed &src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
+// Comparison operators
+
+bool	Fixed::operator>(Fixed other) const
+{
+	return (this->toFloat() > other.toFloat());
+}
+
+bool	Fixed::operator<(Fixed other) const
+{
+	return (this->toFloat() < other.toFloat());
+}
+
+bool	Fixed::operator>=(Fixed other) const
+{
+	return (this->toFloat() >= other.toFloat());
+}
+
+bool	Fixed::operator<=(Fixed other) const
+{
+	return (this->toFloat() <= other.toFloat());
+}
+
+bool	Fixed::operator==(Fixed other) const
+{
+	return (this->toFloat() == other.toFloat());
+}
+
+bool	Fixed::operator!=(Fixed other) const
+{
+	return (this->toFloat() != other.toFloat());
+}
+
+
+// Arithmetic operators
+
+float	Fixed::operator+(const Fixed other)
+{
+	return(this->toFloat() + other.toFloat());
+}
+
+float	Fixed::operator-(const Fixed other)
+{
+	return(this->toFloat() - other.toFloat());
+}
+
+float	Fixed::operator*(const Fixed other)
+{
+	return(this->toFloat() * other.toFloat());
+}
+
+float	Fixed::operator/(const Fixed other)
+{
+	return(this->toFloat() / other.toFloat());
+}
+
+
+// Increment-Decrement operators
+
+Fixed	Fixed::operator++(void)
+{
+	this->_fixedPointNbValue++;
+	return (*this);
+}
+
+Fixed	Fixed::operator--(void)
+{
+	this->_fixedPointNbValue--;
+	return (*this);
+}
+
+Fixed	Fixed::operator++(int)
+{
+	Fixed	tmp = *this;
+
+	++this->_fixedPointNbValue;
+	return (tmp);
+}
+
+Fixed	Fixed::operator--(int)
+{
+	Fixed	tmp = *this;
+
+	--this->_fixedPointNbValue;
+	return (tmp);
+}
+
+// Getter-Setter functions
+
 int	Fixed::getRawBits( void ) const
 {
 	return (this->_fixedPointNbValue);
@@ -65,18 +153,55 @@ void	Fixed::setRawBits( int const raw )
 	this->_fixedPointNbValue = raw;
 }
 
-// Converts the fixed-point value to a floating-point value
+
+// Conversion functions
+
+	// Converts the fixed-point value to a floating-point value
 float	Fixed::toFloat( void ) const
 {
 	return ((float)this->_fixedPointNbValue / (float)(1 << this->_fractBitsNb));
 }
 
-// Converts the fixed-point value to an int
+	// Converts the fixed-point value to an int
 int		Fixed::toInt( void ) const
 {
 	return (this->_fixedPointNbValue >> this->_fractBitsNb);
 }
 
+
+// Public overloaded member functions
+
+Fixed	&Fixed::min(Fixed &nb1, Fixed &nb2)
+{
+	if (nb1.toFloat() <= nb2.toFloat())
+		return (nb1);
+	else
+		return (nb2);
+}
+
+Fixed	&Fixed::max(Fixed &nb1, Fixed &nb2)
+{
+	if (nb1.toFloat() >= nb2.toFloat())
+		return (nb1);
+	else
+		return (nb2);
+}
+
+const Fixed	&Fixed::min(const Fixed& nb1, const Fixed& nb2)
+{
+	if (nb1.toFloat() <= nb2.toFloat())
+		return (nb1);
+	else
+		return (nb2);
+}
+
+const Fixed	&Fixed::max(const Fixed& nb1, const Fixed& nb2)
+{
+	if (nb1.toFloat() >= nb2.toFloat())
+		return (nb1);
+	else
+		return (nb2);
+}
 
 /********************************************************************************/
 /*************************** ADDITIONAL FUNCTIONS *******************************/
