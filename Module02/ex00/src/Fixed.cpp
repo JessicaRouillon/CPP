@@ -10,7 +10,7 @@ const int Fixed::_fractBitsNb = 8;
 Fixed::Fixed()
 {
 	std::cout << "Default constructor called" << std::endl;
-	this->_fixedPointNbValue = 0;
+	this->setRawBits(0);
 }
 
 // Copy constructor
@@ -49,5 +49,4 @@ int	Fixed::getRawBits( void ) const
 void	Fixed::setRawBits( int const raw )
 {
 	this->_fixedPointNbValue = raw;
-	// std::cout << raw << std::endl;
 }
