@@ -12,7 +12,7 @@ public:
 	ClapTrap(std::string name);
 	ClapTrap(const ClapTrap& copy);
 	~ClapTrap();
-	
+
 	ClapTrap& operator=(const ClapTrap& src);
 
 	void	attack(const std::string& target);
