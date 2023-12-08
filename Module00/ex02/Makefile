@@ -20,8 +20,8 @@ vpath %.h $(INC_DIR)
 
 SRC_DIR		= ./src
 
-SRC			+= Account.cpp
 SRC			+= tests.cpp
+SRC			+= Account.cpp
 
 vpath %.cpp $(SRC_DIR)
 
