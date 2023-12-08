@@ -1,8 +1,10 @@
 #include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int main()
 {
-	std::cout << "========== TESTING CLAPTRAP ==========\n" << std::endl;
+	std::cout << "========== TESTING CLAPTRAP ==========\n"
+			  << std::endl;
 	{
 		std::cout << "\033[1;34m\t>> Constructors << \033[0m" << std::endl;
 		ClapTrap a;
@@ -21,7 +23,8 @@ int main()
 		b.beRepaired(3);
 		std::cout << "\033[1;34m\t>> Deconstructors <<\033[0m" << std::endl;
 	}
-	std::cout << "\n\n========== TESTING SCAVTRAP ==========\n" << std::endl;
+	std::cout << "\n\n========== TESTING SCAVTRAP ==========\n"
+			  << std::endl;
 	{
 		std::cout << "\033[1;34m\t>> Constructors << \033[0m" << std::endl;
 		ScavTrap c;
@@ -40,6 +43,25 @@ int main()
 		d.takeDamage(101);
 		d.takeDamage(15);
 		d.attack("Sedusa");
+		std::cout << "\033[1;34m\t>> Deconstructors <<\033[0m" << std::endl;
+	}
+	std::cout << "\n\n========== TESTING FRAGTRAP ==========\n"
+			  << std::endl;
+	{
+		std::cout << "\033[1;34m\t>> Constructors << \033[0m" << std::endl;
+		FragTrap e;
+		FragTrap f("Samurai Jack");
+
+		std::cout << "\033[1;34m\t>> Actions <<\033[0m" << std::endl;
+		e.highFivesGuys();
+		e.attack("Aku");
+		e.takeDamage(101);
+		e.takeDamage(1);
+		e.attack("Aku");
+		e.highFivesGuys();
+		f.highFivesGuys();
+		// for(int i = 0; i < 101; i++)
+		// 	f.attack("Demongo");
 		std::cout << "\033[1;34m\t>> Deconstructors <<\033[0m" << std::endl;
 	}
 	return (0);
