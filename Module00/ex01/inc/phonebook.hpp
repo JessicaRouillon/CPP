@@ -6,6 +6,7 @@
 #include <cctype>	// ispalpha, isdigit
 #include <iomanip>	// setw
 #include <sstream>	// convert string to int
+#include <cstdlib> // Exit values
 
 #include "contact.hpp"
 
