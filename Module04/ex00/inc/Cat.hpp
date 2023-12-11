@@ -15,6 +15,8 @@ public:
 
 	Cat& operator=(const Cat& src);
 
+	void	makeSound(void) const;
+
 };
 
 #endif

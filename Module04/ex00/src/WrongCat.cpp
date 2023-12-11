@@ -28,3 +28,13 @@ WrongCat	&WrongCat::operator=(const WrongCat& src)
 		this->_type = src._type;
 	return (*this);
 }
+
+
+/********************************************************************************/
+/***************************** MEMBER FUNCTIONS *********************************/
+/********************************************************************************/
+
+void	WrongCat::makeSound(void) const
+{
+	std::cout << "The " << this->getType() << " says **MOOO** !" << std::endl;
+}

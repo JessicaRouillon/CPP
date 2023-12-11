@@ -40,10 +40,5 @@ std::string	Animal::getType(void) const
 
 void	Animal::makeSound(void) const
 {
-	if (this->_type == "Cat")
-		std::cout << "The " << this->getType() << " says **MEEOOWWW** !" << std::endl;
-	else if (this->_type == "Dog")
-		std::cout << "The " << this->getType() << " says **WOOOFF** !" << std::endl;
-	else
-		std::cout << "This animal is mute." << std::endl;
+	std::cout << "This animal is mute." << std::endl;
 }
