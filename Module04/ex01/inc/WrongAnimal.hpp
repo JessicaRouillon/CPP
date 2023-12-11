@@ -11,12 +11,12 @@ public:
 
 	WrongAnimal();
 	WrongAnimal(const WrongAnimal& copy);
-	~WrongAnimal();
+	virtual ~WrongAnimal();
 
 	WrongAnimal& operator=(const WrongAnimal& src);
 
-	void		makeSound(void) const;
-	std::string	getType(void) const;
+	virtual void	makeSound(void) const;
+	std::string		getType(void) const;
 
 protected:
 

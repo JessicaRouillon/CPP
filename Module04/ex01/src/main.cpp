@@ -10,10 +10,11 @@ int main()
 	// Exercise testing
 
 	std::cout << "\033[34mConstructor (Animal)\033[0m" << std::endl;
-	size_t nb_obj = 50;
+	size_t nb_obj = 10;
 	Animal *objects[nb_obj];
 	for (size_t i = 0; i < nb_obj; i++)
 	{
+		std::cout << i + 1 << "/" << std::endl;
 		if (i % 2 == 0)
 		{
 			objects[i] = new Dog();
@@ -38,6 +39,7 @@ int main()
 	std::cout << "\033[34mSounds\033[0m" << std::endl;
 	for (size_t i = 0; i < nb_obj; i++)
 	{
+		std::cout << i + 1 << "/" << std::endl;
 		std::cout << "Animal type:" << objects[i]->getType() << std::endl;
 		objects[i]->makeSound();
 		std::cout << std::endl;
@@ -46,7 +48,10 @@ int main()
 
 	std::cout << "\033[34mDeconstructor\033[0m" << std::endl;
 	for (size_t i = 0; i < nb_obj; i++)
+	{
+		std::cout << i + 1 << "/" << std::endl;
 		delete (objects[i]);
+	}
 
 	// Deep copy testing
 

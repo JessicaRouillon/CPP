@@ -50,6 +50,11 @@ Dog	&Dog::operator=(const Dog& src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
+void	Dog::makeSound(void) const
+{
+	std::cout << "The " << this->getType() << " says **WOOOFF** !" << std::endl;
+}
+
 void	Dog::getIdeas(void) const
 {
 	for (size_t i = 0; this->_brain->getIdea(i).empty() == false; i++)

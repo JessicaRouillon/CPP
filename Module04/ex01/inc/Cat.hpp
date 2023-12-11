@@ -16,6 +16,7 @@ public:
 
 	Cat& operator=(const Cat& src);
 
+	void	makeSound(void) const;
 	void	getIdeas(void) const;
 	void	setIdea(const size_t i, const std::string idea);
 

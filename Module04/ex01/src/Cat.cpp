@@ -50,6 +50,11 @@ Cat	&Cat::operator=(const Cat& src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
+void	Cat::makeSound(void) const
+{
+	std::cout << "The " << this->getType() << " says **MEEOOWWW** !" << std::endl;
+}
+
 void	Cat::getIdeas(void) const
 {
 	for (size_t i = 0; this->_brain->getIdea(i).empty() == false; i++)
