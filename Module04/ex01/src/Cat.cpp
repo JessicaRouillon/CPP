@@ -44,3 +44,19 @@ Cat	&Cat::operator=(const Cat& src)
 	}
 	return (*this);
 }
+
+
+/********************************************************************************/
+/***************************** MEMBER FUNCTIONS *********************************/
+/********************************************************************************/
+
+void	Cat::getIdeas(void) const
+{
+	for (size_t i = 0; this->_brain->getIdea(i).empty() == false; i++)
+		std::cout << "Idea #" << i << " of Cat is >> " << this->_brain->getIdea(i) << "<<" << std::endl;
+}
+
+void	Cat::setIdea(const size_t i, const std::string idea)
+{
+	this->_brain->setIdea(i, idea);
+}

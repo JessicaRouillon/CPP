@@ -124,5 +124,5 @@ int main()
 	delete wrong_catta;
 	std::cout << std::endl;
 
-	return (0);
+	return (EXIT_SUCCESS);
 }

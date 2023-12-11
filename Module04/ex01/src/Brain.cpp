@@ -27,7 +27,7 @@ Brain	&Brain::operator=(const Brain& src)
 	{
 		for (size_t i = 0; i < 100; i++)
 		{
-			if (src._ideas[i][0] != NULL)
+			if (src._ideas[i].empty() == false)
 				this->_ideas[i].assign(src._ideas[i]);
 		}
 	}
@@ -38,19 +38,19 @@ Brain	&Brain::operator=(const Brain& src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
-const void	Brain::setIdea(size_t i, std::string idea) const
+void	Brain::setIdea(const size_t i, const std::string idea)
 {
 	if (i > 100)
-		std::cout << "There are only 100 ideas in Brain." << std::endl;
+		std::cout << "Number too big. There are only 100 ideas in Brain." << std::endl;
 	else
 		this->_ideas[i] = idea;
 }
 
-const std::string	Brain::getIdea(size_t i)
+std::string		Brain::getIdea(const size_t i)
 {
 	if (i > 100)
 	{
-		std::cout << "There are only 100 ideas in Brain." << std::endl;
+		std::cout << "Number too big. There are only 100 ideas in Brain." << std::endl;
 		return (NULL);
 	}
 	else
