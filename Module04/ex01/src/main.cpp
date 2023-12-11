@@ -5,13 +5,14 @@
 #include "WrongCat.hpp"
 #include "Brain.hpp"
 
-int	main()
+int main()
 {
 	// Exercise testing
 
 	std::cout << "\033[34mConstructor (Animal)\033[0m" << std::endl;
-	Animal*		objects[nb_obj];
-	for (size_t i =0; i < nb_obj; i++)
+	size_t nb_obj = 50;
+	Animal *objects[nb_obj];
+	for (size_t i = 0; i < nb_obj; i++)
 	{
 		if (i % 2 == 0)
 		{
@@ -47,14 +48,14 @@ int	main()
 	for (size_t i = 0; i < nb_obj; i++)
 		delete (objects[i]);
 
-
 	// Deep copy testing
 
-	std::cout << std::endl << std::endl;
+	std::cout << std::endl
+			  << std::endl;
 	std::cout << "\033[34m===== Testing Deep Copy =====\033[0m" << std::endl;
 	std::cout << std::endl;
 	std::cout << "\033[34mConstructor (Animal)\033[0m" << std::endl;
-	Dog		*doggo_a = new Dog();
+	Dog *doggo_a = new Dog();
 	if (doggo_a == NULL)
 	{
 		std::cout << "Dog allocation failed." << std::endl;
@@ -64,10 +65,10 @@ int	main()
 	doggo_a->setIdea(0, "I need to bark at the mail.");
 	doggo_a->setIdea(1, "Lemme just sit on your lap.");
 	doggo_a->setIdea(2, "Did you say PARK ?");
-	doggo_a->setIdea(200, "This idea it not even gonna make it.");
+	doggo_a->setIdea(200, "This idea is not even gonna make it.");
 
-	//copy
-	Dog		*doggo_b = new Dog(*doggo_a);
+	// copy
+	Dog *doggo_b = new Dog(*doggo_a);
 	if (doggo_b == NULL)
 	{
 		std::cout << "Dog allocation failed." << std::endl;
@@ -79,14 +80,17 @@ int	main()
 	std::cout << "The " << doggo_a->getType() << " doggo_a is thinking :" << std::endl;
 	doggo_a->getIdeas();
 	std::cout << std::endl;
+	std::cout << "\033[34mDeconstructor doggo_a\033[0m" << std::endl;
+	delete (doggo_a);
+	std::cout << std::endl;
 
 	std::cout << "\033[34mIdeas of doggo_b\033[0m" << std::endl;
 	std::cout << "The " << doggo_b->getType() << " doggo_b is thinking :" << std::endl;
 	doggo_b->getIdeas();
 	std::cout << std::endl;
 
-	std::cout << "\033[34mDeconstructor\033[0m" << std::endl;
-	delete(doggo_b);
+	std::cout << "\033[34mDeconstructor doggo_b\033[0m" << std::endl;
+	delete (doggo_b);
 
 	return (EXIT_SUCCESS);
 }
