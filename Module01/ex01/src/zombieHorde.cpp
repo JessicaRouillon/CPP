@@ -11,7 +11,7 @@ Zombie	*zombieHorde( int N, std::string name )
 	Zombie	*horde = new Zombie[N];
 	if (horde == NULL)
 	{
-		std::cout << "Horde allocation error." << std::endl;
+		std::cerr << "Horde allocation error." << std::endl;
 		return (NULL);
 	}
 

@@ -25,7 +25,7 @@ void	Weapon::setType(const std::string& weapon)
 	_type = weapon;
 }
 
-std::string&	Weapon::getType(void)
+const std::string&	Weapon::getType(void) const
 {
 	return (_type);
 }

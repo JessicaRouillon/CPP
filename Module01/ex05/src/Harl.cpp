@@ -54,9 +54,11 @@ void	Harl::complain( std::string level )
 	void	(Harl::*functionPointers[])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 	std::string		complaint[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-	for(size_t i = 0; i < 4; i++)
+	for(size_t	i = 0; i < 4; i++)
 	{
 		if (complaint[i] == level)
 			(this->*functionPointers[i])();
 	}
+	if (level != complaint[0] && level != complaint[1] && level != complaint[2] && level != complaint[3])
+		std::cout << std::endl << "\033[33m" << "/!\\ Incorrect input." << "\033[0m";
 }
