@@ -8,8 +8,8 @@ class Fixed
 public:
 
 	Fixed(); // constructor
-	Fixed(const Fixed &copy); // copy constructor
-	Fixed& operator=(const Fixed &src); // move assignment operator
+	Fixed(const Fixed& copy); // copy constructor
+	Fixed& operator=(const Fixed& src); // move assignment operator
 	~Fixed(); // destructor
 
 	int getRawBits( void ) const;

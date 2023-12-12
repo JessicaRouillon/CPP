@@ -14,7 +14,7 @@ Fixed::Fixed()
 }
 
 	// Copy constructor
-Fixed::Fixed(const Fixed &copy)
+Fixed::Fixed(const Fixed& copy)
 {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = copy;
@@ -27,7 +27,7 @@ Fixed::~Fixed()
 }
 
 // Move assignment operator: Overloaded operators
-Fixed	&Fixed::operator=(const Fixed &src)
+Fixed	&Fixed::operator=(const Fixed& src)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &src)

@@ -5,7 +5,7 @@
 /********************************************************************************/
 
 // Constructor
-Weapon::Weapon(const std::string &weapon)
+Weapon::Weapon(const std::string& weapon)
 {
 	this->setType(weapon);
 }
@@ -20,7 +20,7 @@ Weapon::~Weapon()
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
-void	Weapon::setType(const std::string &weapon)
+void	Weapon::setType(const std::string& weapon)
 {
 	_type = weapon;
 }

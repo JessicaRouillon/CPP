@@ -29,7 +29,7 @@ Fixed::Fixed(const float flNb)
 }
 
 	// Copy constructor
-Fixed::Fixed(const Fixed &copy)
+Fixed::Fixed(const Fixed& copy)
 {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = copy;
@@ -42,7 +42,7 @@ Fixed::~Fixed()
 }
 
 // Move assignment operator: Overloaded operators
-Fixed	&Fixed::operator=(const Fixed &src)
+Fixed&	Fixed::operator=(const Fixed& src)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &src)
@@ -171,7 +171,7 @@ int		Fixed::toInt( void ) const
 
 // Public overloaded member functions
 
-Fixed	&Fixed::min(Fixed &nb1, Fixed &nb2)
+Fixed&	Fixed::min(Fixed& nb1, Fixed& nb2)
 {
 	if (nb1.toFloat() <= nb2.toFloat())
 		return (nb1);
@@ -179,7 +179,7 @@ Fixed	&Fixed::min(Fixed &nb1, Fixed &nb2)
 		return (nb2);
 }
 
-Fixed	&Fixed::max(Fixed &nb1, Fixed &nb2)
+Fixed&	Fixed::max(Fixed& nb1, Fixed& nb2)
 {
 	if (nb1.toFloat() >= nb2.toFloat())
 		return (nb1);
@@ -187,7 +187,7 @@ Fixed	&Fixed::max(Fixed &nb1, Fixed &nb2)
 		return (nb2);
 }
 
-const Fixed	&Fixed::min(const Fixed& nb1, const Fixed& nb2)
+const Fixed&	Fixed::min(const Fixed& nb1, const Fixed& nb2)
 {
 	if (nb1.toFloat() <= nb2.toFloat())
 		return (nb1);
@@ -195,7 +195,7 @@ const Fixed	&Fixed::min(const Fixed& nb1, const Fixed& nb2)
 		return (nb2);
 }
 
-const Fixed	&Fixed::max(const Fixed& nb1, const Fixed& nb2)
+const Fixed&	Fixed::max(const Fixed& nb1, const Fixed& nb2)
 {
 	if (nb1.toFloat() >= nb2.toFloat())
 		return (nb1);
@@ -208,7 +208,7 @@ const Fixed	&Fixed::max(const Fixed& nb1, const Fixed& nb2)
 /********************************************************************************/
 
 // Definition of operator "<<" to output Fixed class instances
-std::ostream		&operator<<(std::ostream &output_stream, const Fixed &fixed)
+std::ostream		&operator<<(std::ostream& output_stream, const Fixed& fixed)
 {
 	output_stream << fixed.toFloat();
 	return (output_stream);

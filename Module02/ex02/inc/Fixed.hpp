@@ -11,8 +11,8 @@ public:
 	Fixed(); // constructor
 	Fixed( const int intNb ); // constructor
 	Fixed( const float flNb ); // constructor
-	Fixed(const Fixed &copy); // copy constructor
-	Fixed& operator=(const Fixed &src); // move assignment operator. overload operator
+	Fixed(const Fixed& copy); // copy constructor
+	Fixed& operator=(const Fixed& src); // move assignment operator. overload operator
 	~Fixed(); // destructor
 
 	// Comparison operators
@@ -44,10 +44,10 @@ public:
 	int toInt( void ) const;
 
 	// Public overloaded member functions
-	static Fixed &min(Fixed &nb1, Fixed &nb2);
-	static const Fixed &min(const Fixed& nb1, const Fixed& nb2);
-	static Fixed &max(Fixed &nb1, Fixed &nb2);
-	static const Fixed &max(const Fixed& nb1, const Fixed& nb2);
+	static Fixed& min(Fixed& nb1, Fixed& nb2);
+	static const Fixed& min(const Fixed& nb1, const Fixed& nb2);
+	static Fixed& max(Fixed& nb1, Fixed& nb2);
+	static const Fixed& max(const Fixed& nb1, const Fixed& nb2);
 
 private:
 
@@ -55,6 +55,6 @@ private:
 	static const int	_fractBitsNb;
 };
 
-std::ostream	&operator<<(std::ostream &op, Fixed const &fixed);
+std::ostream	&operator<<(std::ostream& output_stream, const Fixed& fixed);
 
 #endif

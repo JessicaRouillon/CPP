@@ -4,7 +4,7 @@ int	main()
 {
 	Harl	harl_instance;
 
-	std::cout << "Here are all the things Harl can say :" << std::endl << std::endl;
+	std::cout << std::endl << "Here are all the things Harl can say :" << std::endl << std::endl;
 	harl_instance.complain("DEBUG");
 	std::cout << std::endl;
 	harl_instance.complain("INFO");
@@ -13,12 +13,12 @@ int	main()
 	std::cout << std::endl;
 	harl_instance.complain("ERROR");
 	std::cout << std::endl;
-	std::cout << "\033[1m" << "Now try it yourself ! Use exit or EXIT to close program." << "\033[0m" << std::endl;
+	std::cout << "\033[1;32m" << "Now try it yourself ! Use exit or EXIT to close program." << "\033[0m" << std::endl;
 
 	std::string		input;
 	while (std::cin.eof() == false)
 	{
-		std::cout << "\033[1m"  << "Type in DEBUG, INFO, WARNING or ERROR >> " << "\033[0m";
+		std::cout << std::endl << "\033[1m"  << "Type in DEBUG, INFO, WARNING or ERROR >> " << "\033[0m";
 			if (std::getline(std::cin, input))
 			{
 				if (input == "DEBUG")
@@ -32,7 +32,7 @@ int	main()
 				else if (input == "exit" || input == "EXIT")
 					return (EXIT_SUCCESS) ;
 				else
-					std::cout << "Incorrect input." << std::endl;
+					std::cout << std::endl << "\033[33m" << "/!\\ Incorrect input." << "\033[0m";
 				std::cout << std::endl;
 			}
 		if (std::cin.eof() == true)

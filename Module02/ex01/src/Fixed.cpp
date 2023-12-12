@@ -29,7 +29,7 @@ Fixed::Fixed(const float flNb)
 }
 
 	// Copy constructor
-Fixed::Fixed(const Fixed &copy)
+Fixed::Fixed(const Fixed& copy)
 {
 	std::cout << "Copy constructor called" << std::endl;
 	*this = copy;
@@ -42,7 +42,7 @@ Fixed::~Fixed()
 }
 
 // Move assignment operator: Overloaded operators
-Fixed	&Fixed::operator=(const Fixed &src)
+Fixed&	Fixed::operator=(const Fixed& src)
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &src)
@@ -83,7 +83,7 @@ int		Fixed::toInt( void ) const
 /********************************************************************************/
 
 // Definition of operator "<<" to output Fixed class instances
-std::ostream		&operator<<(std::ostream &output_stream, const Fixed &fixed)
+std::ostream&	operator<<(std::ostream& output_stream, const Fixed& fixed)
 {
 	output_stream << fixed.toFloat();
 	return (output_stream);
