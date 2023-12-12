@@ -19,11 +19,11 @@ int	main()
 	while (std::cin.eof() == false)
 	{
 		std::cout << std::endl << "\033[1m"  << "Type in DEBUG, INFO, WARNING or ERROR >> " << "\033[0m";
-			if (std::getline(std::cin, input))
-			{
-				harl_instance.complain(input);
-				std::cout << std::endl;
-			}
+		if (std::getline(std::cin, input))
+		{
+			harl_instance.complain(input);
+			std::cout << std::endl;
+		}
 		if (std::cin.eof() == true)
 		{
 			std::cerr << "^D" << std::endl;
