@@ -6,6 +6,12 @@ int	main(int ac, char **av)
 
 	if (ac == 4)
 	{
+		if (av[2][0] == '\0')
+		{
+			std::cout << "s1 cannot be empty." << std::endl;
+			return (EXIT_FAILURE);
+		}
+
 		Sed		sed = Sed(av[1], av[2], av[3]);
 
 		std::ifstream	inputFile(sed.getInputFile().c_str());
