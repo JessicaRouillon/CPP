@@ -11,8 +11,13 @@ class ICharacter
 {
 
 public:
+// Constructors, Destructors, Operators
 	virtual ~ICharacter() {}
+
+// Getters & Setters
 	virtual std::string const & getName() const = 0;
+
+// Functions
 	virtual void equip(AMateria* m) = 0;
 	virtual void unequip(int idx) = 0;
 	virtual void use(int idx, ICharacter& target) = 0;

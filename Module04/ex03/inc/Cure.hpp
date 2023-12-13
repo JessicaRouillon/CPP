@@ -9,12 +9,15 @@ class Cure : public AMateria
 {
 
 public:
+// Constructors, Destructors, Operators
 	Cure();
 	Cure(std::string const & type);
 	Cure(const Cure& copy);
-	Cure& operator=(const Cure& src);
 	virtual ~Cure();
 
+	Cure& operator=(const Cure& src);
+
+// Functions
 	virtual AMateria *clone() const;
 	virtual void use(ICharacter &target);
 };
