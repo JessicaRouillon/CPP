@@ -1,23 +1,23 @@
-#include "AMateria.hpp"
+#include "Ice.hpp"
 
 /********************************************************************************/
 /*************************** CONSTRUCTOR / DESTRUCTOR ***************************/
 /********************************************************************************/
 
-AMateria::AMateria()
+Ice::Ice()
 {
 }
 
-AMateria::AMateria(const AMateria& copy)
+Ice::Ice(const Ice& copy)
 {
 	*this = copy;
 }
 
-AMateria::~AMateria()
+Ice::~Ice()
 {
 }
 
-AMateria	&AMateria::operator=(const AMateria& src)
+Ice	&Ice::operator=(const Ice& src)
 {
 	if (this != &src)
 	{
@@ -29,3 +29,8 @@ AMateria	&AMateria::operator=(const AMateria& src)
 /********************************************************************************/
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
+
+virtual void Ice::use(ICharacter &target)
+{
+	std::cout << "* shoots an ice bolt at " << target << " *" << std::endl;
+}

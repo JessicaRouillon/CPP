@@ -1,23 +1,23 @@
-#include "AMateria.hpp"
+#include "Cure.hpp"
 
 /********************************************************************************/
 /*************************** CONSTRUCTOR / DESTRUCTOR ***************************/
 /********************************************************************************/
 
-AMateria::AMateria()
+Cure::Cure()
 {
 }
 
-AMateria::AMateria(const AMateria& copy)
+Cure::Cure(const Cure& copy)
 {
 	*this = copy;
 }
 
-AMateria::~AMateria()
+Cure::~Cure()
 {
 }
 
-AMateria	&AMateria::operator=(const AMateria& src)
+Cure	&Cure::operator=(const Cure& src)
 {
 	if (this != &src)
 	{
@@ -29,3 +29,8 @@ AMateria	&AMateria::operator=(const AMateria& src)
 /********************************************************************************/
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
+
+virtual void Ice::use(ICharacter &target)
+{
+	std::cout << "* heals " << target << "'s wounds *" << std::endl;
+}
