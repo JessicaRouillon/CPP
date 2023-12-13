@@ -14,15 +14,21 @@ class AMateria
 {
 
 public:
+// Constructors, Destructors, Operators
 	AMateria();
 	AMateria(std::string const & type);
 	AMateria(const AMateria& copy);
-	AMateria& operator=(const AMateria& src);
 	virtual ~AMateria();
 
+	AMateria& operator=(const AMateria& src);
+
+// Getters & Setters
 	std::string const	&getType() const; //Returns the materia type
+	bool const			getDropped() const;
+
+// Functions
 	virtual AMateria*	clone() const = 0;
-	virtual void		use(ICharacter& target);
+	virtual void		use(ICharacter& target) = 0;
 
 protected:
 
