@@ -10,21 +10,21 @@ class Point
 
 public:
 	Point();
-	Point(const float nb1, const float nb2);
+	Point(const float x, const float y);
 	Point(const Point& copy);
 	~Point();
 
 	Point& operator=(const Point& src);
 
-	const Fixed	getX( void ) const;
-	const Fixed	getY( void ) const;
-
-	bool bsp( Point const a, Point const b, Point const c, Point const point);
+	Fixed	getX( void ) const;
+	Fixed	getY( void ) const;
 
 private:
 
-	Fixed const	_x;
-	Fixed const	_y;
+	const Fixed	_x;
+	const Fixed	_y;
 };
+
+bool	bsp( Point const a, Point const b, Point const c, Point const point);
 
 #endif
