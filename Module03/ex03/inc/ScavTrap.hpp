@@ -5,18 +5,18 @@
 #include <iostream>
 #include <cstdlib>
 
-class ScavTrap: public ClapTrap
+class ScavTrap: virtual public ClapTrap
 {
 
 public:
 	ScavTrap();
 	ScavTrap(std::string name);
 	ScavTrap(const ScavTrap& copy);
-	~ScavTrap();
-	
 	ScavTrap& operator=(const ScavTrap& src);
+	~ScavTrap();
 
 	void	attack(const std::string& target);
+	void	beRepaired(unsigned int amount);
 	void	guardGate(void);
 
 private:
