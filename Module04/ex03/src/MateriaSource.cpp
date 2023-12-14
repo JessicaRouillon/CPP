@@ -7,35 +7,41 @@
 MateriaSource::MateriaSource()
 {
 	for (size_t i = 0; i < 4; i++)
-		this->_memory[i] = NULL;
+		this->_source[i] = NULL;
+	// std::cout << "Materia Source has been created." << std::endl;
 }
 
 MateriaSource::MateriaSource(const MateriaSource& copy)
 {
 	for (size_t i = 0; i < 4; i++)
 	{
-		if (copy._memory[i])
-		{
-			this->_memory[i] = copy._memory[i]->clone();
-			this->_memory[i]->setMateriaSource(this);
-		}
+		if (copy._source[i])
+			this->_source[i] = copy._source[i]->clone();
 		else
-			this->_memory[i] = NULL;
+			this->_source[i] = NULL;
 	}
-	*this = copy;
+	// std::cout << "Materia Source Copy has been created." << std::endl;
 }
 
 MateriaSource::~MateriaSource()
 {
 	for (size_t i = 0; i < 4; i++)
 	{
-		if (this->_memory[i])
-			delete this->_memory[i];
+		if (this->_source[i])
+			delete this->_source[i];
 	}
+	// std::cout << "Materia Source has been destroyed." << std::endl;
 }
 
 MateriaSource &MateriaSource::operator=(const MateriaSource &src)
 {
+	for (size_t i = 0; i < 4; i++)
+	{
+		if (this->_source[i])
+			delete this->_source[i];
+		if (src._source[i])
+			this->_source[i] = src._source[i]->clone();
+	}
 	return (*this);
 }
 
@@ -43,46 +49,31 @@ MateriaSource &MateriaSource::operator=(const MateriaSource &src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
-// Getters & Setters
-void	MateriaSource::setMemory(size_t i, AMateria *materia) const
-{
-	if (i < 1 || i > 3)
-		return ;
-	this->_memory[i] = materia;
-}
-
-AMateria const	*MateriaSource::getMemory(size_t i)
-{
-	if (i < 1 || i > 3)
-		return ;
-	return (this->_memory[i]);
-}
-
 // Functions
 void	MateriaSource::learnMateria(AMateria* materia)
 {
-	for(size_t i =0; i < 4; i++)
+	for(size_t i = 0; i < 4; i++)
 	{
-		if (this->_memory[i] == NULL)
+		if (this->_source[i] == NULL)
 		{
-			this->_memory[i] = materia;
-			materia->setMaterialSource(this);
-			std::cout << "Materia Source has learned " << materia->getType() << "." << std::endl;
+			this->_source[i] = materia;
+			// std::cout << "Materia Source has learned " << materia->getType() << "." << std::endl;
 			return ;
 		}
 	}
-	std::cout << "Materia Source could not learn " <<  materia->getType() << "." << std::endl;
+	// std::cout << "Max nb of Materia Source reached. Could not learn " <<  materia->getType() << "." << std::endl;
 }
 
-AMateria*	createMateria(std::string const & type)
+AMateria*	MateriaSource::createMateria(std::string const & type)
 {
 	for (size_t i = 3; i >= 0; i--)
 	{
-		if (this->_memory[i] && this->_memory[i].getType == type)
+		if (this->_source[i] && this->_source[i]->getType() == type)
 		{
-			std::cout >> "Materia Source has created " << type << " materia." << std::endl;
-			return (this->_memory[i]->clone());
+			// std::cout << "Materia Source has created " << type << " materia." << std::endl;
+			return (this->_source[i]->clone());
 		}
 	}
-	std::cout << "Materia Source could not create " <<  type << "." << std::endl;
+	// std::cout << "Materia Source could not create " <<  type << "." << std::endl;
+	return (NULL);
 }

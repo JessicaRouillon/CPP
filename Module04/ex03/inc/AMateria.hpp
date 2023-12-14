@@ -23,23 +23,16 @@ public:
 	AMateria& operator=(const AMateria& src);
 
 // Getters & Setters
-	std::string const	&getType() const; //Returns the materia type
-	Character* const	&getUser() const;
-	MateriaSource* const	&getSource() const;
-
-	void setUser(Character* user);
-	void setSource(MateriaSource* source);
+	std::string const		&getType() const; //Returns the materia type
 
 // Functions
 	virtual AMateria*	clone() const = 0;
-	virtual void		use(ICharacter& target) = 0;
+	virtual void		use(ICharacter& target);
 
 protected:
 
 	std::string		_type;
-	Character*		_user;
-	MateriaSource*	_source;
-	bool			_dropped;
+
 };
 
 #endif

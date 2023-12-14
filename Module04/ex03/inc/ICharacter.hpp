@@ -7,7 +7,7 @@
 
 class AMateria;
 
-class ICharacter : public ICharacter
+class ICharacter
 {
 
 public:

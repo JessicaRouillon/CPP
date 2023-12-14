@@ -1,11 +1,11 @@
 #ifndef MATERIASOURCE_HPP
 # define MATERIASOURCE_HPP
 
-# include "AMateria.hpp"
+# include "IMateriaSource.hpp"
 
 # include <iostream>
 
-class MateriaSource : public AMateria
+class MateriaSource : public IMateriaSource
 {
 
 public:
@@ -13,13 +13,9 @@ public:
 	MateriaSource();
 	MateriaSource(std::string const & type);
 	MateriaSource(const MateriaSource& copy);
-	virtual ~MateriaSource();
+	~MateriaSource();
 
 	MateriaSource& operator=(const MateriaSource& src);
-
-// Getters & Setters
-	void	setMemory(size_t i, AMateria *materia) const;
-	AMateria const	*getMemory(size_t i);
 
 // Functions
 	virtual void learnMateria(AMateria* materia);
@@ -27,7 +23,7 @@ public:
 
 private:
 
-	AMateria*	_memory[4];
+	AMateria*	_source[4];
 };
 
 #endif

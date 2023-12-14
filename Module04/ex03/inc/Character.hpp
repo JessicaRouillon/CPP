@@ -32,7 +32,6 @@ private:
 
 	std::string		_name;
 	AMateria*		_inventory[4];
-	static size_t	_nb_characters;
 };
 
 #endif

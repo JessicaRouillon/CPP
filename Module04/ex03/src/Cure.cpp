@@ -7,8 +7,6 @@
 Cure::Cure()
 {
 	this->_type = "cure";
-	this->_user = NULL;
-	this->_source = NULL;
 }
 
 Cure::Cure(const Cure& copy)
@@ -20,6 +18,8 @@ Cure::~Cure() {}
 
 Cure	&Cure::operator=(const Cure& src)
 {
+	// std::cout << "Cure Assignation operator from " << src.getType() << std::endl;
+	(void)src;
 	return (*this);
 }
 
@@ -27,16 +27,13 @@ Cure	&Cure::operator=(const Cure& src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
-virtual AMateria	*Cure::clone() const
+Cure	*Cure::clone() const
 {
-	AMateria*	tmp = new Cure(*this);
-
-	tmp->setUser(NULL);
-	tmp->setSource(NULL);
+	Cure*	tmp = new Cure;
 	return (tmp);
 }
 
-virtual void Ice::use(ICharacter &target)
+void	Cure::use(ICharacter &target)
 {
-	std::cout << "* heals " << target << "'s wounds *" << std::endl;
+	std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
 }

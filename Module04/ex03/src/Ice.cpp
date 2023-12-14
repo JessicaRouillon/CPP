@@ -7,8 +7,6 @@
 Ice::Ice()
 {
 	this->_type = "ice";
-	this->_user = NULL;
-	this->_source = NULL;
 }
 
 Ice::Ice(const Ice& copy)
@@ -20,6 +18,8 @@ Ice::~Ice() {}
 
 Ice	&Ice::operator=(const Ice& src)
 {
+	// std::cout << "Ice Assignation operator from " << src.getType() << std::endl;
+	(void)src;
 	return (*this);
 }
 
@@ -27,16 +27,13 @@ Ice	&Ice::operator=(const Ice& src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
-virtual AMateria	*AMateria::clone() const
+Ice	*Ice::clone() const
 {
-	AMateria*	tmp = new Ice(*this);
-
-	tmp->setUser(NULL);
-	tmp->setSource(NULL);
+	Ice*	tmp = new Ice;
 	return (tmp);
 }
 
-virtual void Ice::use(ICharacter &target)
+void	Ice::use(ICharacter &target)
 {
-	std::cout << "* shoots an ice bolt at " << target << " *" << std::endl;
+	std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
 }

@@ -13,9 +13,12 @@ INCLUDES	+= -I $(INC_DIR)
 ##################################### HEADERS #####################################
 
 HDR			+= AMateria.hpp
+HDR			+= Character.hpp
+HDR			+= Cure.hpp
 HDR			+= Ice.hpp
 HDR			+= ICharacter.hpp
-HDR			+= Character.hpp
+HDR			+= IMateriaSource.hpp
+HDR			+= MateriaSource.hpp
 
 vpath %.h $(INC_DIR)
 
@@ -25,7 +28,10 @@ SRC_DIR		= ./src
 
 SRC			+= main.cpp
 SRC			+= AMateria.cpp
+SRC			+= Character.cpp
+SRC			+= Cure.cpp
 SRC			+= Ice.cpp
+SRC			+= MateriaSource.cpp
 
 vpath %.cpp $(SRC_DIR)
 

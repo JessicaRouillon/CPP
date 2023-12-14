@@ -6,30 +6,27 @@
 
 AMateria::AMateria(): _type("")
 {
-	this->_dropped = false;
+	// std::cout << "Abstract Materia has been created." << std::endl;
 }
 
-AMateria::AMateria(std::string const & type): _type(copy._type)
+AMateria::AMateria(std::string const & type): _type(type)
 {
-	this->_dropped = false;
+	// std::cout << "Abstract Materia hase been created with type " << type << "." << std::endl;
 }
 
-AMateria::AMateria(const AMateria& copy)
+AMateria::AMateria(const AMateria& copy): _type(copy._type)
 {
-	*this = copy;
+	// std::cout << "Abstract Materia Copy has been created." << std::endl;
 }
 
 AMateria::~AMateria()
 {
+	// std::cout << "Abstract Materia has been destroyed." << std::endl;
 }
 
 AMateria	&AMateria::operator=(const AMateria& src)
 {
-	if (this != &src)
-	{
-		this->_type = src._type;
-		this->_dropped = src._dropped;
-	}
+	this->_type = src._type;
 	return (*this);
 }
 
@@ -43,22 +40,8 @@ std::string const	&AMateria::getType() const
 	return (_type);
 }
 
-Character* const	&AMateria::getUser() const
+void	AMateria::use(ICharacter& target)
 {
-	return (_user);
-}
-
-MateriaSource* const	&AMateria::getSource() const
-{
-	return(_source);
-}
-
-void	AMateria::setUser(Character* user)
-{
-	this->_user = user;
-}
-
-void	AMateria::setSource(MateriaSource* source)
-{
-	this->_source = source;
+	(void)target;
+	// std::cout << "Abstract Materia is used on " << target.getName() << "." << std::endl;
 }
