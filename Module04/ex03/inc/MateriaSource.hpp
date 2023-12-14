@@ -18,10 +18,12 @@ public:
 	MateriaSource& operator=(const MateriaSource& src);
 
 // Getters & Setters
-	void	setMemory(size_t i) const;
-	AMateria const	*getMemory(size_t i, AMateria *materia);
+	void	setMemory(size_t i, AMateria *materia) const;
+	AMateria const	*getMemory(size_t i);
 
 // Functions
+	virtual void learnMateria(AMateria* materia);
+	virtual AMateria* createMateria(std::string const & type);
 
 private:
 
