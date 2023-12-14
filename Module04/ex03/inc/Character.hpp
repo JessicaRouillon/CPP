@@ -24,11 +24,15 @@ public:
 	const AMateria*	getInventory(size_t i) const;
 
 // Functions
+	virtual void equip(AMateria* m);
+	virtual void unequip(int idx);
+	virtual void use(int idx, ICharacter& target);
 
 private:
 
-	std::string	_name;
-	AMateria*	_inventory[4];
+	std::string		_name;
+	AMateria*		_inventory[4];
+	static size_t	_nb_characters;
 };
 
 #endif
