@@ -24,7 +24,11 @@ public:
 
 // Getters & Setters
 	std::string const	&getType() const; //Returns the materia type
-	bool const			getDropped() const;
+	Character* const	&getUser() const;
+	MateriaSource* const	&getSource() const;
+
+	void setUser(Character* user);
+	void setSource(MateriaSource* source);
 
 // Functions
 	virtual AMateria*	clone() const = 0;
@@ -33,6 +37,8 @@ public:
 protected:
 
 	std::string		_type;
+	Character*		_user;
+	MateriaSource*	_source;
 	bool			_dropped;
 };
 

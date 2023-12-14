@@ -37,12 +37,28 @@ AMateria	&AMateria::operator=(const AMateria& src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
+// Getters & Setters
 std::string const	&AMateria::getType() const
 {
 	return (_type);
 }
 
-bool const	AMateria::getDropped() const
+Character* const	&AMateria::getUser() const
 {
-	return (_dropped);
+	return (_user);
+}
+
+MateriaSource* const	&AMateria::getSource() const
+{
+	return(_source);
+}
+
+void	AMateria::setUser(Character* user)
+{
+	this->_user = user;
+}
+
+void	AMateria::setSource(MateriaSource* source)
+{
+	this->_source = source;
 }
