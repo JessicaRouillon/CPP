@@ -8,25 +8,46 @@
 
 int main()
 {
+	std::cout << "\033[34mIMateriaSource Creation\033[0m" << std::endl;
 	IMateriaSource* src = new MateriaSource();
 	src->learnMateria(new Ice());
 	src->learnMateria(new Cure());
+	src->learnMateria(new Ice());
+	src->learnMateria(new Cure());
+	src->learnMateria(new Ice());
+	std::cout << std::endl;
 
-	ICharacter* me = new Character("me");
+	std::cout << "\033[34mICharacter Creation\033[0m" << std::endl;
+	ICharacter* player = new Character("Player");
+	std::cout << std::endl;
 
+	std::cout << "\033[34mAMateria Creation & Equip\033[0m" << std::endl;
 	AMateria* tmp;
 	tmp = src->createMateria("ice");
-	me->equip(tmp);
+	player->equip(tmp);
+	player->unequip(1);
+	player->unequip(4);
 	tmp = src->createMateria("cure");
-	me->equip(tmp);
+	player->equip(tmp);
+	tmp = src->createMateria("fire");
+	player->equip(tmp);
+	tmp = src->createMateria("ice");
+	player->equip(tmp);
+	tmp = src->createMateria("cure");
+	player->equip(tmp);
+	player->equip(tmp);
+	player->unequip(3);
+	std::cout << std::endl;
 
-	ICharacter* bob = new Character("bob");
+	std::cout << "\033[34mICharacter Opponent Creation (copy)\033[0m" << std::endl;
+	ICharacter* bob = new Character(*player);
+	player->use(0, *bob);
+	player->use(1, *bob);
+	std::cout << std::endl;
 
-	me->use(0, *bob);
-	me->use(1, *bob);
-
+	std::cout << "\033[34mDeconstructors\033[0m" << std::endl;
 	delete bob;
-	delete me;
+	delete player;
 	delete src;
 
 	return 0;

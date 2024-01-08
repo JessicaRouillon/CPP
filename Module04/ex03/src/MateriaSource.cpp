@@ -8,7 +8,7 @@ MateriaSource::MateriaSource()
 {
 	for (size_t i = 0; i < 4; i++)
 		this->_source[i] = NULL;
-	// std::cout << "Materia Source has been created." << std::endl;
+	std::cout << "Materia Source has been created." << std::endl;
 }
 
 MateriaSource::MateriaSource(const MateriaSource& copy)
@@ -20,7 +20,7 @@ MateriaSource::MateriaSource(const MateriaSource& copy)
 		else
 			this->_source[i] = NULL;
 	}
-	// std::cout << "Materia Source Copy has been created." << std::endl;
+	std::cout << "Materia Source Copy has been created." << std::endl;
 }
 
 MateriaSource::~MateriaSource()
@@ -30,7 +30,7 @@ MateriaSource::~MateriaSource()
 		if (this->_source[i])
 			delete this->_source[i];
 	}
-	// std::cout << "Materia Source has been destroyed." << std::endl;
+	std::cout << "Materia Source has been destroyed." << std::endl;
 }
 
 MateriaSource &MateriaSource::operator=(const MateriaSource &src)
@@ -57,23 +57,24 @@ void	MateriaSource::learnMateria(AMateria* materia)
 		if (this->_source[i] == NULL)
 		{
 			this->_source[i] = materia;
-			// std::cout << "Materia Source has learned " << materia->getType() << "." << std::endl;
+			std::cout << "Materia Source has learned " << materia->getType() << "." << std::endl;
 			return ;
 		}
 	}
-	// std::cout << "Max nb of Materia Source reached. Could not learn " <<  materia->getType() << "." << std::endl;
+	std::cout << "\033[0;31m" << "Max nb of Materia Source reached. Could not learn " <<  materia->getType() << "." << "\033[0m" << std::endl;
+	delete materia;
 }
 
 AMateria*	MateriaSource::createMateria(std::string const & type)
 {
-	for (size_t i = 3; i >= 0; i--)
+	for (size_t i = 0; i < 4; i++)
 	{
 		if (this->_source[i] && this->_source[i]->getType() == type)
 		{
-			// std::cout << "Materia Source has created " << type << " materia." << std::endl;
+			std::cout << "Materia Source is creating " << type << " materia..." << std::endl;
 			return (this->_source[i]->clone());
 		}
 	}
-	// std::cout << "Materia Source could not create " <<  type << "." << std::endl;
+	std::cout << "\033[0;31m" << "Materia Source could not create " <<  type << "." << "\033[0m" << std::endl;
 	return (NULL);
 }
