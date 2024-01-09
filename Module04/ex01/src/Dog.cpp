@@ -58,7 +58,7 @@ void	Dog::makeSound(void) const
 void	Dog::getIdeas(void) const
 {
 	for (size_t i = 0; this->_brain->getIdea(i).empty() == false; i++)
-		std::cout << "Idea #" << i << " of Dog is >> " << this->_brain->getIdea(i) << "<<" << std::endl;
+		std::cout << "Idea #" << i << " of Dog is >> " << this->_brain->getIdea(i) << " <<" << std::endl;
 }
 
 void	Dog::setIdea(const size_t i, const std::string idea)

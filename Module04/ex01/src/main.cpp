@@ -59,7 +59,7 @@ int main()
 			  << std::endl;
 	std::cout << "\033[34m===== Testing Deep Copy =====\033[0m" << std::endl;
 	std::cout << std::endl;
-	std::cout << "\033[34mConstructor (Animal)\033[0m" << std::endl;
+	std::cout << "\033[34mConstructor (Dog)\033[0m" << std::endl;
 	Dog *doggo_a = new Dog();
 	if (doggo_a == NULL)
 	{
@@ -67,9 +67,13 @@ int main()
 		exit(1);
 	}
 
+	std::cout << "Setting idea 0..." << std::endl;
 	doggo_a->setIdea(0, "I need to bark at the mail.");
+	std::cout << "Setting idea 1..." << std::endl;
 	doggo_a->setIdea(1, "Lemme just sit on your lap.");
+	std::cout << "Setting idea 2..." << std::endl;
 	doggo_a->setIdea(2, "Did you say PARK ?");
+	std::cout << "Setting idea 200..." << std::endl;
 	doggo_a->setIdea(200, "This idea is not even gonna make it.");
 
 	// copy

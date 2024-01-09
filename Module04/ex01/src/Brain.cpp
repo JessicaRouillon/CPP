@@ -41,7 +41,7 @@ Brain	&Brain::operator=(const Brain& src)
 void	Brain::setIdea(const size_t i, const std::string idea)
 {
 	if (i > 100)
-		std::cout << "Number too big. There are only 100 ideas in Brain." << std::endl;
+		std::cout << "\033[0;31m" << "Number too big. There are only 100 ideas in Brain." << "\033[0m" << std::endl;
 	else
 		this->_ideas[i] = idea;
 }
@@ -50,7 +50,7 @@ std::string		Brain::getIdea(const size_t i)
 {
 	if (i > 100)
 	{
-		std::cout << "Number too big. There are only 100 ideas in Brain." << std::endl;
+		std::cout << "\033[0;31m" << "Number too big. There are only 100 ideas in Brain." << "\033[0m" << std::endl;
 		return (NULL);
 	}
 	else

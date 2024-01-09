@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-// # define nb_obj	10
-
 class Brain
 {
 
@@ -15,11 +13,11 @@ public:
 
 	Brain &operator=(const Brain &src);
 
-	void setIdea(const size_t i, const std::string idea);
-	std::string getIdea(const size_t i);
+	void			setIdea(const size_t i, const std::string idea);
+	std::string		getIdea(const size_t i);
 
 private:
-	std::string _ideas[100];
+	std::string		_ideas[100];
 };
 
 #endif

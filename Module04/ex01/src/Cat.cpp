@@ -58,7 +58,7 @@ void	Cat::makeSound(void) const
 void	Cat::getIdeas(void) const
 {
 	for (size_t i = 0; this->_brain->getIdea(i).empty() == false; i++)
-		std::cout << "Idea #" << i << " of Cat is >> " << this->_brain->getIdea(i) << "<<" << std::endl;
+		std::cout << "Idea #" << i << " of Cat is >> " << this->_brain->getIdea(i) << " <<" << std::endl;
 }
 
 void	Cat::setIdea(const size_t i, const std::string idea)

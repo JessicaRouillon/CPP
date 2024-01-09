@@ -21,7 +21,7 @@ public:
 	void	setIdea(const size_t i, const std::string idea);
 
 private:
-		Brain	*_brain;
+	Brain	*_brain;
 };
 
 #endif
