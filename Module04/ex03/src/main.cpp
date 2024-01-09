@@ -17,11 +17,11 @@ int main()
 	src->learnMateria(new Ice());
 	std::cout << std::endl;
 
-	std::cout << "\033[34mICharacter Creation\033[0m" << std::endl;
-	ICharacter* player = new Character("Player");
+	std::cout << "\033[34mCharacter Creation\033[0m" << std::endl;
+	Character* player = new Character("Player");
 	std::cout << std::endl;
 
-	std::cout << "\033[34mAMateria Creation & Equip\033[0m" << std::endl;
+	std::cout << "\033[34mAMateria Creation & Player Equipment\033[0m" << std::endl;
 	AMateria* tmp;
 	tmp = src->createMateria("ice");
 	player->equip(tmp);
@@ -39,7 +39,7 @@ int main()
 	player->unequip(3);
 	std::cout << std::endl;
 
-	std::cout << "\033[34mICharacter Opponent Creation (copy)\033[0m" << std::endl;
+	std::cout << "\033[34mCharacter Opponent Creation (deep copy)\033[0m" << std::endl;
 	ICharacter* bob = new Character(*player);
 	player->use(0, *bob);
 	player->use(1, *bob);
