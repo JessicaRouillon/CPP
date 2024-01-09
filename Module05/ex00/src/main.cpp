@@ -48,6 +48,7 @@ int	main()
 	try
 	{
 		Bureaucrat	ref;
+		std::cout << ref << std::endl;
 	}
 	catch (Bureaucrat::Exception& e)
 	{
@@ -62,6 +63,7 @@ int	main()
 	try
 	{
 		Bureaucrat	bob("Bob", 75);
+		std::cout << bob << std::endl;
 	}
 	catch (Bureaucrat::Exception& e)
 	{
