@@ -10,7 +10,7 @@ int	main()
 	try
 	{
 		PresidentialPardonForm	def;
-		std::cout << def << std::endl;
+		std::cout << def;
 	}
 	catch (AForm::Exception& e)
 	{
@@ -25,7 +25,7 @@ int	main()
 	try
 	{
 		PresidentialPardonForm	nda("N42");
-		std::cout << nda << std::endl;
+		std::cout << nda;
 	}
 	catch (AForm::Exception& e)
 	{
@@ -39,6 +39,7 @@ int	main()
 	std::cout << "\033[34m3/Failed Execution (no signature)\033[0m" << std::endl;
 	Bureaucrat	jeff("Jeff", 5);
 	PresidentialPardonForm	nda("N42");
+	std::cout << nda;
 	try
 	{
 		nda.execute(jeff);
@@ -54,6 +55,7 @@ int	main()
 
 	std::cout << "\033[34m4/Successful Signature\033[0m" << std::endl;
 	Bureaucrat	sam("Sam", 5);
+	std::cout << nda;
 	try
 	{
 		nda.beSigned(sam);
@@ -62,7 +64,6 @@ int	main()
 	{
 		std::cout << e.what();
 	}
-	sam.signForm(nda);
 	std::cout << std::endl;
 	std::cout << std::endl;
 
@@ -70,16 +71,14 @@ int	main()
 
 	std::cout << "\033[34m5/Failed Execution (grade too low)\033[0m" << std::endl;
 	Bureaucrat	jack("Jack", 149);
-	PresidentialPardonForm	form("B54");
 	try
 	{
-		form.execute(jack);
+		nda.execute(jack);
 	}
 	catch (AForm::Exception& e)
 	{
 		std::cout << e.what();
 	}
-	jack.signForm(form);
 	std::cout << std::endl;
 	std::cout << std::endl;
 
