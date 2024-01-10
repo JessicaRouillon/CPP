@@ -4,12 +4,20 @@
 /*************************** CONSTRUCTOR / DESTRUCTOR ***************************/
 /********************************************************************************/
 
-Form::Form():_name("Default"), _isSigned(false), _gradeToSign(150), _gradeToExecute(150)
+Form::Form():
+		_name("Default"),
+		_isSigned(false),
+		_gradeToSign(150),
+		_gradeToExecute(150)
 {
 	std::cout << "Form " << _name << " has been created with default grades 150." << std::endl;
 }
 
-Form::Form(const std::string name, const int gradeToSign, const int gradeToExecute)
+Form::Form(const std::string name, const int gradeToSign, const int gradeToExecute):
+		_name(name),
+		_isSigned(false),
+		_gradeToSign(gradeToSign),
+		_gradeToExecute(gradeToExecute)
 {
 	if (gradeToSign < 1 || gradeToExecute < 1)
 		throw(Form::GradeTooHighException());
@@ -17,21 +25,18 @@ Form::Form(const std::string name, const int gradeToSign, const int gradeToExecu
 		throw(Form::GradeTooLowException());
 	else
 	{
-		this->setName(name);
-		this->setSignedStatus(false);
-		this->setGradeToSign(gradeToSign);
-		this->setGradeToExecute(gradeToExecute);
 		std::cout << "Form " << _name << " has been created with grade to sign "
 					<< gradeToSign << " and grade to execute "
 					<< gradeToExecute << "." << std::endl;
 	}
 }
 
-Form::Form(const Form& copy): _name(copy.getName() + "_copy")
+Form::Form(const Form& copy):
+		_name(copy.getName() + "_copy"),
+		_isSigned(copy.getSignedStatus()),
+		_gradeToSign(copy.getGradeToSign()),
+		_gradeToExecute(copy.getGradeToExecute())
 {
-	this->setSignedStatus(copy.getSignedStatus());
-	this->setGradeToSign(copy.getGradeToSign());
-	this->setGradeToExecute(copy.getGradeToExecute());
 	std::cout << "A copy of Form " << _name << " has been made." << std::endl;
 }
 
@@ -45,10 +50,7 @@ Form	&Form::operator=(const Form& src)
 	std::cout << "Form " << _name << "'s assignment operator called." << std::endl;
 	if (this != &src)
 	{
-		this->_name = src.getName();
 		this->_isSigned = src.getSignedStatus();
-		this->_gradeToSign = src.getGradeToSign();
-		this->_gradeToExecute = src.getGradeToExecute();
 	}
 	return (*this);
 }
@@ -57,7 +59,7 @@ Form	&Form::operator=(const Form& src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
-// Getters
+// Getters & Setters
 
 std::string		Form::getName() const
 {
@@ -79,29 +81,11 @@ int		Form::getGradeToExecute() const
 	return (this->_gradeToExecute);
 }
 
-
-// Setters
-
-void	Form::setName(const std::string name)
-{
-	this->_name = name;
-}
-
 void	Form::setSignedStatus(bool const status)
 {
 	this->_isSigned = status;
-	// std::cout << "Form " << _name << "'s signed status has been set to "
-	// 			<< status << "." << std::endl;
-}
-
-void	Form::setGradeToSign(const int grade)
-{
-	this->_gradeToSign = grade;
-}
-
-void	Form::setGradeToExecute(const int grade)
-{
-	this->_gradeToExecute = grade;
+	std::cout << "Form " << _name << "'s signed status has been set to "
+				<< status << "." << std::endl;
 }
 
 
@@ -109,14 +93,17 @@ void	Form::setGradeToExecute(const int grade)
 
 void	Form::beSigned(Bureaucrat& ref)
 {
-	if (ref.getGrade() >= this.getGradeToSign())
+	// std::cout << ">> Bureaucrat's grade is " << ref.getGrade() << " and sign grade is " << this->getGradeToSign() << std::endl;
+	if (this->getSignedStatus() == true)
+		std::cout << "Form " << _name << " has already been signed." << std::endl;
+	else if (ref.getGrade() > this->getGradeToSign())
+		throw(Form::GradeTooLowException());
+	else
 	{
-		this.setSignedStatus(true);
+		this->setSignedStatus(true);
 		std::cout << "Form " << _name << " has been signed by Bureaucrat "
 					<< ref.getName() << "." << std::endl;
 	}
-	else
-		throw(Form::GradeTooLowException());
 }
 
 
@@ -145,7 +132,7 @@ const char*		Form::GradeTooLowException::what() const throw()
 
 std::ostream&	operator<<(std::ostream& output_stream, Form const &form)
 {
-	output_stream << "Form" << form.getName() << ", grade to sign is "
+	output_stream << "Form " << form.getName() << ", grade to sign is "
 				<< form.getGradeToSign() << " and grade to execute is "
 				<< form.getGradeToExecute() << ". Signed status : " << form.getSignedStatus()
 				<< std::endl;

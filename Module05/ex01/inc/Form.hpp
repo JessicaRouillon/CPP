@@ -18,17 +18,12 @@ public:
 
 	Form& operator=(const Form& right);
 
-// Getters
+// Getters & Setters
 	std::string	getName() const;
 	bool		getSignedStatus() const;
 	int			getGradeToSign() const;
 	int			getGradeToExecute() const;
-
-// Setters
-	void		setName(const std::string name);
 	void		setSignedStatus(bool const status);
-	void		setGradeToSign(const int grade);
-	void		setGradeToExecute(const int grade);
 
 // Member functions
 
