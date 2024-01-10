@@ -116,12 +116,12 @@ const char*		Form::Exception::what() const throw()
 
 const char*		Form::GradeTooHighException::what() const throw()
 {
-	return ("\033[0;31mGrade cannot be higher than 1.\n\033[0m");
+	return ("\033[0;31mGrade is too high.\n\033[0m");
 }
 
 const char*		Form::GradeTooLowException::what() const throw()
 {
-	return ("\033[0;31mGrade cannot be lower than 150.\n\033[0m");
+	return ("\033[0;31mGrade is too low.\n\033[0m");
 }
 
 /********************************************************************************/

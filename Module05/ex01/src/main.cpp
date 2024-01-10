@@ -227,7 +227,14 @@ int	main()
 	std::cout << "\033[34m7/Failed Signature\033[0m" << std::endl;
 	Bureaucrat	jeff("Jeff", 88);
 	Form	nda("NDA", 15, 50);
-	nda.beSigned(jeff);
+	try
+	{
+		nda.beSigned(jeff);
+	}
+	catch (Form::Exception& e)
+	{
+		std::cout << e.what();
+	}
 	jeff.signForm(nda);
 	std::cout << std::endl;
 	std::cout << std::endl;
@@ -236,7 +243,14 @@ int	main()
 
 	std::cout << "\033[34m8/Successful Signature\033[0m" << std::endl;
 	Bureaucrat	sam("Sam", 5);
-	nda.beSigned(sam);
+	try
+	{
+		nda.beSigned(sam);
+	}
+	catch (Form::Exception& e)
+	{
+		std::cout << e.what();
+	}
 	sam.signForm(nda);
 	std::cout << std::endl;
 	std::cout << std::endl;
@@ -244,8 +258,14 @@ int	main()
 // -----------------------------------------------------------------------------
 
 	std::cout << "\033[34m8/Double Signature\033[0m" << std::endl;
-	nda.beSigned(jack);
-	jack.signForm(nda);
+	try
+	{
+		nda.beSigned(jack);
+	}
+	catch (Form::Exception& e)
+	{
+		std::cout << e.what();
+	}
 	std::cout << std::endl;
 	std::cout << std::endl;
 
