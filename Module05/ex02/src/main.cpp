@@ -4,69 +4,15 @@
 
 int	main()
 {
-	std::cout << "\033[34m1/Construction with grade too low (sign)\033[0m" << std::endl;
+	std::cout << std::endl << "\033[34m============= PRESIDENTIAL PARDON FORM TESTS =============\033[0m" << std::endl << std::endl;
+
+	std::cout << "\033[34m1/Default Construction\033[0m" << std::endl;
 	try
 	{
-		Form	nda("NDA", 0, 50);
-	}
-	catch (Form::Exception& e)
-	{
-		std::cout << e.what();
-	}
-	std::cout << std::endl;
-	std::cout << std::endl;
-	
-// -----------------------------------------------------------------------------
-
-	std::cout << "\033[34m2/Construction with grade too low (execute)\033[0m" << std::endl;
-	try
-	{
-		Form	nda("NDA", 50, 0);
-	}
-	catch (Form::Exception& e)
-	{
-		std::cout << e.what();
-	}
-	std::cout << std::endl;
-	std::cout << std::endl;
-
-// -----------------------------------------------------------------------------
-
-	std::cout << "\033[34m3/Construction with grade too high (sign)\033[0m" << std::endl;
-	try
-	{
-		Form	nda("NDA", 151, 50);
-	}
-	catch (Form::Exception& e)
-	{
-		std::cout << e.what();
-	}
-	std::cout << std::endl;
-	std::cout << std::endl;
-
-// -----------------------------------------------------------------------------
-
-	std::cout << "\033[34m4/Construction with grade too high (execute)\033[0m" << std::endl;
-	try
-	{
-		Form	nda("NDA", 50, 151);
-	}
-	catch (Form::Exception& e)
-	{
-		std::cout << e.what();
-	}
-	std::cout << std::endl;
-	std::cout << std::endl;
-
-// -----------------------------------------------------------------------------
-
-	std::cout << "\033[34m5/Default Construction\033[0m" << std::endl;
-	try
-	{
-		Form	def;
+		PresidentialPardonForm	def;
 		std::cout << def << std::endl;
 	}
-	catch (Form::Exception& e)
+	catch (AForm::Exception& e)
 	{
 		std::cout << e.what();
 	}
@@ -75,13 +21,13 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m6/Correct Construction\033[0m" << std::endl;
+	std::cout << "\033[34m2/Custom Construction\033[0m" << std::endl;
 	try
 	{
-		Form	nda("NDA", 15, 50);
+		PresidentialPardonForm	nda("N42");
 		std::cout << nda << std::endl;
 	}
-	catch (Form::Exception& e)
+	catch (AForm::Exception& e)
 	{
 		std::cout << e.what();
 	}
@@ -90,30 +36,29 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m7/Failed Signature\033[0m" << std::endl;
-	Bureaucrat	jeff("Jeff", 88);
-	Form	nda("NDA", 15, 50);
+	std::cout << "\033[34m3/Failed Execution (no signature)\033[0m" << std::endl;
+	Bureaucrat	jeff("Jeff", 5);
+	PresidentialPardonForm	nda("N42");
 	try
 	{
-		nda.beSigned(jeff);
+		nda.execute(jeff);
 	}
-	catch (Form::Exception& e)
+	catch (AForm::Exception& e)
 	{
 		std::cout << e.what();
 	}
-	jeff.signForm(nda);
 	std::cout << std::endl;
 	std::cout << std::endl;
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m8/Successful Signature\033[0m" << std::endl;
+	std::cout << "\033[34m4/Successful Signature\033[0m" << std::endl;
 	Bureaucrat	sam("Sam", 5);
 	try
 	{
 		nda.beSigned(sam);
 	}
-	catch (Form::Exception& e)
+	catch (AForm::Exception& e)
 	{
 		std::cout << e.what();
 	}
@@ -123,16 +68,18 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m8/Double Signature\033[0m" << std::endl;
-	Bureaucrat	jack("Jack", 10);
+	std::cout << "\033[34m5/Failed Execution (grade too low)\033[0m" << std::endl;
+	Bureaucrat	jack("Jack", 149);
+	PresidentialPardonForm	form("B54");
 	try
 	{
-		nda.beSigned(jack);
+		form.execute(jack);
 	}
-	catch (Form::Exception& e)
+	catch (AForm::Exception& e)
 	{
 		std::cout << e.what();
 	}
+	jack.signForm(form);
 	std::cout << std::endl;
 	std::cout << std::endl;
 

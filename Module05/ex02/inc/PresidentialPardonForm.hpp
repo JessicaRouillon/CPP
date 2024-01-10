@@ -2,6 +2,8 @@
 # define PRESIDENTIALPARDONFORM_HPP
 
 # include <iostream>
+# include "AForm.hpp"
+# include "Bureaucrat.hpp"
 
 class PresidentialPardonForm : public AForm
 {
