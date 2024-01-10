@@ -96,11 +96,28 @@ void	Bureaucrat::decrementGrade()
 }
 
 
+// Member functions
+
+void	Bureaucrat::signForm(const Form& form) const
+{
+	if (form.getSignedStatus() == true)
+	{
+		std::cout << "Bureaucrat " << _name << " signed Form " << form.getName()
+					<< "." << std::endl;
+	}
+	else
+	{
+		std::cout << "Bureaucrat " << _name << " could not sign Form " << form.getName()
+					<< " due to being a loser." << std::endl;
+	}
+}
+
+
 // Exceptions
 
 const char*		Bureaucrat::Exception::what() const throw()
 {
-	return ("\033[0;31mDefault Exception\n\033[0m");
+	return ("\033[0;31mDefault Bureaucrat Exception\n\033[0m");
 }
 
 const char*		Bureaucrat::GradeTooHighException::what() const throw()
@@ -123,6 +140,7 @@ const char*		Bureaucrat::InvalidName::what() const throw()
 /********************************************************************************/
 
 // Definition of operator "<<" to output Bureaucrat class instances
+
 std::ostream&	operator<<(std::ostream& output_stream, const Bureaucrat& bureaucrat)
 {
 	output_stream << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << "." << std::endl;
