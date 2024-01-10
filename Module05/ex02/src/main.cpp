@@ -83,6 +83,20 @@ int	main()
 	std::cout << std::endl;
 	std::cout << std::endl;
 
+// -----------------------------------------------------------------------------
+
+	std::cout << "\033[34m6/Successful Execution\033[0m" << std::endl;
+	try
+	{
+		nda.execute(sam);
+	}
+	catch (AForm::Exception& e)
+	{
+		std::cout << e.what();
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+
 	std::cout << "\033[34mDestructors\033[0m" << std::endl;
 	return (0);
 }
