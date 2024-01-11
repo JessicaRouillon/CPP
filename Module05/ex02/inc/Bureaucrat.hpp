@@ -23,11 +23,12 @@ public:
 	int				getGrade() const;
 
 // Increment & Decrement
-	void			incrementGrade();
-	void			decrementGrade();
+	void	incrementGrade();
+	void	decrementGrade();
 
 // Member functions
-	void			signForm(const AForm& form) const;
+	void	signForm(const AForm& form) const;
+	void	executeForm(AForm const & form);
 
 // Exceptions
 	class Exception : public std::exception
@@ -48,17 +49,10 @@ public:
 			const char*		what() const throw();
 	};
 
-	class InvalidName : public Bureaucrat::Exception
-	{
-		public :
-			const char*		what() const throw();
-	};
-
 
 private:
-
-	std::string		_name;
-	int				_grade;
+	const std::string	_name;
+	int					_grade;
 };
 
 std::ostream&	operator<<(std::ostream& output_stream, Bureaucrat const &bureaucrat);

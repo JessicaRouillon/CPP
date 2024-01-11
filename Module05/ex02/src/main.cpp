@@ -4,11 +4,11 @@
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
 
-void    pressEnter()
+void	pressEnter()
 {
-    std::cout << "\033[1;32m" << std::endl << "press ENTER to continue" << "\033[0m" << std::endl;
-    std::cin.ignore();
-    std::cout << "\033c";
+	std::cout << "\033[1;32m" << std::endl << "press ENTER to continue" << "\033[0m" << std::endl;
+	std::cin.ignore();
+	std::cout << "\033c";
 }
 
 int	main()
@@ -19,7 +19,6 @@ int	main()
 	try
 	{
 		ShrubberyCreationForm	lol;
-		std::cout << lol;
 	}
 	catch (AForm::Exception& e)
 	{
@@ -34,7 +33,6 @@ int	main()
 	try
 	{
 		ShrubberyCreationForm	formTree("Tree");
-		std::cout << formTree;
 	}
 	catch (AForm::Exception& e)
 	{
@@ -45,13 +43,28 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m3/Failed Execution (no signature)\033[0m" << std::endl;
-	Bureaucrat	andy("Andy", 5);
+	std::cout << "\033[34m3/Failed Execution (Aform::no signature)\033[0m" << std::endl;
+	Bureaucrat	mandy("Mandy", 5);
 	ShrubberyCreationForm	formTree("Tree");
+	try
+	{
+		formTree.execute(mandy);
+	}
+	catch (AForm::Exception& e)
+	{
+		std::cout << e.what();
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+// -----------------------------------------------------------------------------
+
+	std::cout << "\033[34m4/Failed Execution (Bureaucrat::no signature)\033[0m" << std::endl;
+	Bureaucrat	billy("Billy", 149);
 	std::cout << formTree;
 	try
 	{
-		formTree.execute(andy);
+		billy.executeForm(formTree);
 	}
 	catch (AForm::Exception& e)
 	{
@@ -62,12 +75,11 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m4/Successful Signature\033[0m" << std::endl;
-	Bureaucrat	mary("Mary", 5);
+	std::cout << "\033[34m5/Successful Signature\033[0m" << std::endl;
 	std::cout << formTree;
 	try
 	{
-		formTree.beSigned(mary);
+		formTree.beSigned(mandy);
 	}
 	catch (AForm::Exception& e)
 	{
@@ -78,11 +90,12 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m5/Failed Execution (grade too low)\033[0m" << std::endl;
-	Bureaucrat	vanessa("Vanessa", 149);
+	std::cout << "\033[34m6/Failed Execution (AForm::grade too low)\033[0m" << std::endl;
+	std::cout << billy;
+	std::cout << formTree;
 	try
 	{
-		formTree.execute(vanessa);
+		formTree.execute(billy);
 	}
 	catch (AForm::Exception& e)
 	{
@@ -93,10 +106,26 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m6/Successful Execution\033[0m" << std::endl;
+	std::cout << "\033[34m7/Failed Execution (Bureaucrat::grade too low)\033[0m" << std::endl;
+	std::cout << billy;
+	std::cout << formTree;
 	try
 	{
-		formTree.execute(mary);
+		billy.executeForm(formTree);
+	}
+	catch (AForm::Exception& e)
+	{
+		std::cout << e.what();
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+// -----------------------------------------------------------------------------
+
+	std::cout << "\033[34m8/Successful Execution\033[0m" << std::endl;
+	try
+	{
+		formTree.execute(mandy);
 	}
 	catch (AForm::Exception& e)
 	{
@@ -116,7 +145,6 @@ int	main()
 	try
 	{
 		RobotomyRequestForm	yolo;
-		std::cout << yolo;
 	}
 	catch (AForm::Exception& e)
 	{
@@ -131,7 +159,6 @@ int	main()
 	try
 	{
 		RobotomyRequestForm	formOne("Robot");
-		std::cout << formOne;
 	}
 	catch (AForm::Exception& e)
 	{
@@ -142,13 +169,28 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m3/Failed Execution (no signature)\033[0m" << std::endl;
-	Bureaucrat	jonny("Jonny", 5);
+	std::cout << "\033[34m3/Failed Execution (AForm::no signature)\033[0m" << std::endl;
+	std::cout << mandy;
 	RobotomyRequestForm	formOne("Robot");
+	try
+	{
+		formOne.execute(mandy);
+	}
+	catch (AForm::Exception& e)
+	{
+		std::cout << e.what();
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+// -----------------------------------------------------------------------------
+
+	std::cout << "\033[34m4/Failed Execution (Bureaucrat::no signature)\033[0m" << std::endl;
+	std::cout << mandy;
 	std::cout << formOne;
 	try
 	{
-		formOne.execute(jonny);
+		mandy.executeForm(formOne);
 	}
 	catch (AForm::Exception& e)
 	{
@@ -157,14 +199,15 @@ int	main()
 	std::cout << std::endl;
 	std::cout << std::endl;
 
+
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m4/Successful Signature\033[0m" << std::endl;
-	Bureaucrat	sammy("Sammy", 5);
+	std::cout << "\033[34m5/Successful Signature\033[0m" << std::endl;
+	std::cout << mandy;
 	std::cout << formOne;
 	try
 	{
-		formOne.beSigned(sammy);
+		formOne.beSigned(mandy);
 	}
 	catch (AForm::Exception& e)
 	{
@@ -175,11 +218,12 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m5/Failed Execution (grade too low)\033[0m" << std::endl;
-	Bureaucrat	dean("Dean", 149);
+	std::cout << "\033[34m6/Failed Execution (AForm::grade too low)\033[0m" << std::endl;
+	std::cout << billy;
+	std::cout << formOne;
 	try
 	{
-		formOne.execute(dean);
+		formOne.execute(billy);
 	}
 	catch (AForm::Exception& e)
 	{
@@ -190,12 +234,28 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m6/Successful Execution\033[0m" << std::endl;
+	std::cout << "\033[34m7/Failed Execution (Bureaucrat::grade too low)\033[0m" << std::endl;
+	std::cout << billy;
+	std::cout << formOne;
+	try
+	{
+		billy.executeForm(formOne);
+	}
+	catch (AForm::Exception& e)
+	{
+		std::cout << e.what();
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+// -----------------------------------------------------------------------------
+
+	std::cout << "\033[34m8/Successful Execution\033[0m" << std::endl;
 	for(size_t i = 0; i < 6; i++)
 	{
 		try
 		{
-			formOne.execute(sammy);
+			formOne.execute(mandy);
 		}
 		catch (AForm::Exception& e)
 		{
@@ -215,7 +275,6 @@ int	main()
 	try
 	{
 		PresidentialPardonForm	def;
-		std::cout << def;
 	}
 	catch (AForm::Exception& e)
 	{
@@ -230,7 +289,6 @@ int	main()
 	try
 	{
 		PresidentialPardonForm	nda("Vacation");
-		std::cout << nda;
 	}
 	catch (AForm::Exception& e)
 	{
@@ -241,13 +299,28 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m3/Failed Execution (no signature)\033[0m" << std::endl;
-	Bureaucrat	jeff("Jeff", 5);
+	std::cout << "\033[34m3/Failed Execution (AForm::no signature)\033[0m" << std::endl;
+	std::cout << mandy;
 	PresidentialPardonForm	nda("Vacation");
+	try
+	{
+		nda.execute(mandy);
+	}
+	catch (AForm::Exception& e)
+	{
+		std::cout << e.what();
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+// -----------------------------------------------------------------------------
+
+	std::cout << "\033[34m4/Failed Execution (Bureaucrat::no signature)\033[0m" << std::endl;
+	std::cout << mandy;
 	std::cout << nda;
 	try
 	{
-		nda.execute(jeff);
+		mandy.executeForm(nda);
 	}
 	catch (AForm::Exception& e)
 	{
@@ -258,12 +331,12 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m4/Successful Signature\033[0m" << std::endl;
-	Bureaucrat	sam("Sam", 5);
+	std::cout << "\033[34m5/Successful Signature\033[0m" << std::endl;
+	std::cout << mandy;
 	std::cout << nda;
 	try
 	{
-		nda.beSigned(sam);
+		nda.beSigned(mandy);
 	}
 	catch (AForm::Exception& e)
 	{
@@ -274,11 +347,12 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m5/Failed Execution (grade too low)\033[0m" << std::endl;
-	Bureaucrat	jack("Jack", 149);
+	std::cout << "\033[34m6/Failed Execution (AForm::grade too low)\033[0m" << std::endl;
+	std::cout << billy;
+	std::cout << nda;
 	try
 	{
-		nda.execute(jack);
+		nda.execute(billy);
 	}
 	catch (AForm::Exception& e)
 	{
@@ -289,10 +363,26 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m6/Successful Execution\033[0m" << std::endl;
+	std::cout << "\033[34m7/Failed Execution (Bureaucrat::grade too low)\033[0m" << std::endl;
+	std::cout << billy;
+	std::cout << nda;
 	try
 	{
-		nda.execute(sam);
+		billy.executeForm(nda);
+	}
+	catch (AForm::Exception& e)
+	{
+		std::cout << e.what();
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+// -----------------------------------------------------------------------------
+
+	std::cout << "\033[34m8/Successful Execution\033[0m" << std::endl;
+	try
+	{
+		nda.execute(mandy);
 	}
 	catch (AForm::Exception& e)
 	{
