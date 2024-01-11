@@ -4,23 +4,15 @@
 /*************************** CONSTRUCTOR / DESTRUCTOR ***************************/
 /********************************************************************************/
 
-Intern::Intern()
-{
-	std::cout << "Intern has arrived in the office." << std::endl;
-}
+Intern::Intern() { std::cout << "Intern has arrived in the office." << std::endl; }
 
-Intern::Intern(const Intern& copy) :
-{
-	std::cout << "Default Intern has been copied (but there is nothing to copy)." << std::endl;
-}
+Intern::Intern(const Intern& copy) { (void)copy; }
 
-Intern::~Intern()
-{
-	std::cout << "Intern has left the office." << std::endl;
-}
+Intern::~Intern() { std::cout << "Intern has left the office." << std::endl; }
 
 Intern	&Intern::operator=(const Intern& src)
 {
+	(void)src;
 	return (*this);
 }
 
@@ -28,18 +20,45 @@ Intern	&Intern::operator=(const Intern& src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
+// Functions to create the forms
+
+static AForm*	shrub(std::string const target)
+{
+	AForm*	shrub = new ShrubberyCreationForm(target);
+	return (shrub);
+}
+
+static AForm*	robot(std::string const target)
+{
+	AForm*	robot = new RobotomyRequestForm(target);
+	return (robot);
+}
+
+static AForm*	president(std::string const target)
+{
+	AForm*	president = new PresidentialPardonForm(target);
+	return (president);
+}
+
 AForm*		Intern::makeForm(const std::string formName, const std::string formTarget)
 {
-	AForm*	form("");
+	AForm*	(*functions[3])(std::string target) = {shrub, robot, president};
+	AForm*	ret = NULL;
+	std::string		message[3] = {"shrubbery creation", "robotomy request", "presidential pardon"};
 
-	if (formName.is_empty() == true)
-		throw (Intern::Exception());
+	for (size_t i = 0; i < 3; i++)
+	{
+		if (formName == message[i])
+			ret = functions[i](formTarget);
+	}
+	if (ret != NULL)
+		std::cout << "Intern creates " << ret->getName() << "." << std::endl;
 	else
-		std::cout << "Intern creates " << 
-	return (form);
+		throw (Intern::Exception());
+	return (ret);
 }
 
 const char*		Intern::Exception::what() const throw()
 {
-	return ("\033[0;31mForm Name cannot be empty.\n\033[0m");
+	return ("\033[0;31mForm could not ne created by intern.\n\033[0m");
 }
