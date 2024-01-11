@@ -23,11 +23,12 @@ public:
 	int				getGrade() const;
 
 // Increment & Decrement
-	void			incrementGrade();
-	void			decrementGrade();
+	void	incrementGrade();
+	void	decrementGrade();
 
 // Member functions
-	void			signForm(const AForm& form) const;
+	void	signForm(const AForm& form) const;
+	void	executeForm(AForm const & form);
 
 // Exceptions
 	class Exception : public std::exception
