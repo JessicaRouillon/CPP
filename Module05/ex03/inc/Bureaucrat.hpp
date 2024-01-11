@@ -48,17 +48,10 @@ public:
 			const char*		what() const throw();
 	};
 
-	class InvalidName : public Bureaucrat::Exception
-	{
-		public :
-			const char*		what() const throw();
-	};
-
 
 private:
-
-	std::string		_name;
-	int				_grade;
+	const std::string	_name;
+	int					_grade;
 };
 
 std::ostream&	operator<<(std::ostream& output_stream, Bureaucrat const &bureaucrat);

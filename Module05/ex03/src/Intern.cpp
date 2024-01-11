@@ -60,5 +60,5 @@ AForm*		Intern::makeForm(const std::string formName, const std::string formTarge
 
 const char*		Intern::Exception::what() const throw()
 {
-	return ("\033[0;31mForm could not ne created by intern.\n\033[0m");
+	return ("\033[0;31mForm could not be created by intern.\n\033[0m");
 }
