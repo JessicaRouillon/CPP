@@ -13,7 +13,7 @@ Fixed::Fixed()
 	this->setRawBits(0);
 }
 
-	// Copy constructor
+// Copy constructor
 Fixed::Fixed(const Fixed& copy)
 {
 	std::cout << "Copy constructor called" << std::endl;

@@ -9,12 +9,8 @@ Bureaucrat::Bureaucrat(): _name("Default"), _grade(150)
 	std::cout << "Bureaucrat Default has entered the office with default grade 150." << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const std::string name, const int grade)
+Bureaucrat::Bureaucrat(const std::string name, const int grade): _name(name)
 {
-	if (name.empty())
-		throw(Bureaucrat::InvalidName());
-	else
-		this->_name = name;
 	if (grade < 1)
 		throw (Bureaucrat::GradeTooHighException());
 	else if (grade > 150)
@@ -41,12 +37,7 @@ Bureaucrat::~Bureaucrat()
 
 Bureaucrat	&Bureaucrat::operator=(const Bureaucrat& src)
 {
-	std::cout << "Bureaucrat's assignment operator has been called." << std::endl;
-	if (this != &src)
-	{
-		this->_name = src.getName();
-		this->_grade = src.getGrade();
-	}
+	(void)src;
 	return (*this);
 }
 
@@ -128,11 +119,6 @@ const char*		Bureaucrat::GradeTooHighException::what() const throw()
 const char*		Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return ("\033[0;31mGrade cannot be lower than 150.\n\033[0m");
-}
-
-const char*		Bureaucrat::InvalidName::what() const throw()
-{
-	return("\033[0;31mBureaucrat must have a name.\n\033[0m");
 }
 
 /********************************************************************************/

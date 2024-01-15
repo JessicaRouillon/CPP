@@ -25,12 +25,44 @@ std::string		ScalarConverter::getString() const
 	return (this->_string);
 }
 
+t_type		ScalarConverter::getType(const std::string str) const
+{
+	t_type	exception = assignException(str);
+
+	if (exception != UNKNOWN)
+		return (i);
+	
+}
+
 
 // Conversion Functions
 
 ScalarConverter::operator char()
 {
+	int		toInt = 0;
+	char	toChar = 0;
 
+	if (_string.length() == 1)
+	{
+		try
+		{
+			toInt = stoi(_string);
+			toChar = static_cast<char>(toInt);
+		}
+		catch(const std::Exception& e)
+		{
+			std::cout << e.what() << std::endl;
+		}
+		if (isPrintable(toChar) == true)
+			std::cout << "char: " << c << std::endl;
+		else
+			std::cout << "char: Not printable" << std::endl;
+		return ;
+	}
+	else
+	{
+
+	}
 }
 
 
@@ -42,6 +74,7 @@ bool	isPrintable(char c)
 		return (true);
 	return (false);
 }
+
 
 // Exception
 

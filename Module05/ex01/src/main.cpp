@@ -122,7 +122,7 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m8/Double Signature\033[0m" << std::endl;
+	std::cout << "\033[34m9/Double Signature\033[0m" << std::endl;
 	Bureaucrat	jack("Jack", 10);
 	try
 	{

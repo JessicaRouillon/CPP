@@ -30,21 +30,7 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m3/Construction with no name\033[0m" << std::endl;
-	try
-	{
-		Bureaucrat	bob("", 42);
-	}
-	catch (Bureaucrat::Exception& e)
-	{
-		std::cout << e.what();
-	}
-	std::cout << std::endl;
-	std::cout << std::endl;
-
-// -----------------------------------------------------------------------------
-
-	std::cout << "\033[34m4/Default Construction\033[0m" << std::endl;
+	std::cout << "\033[34m3/Default Construction\033[0m" << std::endl;
 	try
 	{
 		Bureaucrat	ref;
@@ -59,7 +45,7 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m5/Correct Construction\033[0m" << std::endl;
+	std::cout << "\033[34m4/Correct Construction\033[0m" << std::endl;
 	try
 	{
 		Bureaucrat	bob("Bob", 75);
@@ -74,7 +60,7 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m6/Correct Incrementation\033[0m" << std::endl;
+	std::cout << "\033[34m5/Correct Incrementation\033[0m" << std::endl;
 	Bureaucrat	jack("Jack", 10);
 	try
 	{
@@ -89,7 +75,7 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m7/Correct Decrementation\033[0m" << std::endl;
+	std::cout << "\033[34m6/Correct Decrementation\033[0m" << std::endl;
 	try
 	{
 		jack.decrementGrade();
@@ -103,7 +89,7 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m8/Failed Incrementation\033[0m" << std::endl;
+	std::cout << "\033[34m7/Failed Incrementation\033[0m" << std::endl;
 	Bureaucrat	jacky("Jacky", 1);
 	try
 	{
@@ -118,7 +104,7 @@ int	main()
 
 // -----------------------------------------------------------------------------
 
-	std::cout << "\033[34m9/Failed Decrementation\033[0m" << std::endl;
+	std::cout << "\033[34m8/Failed Decrementation\033[0m" << std::endl;
 	Bureaucrat	franky("Franky", 150);
 	try
 	{

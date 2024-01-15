@@ -3,6 +3,15 @@
 
 # include <iostream>
 
+typedef enum	e_type
+{
+	CHAR,
+	INT,
+	FLOAT,
+	DOUBLE,
+	UNKNOWN
+}	t_type;
+
 class ScalarConverter
 {
 
@@ -17,6 +26,7 @@ public:
 
 // Getter
 	std::string		getString() const;
+	t_type			getType(const std::string str) const;
 
 // Conversion Functions
 	operator	char();
@@ -37,8 +47,10 @@ public:
 			const char*	what() const throw();
 	};
 
+
 private :
 	std::string	_string;
+	t_type		_type;
 
 };
 

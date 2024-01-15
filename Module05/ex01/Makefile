@@ -1,6 +1,6 @@
 ##################################### VARIABLES #####################################
 
-PROJECT_NAME	= bureaucrat
+PROJECT_NAME	= form
 NAME			= ./$(PROJECT_NAME)
 CC				= c++
 FLAGS			= -Wall -Wextra -Werror -std=c++98
