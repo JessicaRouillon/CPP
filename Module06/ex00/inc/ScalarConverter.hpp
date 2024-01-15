@@ -31,6 +31,12 @@ public:
 			const char*	what() const throw();
 	};
 
+	class NotPrintable : public std::exception
+	{
+		public :
+			const char*	what() const throw();
+	};
+
 private :
 	std::string	_string;
 
