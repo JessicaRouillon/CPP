@@ -6,11 +6,12 @@
 
 ScalarConverter::ScalarConverter(const std::string string): _string(string) {}
 
-ScalarConverter::ScalarConverter(const ScalarConverter& copy): _string(copy.getString()) {}
+ScalarConverter::ScalarConverter(const ScalarConverter& copy): _string(copy.getString()), _type(copy.getType()) {}
 
 ScalarConverter	&ScalarConverter::operator=(const ScalarConverter& src)
 {
 	this->_string = src.getString();
+	this->_type = src.getType();
 	return (*this);
 }
 
@@ -18,65 +19,64 @@ ScalarConverter	&ScalarConverter::operator=(const ScalarConverter& src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
-// Getter
 
-std::string		ScalarConverter::getString() const
-{
-	return (this->_string);
-}
+/*********************************** Getters ************************************/
 
-t_type		ScalarConverter::getType(const std::string str) const
+std::string		ScalarConverter::getString() const { return (this->_string); }
+
+t_type		ScalarConverter::getType() const { return (this->_type); }
+
+
+/**************************** Assign Type Functions *****************************/
+
+t_type		ScalarConverter::assignType(const std::string str) const
 {
-	t_type	exception = assignException(str);
+	t_type	exception = assignExceptionType(str);
 
 	if (exception != UNKNOWN)
 		return (i);
-	
+	if (assignCharType(str) == true)
+		return (CHAR);
+	if (assignIntType(str) == true)
+		return (INT);
+	if (assignFloatType(str) == true)
+		return (FLOAT);
+	if (assignDoubleType(str) == true)
+		return (DOUBLE);
+}
+
+t_Type	ScalarConverter::assignException(const std::string str) const
+{
+	if (str.compare("-inf") == 0 || str.compare("+inf") == 0 || str.compare("nan") == 0)
+		return (DOUBLE);
+	if (str.compare("-inff") == 0 || str.compare("+inff") == 0 || str.compare("nanf") == 0)
+		return (FLOAT);
+	return (UNKNOWN);
+}
+
+bool	ScalarConverter::assignCharType(const std::string str) const
+{
+
 }
 
 
-// Conversion Functions
+/**************************** Conversion Functions *****************************/
 
-ScalarConverter::operator char()
+void	ScalarConverter::convert(const std::string& str)
 {
-	int		toInt = 0;
-	char	toChar = 0;
+	t_type	type = assignType(str);
 
-	if (_string.length() == 1)
-	{
-		try
-		{
-			toInt = stoi(_string);
-			toChar = static_cast<char>(toInt);
-		}
-		catch(const std::Exception& e)
-		{
-			std::cout << e.what() << std::endl;
-		}
-		if (isPrintable(toChar) == true)
-			std::cout << "char: " << c << std::endl;
-		else
-			std::cout << "char: Not printable" << std::endl;
-		return ;
-	}
+	if (type == UNKNOWN)
+		throw (ScalarConverter::UnknownType());
 	else
 	{
-
+		ScalarConverter	conversions[4] = { &convertFromChar, &convertFromInt, &convertFromFloat, &convertFromDouble};
+		conversions[type](str);
 	}
 }
 
 
-// Other functions
-
-bool	isPrintable(char c)
-{
-	if (c >= 32 && c <= 126)
-		return (true);
-	return (false);
-}
-
-
-// Exception
+/******************************** Exceptions *********************************/
 
 const char*	ScalarConverter::Exception::what() const throw()
 {
@@ -86,4 +86,9 @@ const char*	ScalarConverter::Exception::what() const throw()
 const char*	ScalarConverter::NotPrintable::what() const throw()
 {
 	return ("Not printable");
+}
+
+const char*	ScalarConverter::UnknownType::what() const throw()
+{
+	return ("Unknown type");
 }

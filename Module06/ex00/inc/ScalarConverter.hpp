@@ -26,15 +26,24 @@ public:
 
 // Getter
 	std::string		getString() const;
-	t_type			getType(const std::string str) const;
+	t_type			getType() const;
+
+// Assign Type Functions
+	t_type	assignType(const std::string str) const;
+	t_type	assignExceptionType(const std::string str) const;
+	bool	assignCharType(const std::string str) const;
+	bool	assignIntType(const std::string str) const;
+	bool	assignFloatType(const std::string str) const;
+	bool	assignDoubleType(const std::string str) const;
 
 // Conversion Functions
-	operator	char();
-	operator	int();
-	operator	float();
-	operator	double();
+	void	convert(const std::string& str);
+	void	convertFromChar(const std::string& str);
+	void	convertFromInt(const std::string& str);
+	void	convertFromFloat(const std::string& str);
+	void	convertFromDouble(const std::string& str);
 
-// Exception
+// Exceptions
 	class Exception : public std::exception
 	{
 		public :
@@ -42,6 +51,12 @@ public:
 	};
 
 	class NotPrintable : public std::exception
+	{
+		public :
+			const char*	what() const throw();
+	};
+
+	class UnknownType : public std::exception
 	{
 		public :
 			const char*	what() const throw();
