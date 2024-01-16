@@ -2,6 +2,9 @@
 # define SCALARCONVERTER_HPP
 
 # include <iostream>
+# include <cctype> // isprint
+# include <limits> // int min, int max
+# include <cstdlib> // strtol, strtof, strtod
 
 typedef enum	e_type
 {
@@ -24,33 +27,26 @@ public:
 
 	ScalarConverter& operator=(const ScalarConverter& src);
 
-// Getter
+// Getter & Setters
 	std::string		getString() const;
 	t_type			getType() const;
+	void			setString(std::string str);
+	void			setType(std::string str);
 
 // Assign Type Functions
-	t_type	assignType(const std::string str) const;
-	t_type	assignExceptionType(const std::string str) const;
-	bool	assignCharType(const std::string str) const;
-	bool	assignIntType(const std::string str) const;
-	bool	assignFloatType(const std::string str) const;
-	bool	assignDoubleType(const std::string str) const;
+	t_type	assignType(const std::string& str) const;
+	t_type	assignExceptionType(const std::string& str) const;
+	bool	assignCharType(const std::string& str) const;
+	bool	assignIntType(const std::string& str) const;
+	bool	assignFloatType(const std::string& str) const;
+	bool	assignDoubleType(const std::string& str) const;
 
 // Conversion Functions
-	void	convert(const std::string& str);
-	void	convertFromChar(const std::string& str);
-	void	convertFromInt(const std::string& str);
-	void	convertFromFloat(const std::string& str);
-	void	convertFromDouble(const std::string& str);
+	typedef	void (*conversions)(const std::string& str);
+	void	convert();
 
 // Exceptions
 	class Exception : public std::exception
-	{
-		public :
-			const char*	what() const throw();
-	};
-
-	class NotPrintable : public std::exception
 	{
 		public :
 			const char*	what() const throw();
