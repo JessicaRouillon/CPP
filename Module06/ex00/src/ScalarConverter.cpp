@@ -77,9 +77,9 @@ bool	ScalarConverter::assignIntType(const std::string& str) const
 		return (false);
 	if (str[0] == '+' || str[0] == '-')
 		i += 1;
-	for (size_t j = i; j < str.length(); j++)
+	for (; i < str.length(); i++)
 	{
-		if (isdigit(str[j]) == false)
+		if (isdigit(str[i]) == false)
 			return (false);
 	}
 	return (true);
@@ -94,15 +94,9 @@ bool	ScalarConverter::assignFloatType(const std::string& str) const
 		return (false);
 	if (str[0] == '+' || str[0] == '-')
 		i += 1;
-
-	std::cout << "str len = " << str.length() << std::endl;
-
-	for (size_t j = i; j < str.length(); j++)
+	for (; i < str.length(); i++)
 	{
-		std::cout << "str[" << j << "] = " << str[j] << std::endl;
-		std::cout << "flag = " << flag << std::endl;
-		
-		if (isdigit(str[j]) == false)
+		if (!isdigit(str[i]))
 		{
 			if (i == str.length() - 1)
 				return (str[i] == 'f');
@@ -128,9 +122,9 @@ bool	ScalarConverter::assignDoubleType(const std::string& str) const
 		return (false);
 	if (str[0] == '+' || str[0] == '-')
 		i += 1;
-	for (size_t j = i; j < str.length(); j++)
+	for (; i < str.length(); i++)
 	{
-		if (isdigit(str[j]) == false)
+		if (isdigit(str[i]) == false)
 		{
 			if (str[i] == '.' || str[i] == ',')
 			{
@@ -148,23 +142,21 @@ bool	ScalarConverter::assignDoubleType(const std::string& str) const
 
 /**************************** Conversion Functions *****************************/
 
-// void	ScalarConverter::convertFromChar(const std::string& str)
 static void	convertFromChar(const std::string& str)
 {
 	char	c = str[0];
-	
+
 	if (isprint(c) == false)
 		std::cout << "char: Not printable" << std::endl;
 	else
 	{
 		std::cout << "char: " << c << std::endl;
 		std::cout << "int: " << static_cast<int>(c) << std::endl;
-		std::cout << "float: " << static_cast<float>(c) << std::endl;
-		std::cout << "double: " << static_cast<double>(c) << std::endl;
+		std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
+		std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
 	}
 }
 
-// void	ScalarConverter::convertFromInt(const std::string& str)
 static void	convertFromInt(const std::string& str)
 {
 	long int	value = std::strtol(str.c_str(), NULL, 10);
@@ -179,11 +171,10 @@ static void	convertFromInt(const std::string& str)
 	else
 		std::cout << "char: " << static_cast<char>(value) << std::endl;
 	std::cout << "int: " << value << std::endl;
-	std::cout << "float: " << static_cast<float>(value) << std::endl;
-	std::cout << "double: " << static_cast<double>(value) << std::endl;
+	std::cout << "float: " << static_cast<float>(value) << ".0f" << std::endl;
+	std::cout << "double: " << static_cast<double>(value) << ".0" << std::endl;
 }
 
-// void	ScalarConverter::convertFromFloat(const std::string& str)
 static void	convertFromFloat(const std::string& str)
 {
 	float	value = strtof(str.c_str(), NULL);
@@ -220,10 +211,9 @@ static void	convertFromFloat(const std::string& str)
 		std::cout << "char: " << static_cast<char>(value) << std::endl;
 	std::cout << "int: " << static_cast<int>(value) << std::endl;
 	std::cout << "float: " << value << std::endl;
-	std::cout << "double: " << static_cast<double>(value) << std::endl;
+	std::cout << "double: " << static_cast<double>(value) << ".0" << std::endl;
 }
 
-// void	ScalarConverter::convertFromDouble(const std::string& str)
 static void	convertFromDouble(const std::string& str)
 {
 	double	value = strtod(str.c_str(), NULL);
@@ -259,7 +249,7 @@ static void	convertFromDouble(const std::string& str)
 	else
 		std::cout << "char: " << static_cast<char>(value) << std::endl;
 	std::cout << "int: " << static_cast<int>(value) << std::endl;
-	std::cout << "float: " << static_cast<float>(value) << std::endl;
+	std::cout << "float: " << static_cast<float>(value) << ".0f" << std::endl;
 	std::cout << "double: " << value << std::endl;
 }
 
@@ -284,5 +274,5 @@ const char*	ScalarConverter::Exception::what() const throw()
 
 const char*	ScalarConverter::UnknownType::what() const throw()
 {
-	return ("Unknown type");
+	return ("Error: Unknown type");
 }

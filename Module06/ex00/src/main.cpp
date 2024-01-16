@@ -9,7 +9,7 @@ int	main(int ac, char **av)
 
 		converter.setString(str);
 		converter.setType(str);
-		std::cout << "Type = " << converter.getType() << std::endl;
+		std::cout << "Type = " << converter.getType() << std::endl;  // A retirer
 		try
 		{
 			converter.convert();
@@ -18,6 +18,7 @@ int	main(int ac, char **av)
 		{
 			std::cerr << e.what() << std::endl;
 		}
+		
 	}
 	else
 		std::cout << "\033[0;31mInvalid number of arguments.\033[0m" << std::endl;

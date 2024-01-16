@@ -1,6 +1,6 @@
 ##################################### VARIABLES #####################################
 
-PROJECT_NAME	= scalar
+PROJECT_NAME	= scalarconverter
 NAME			= ./$(PROJECT_NAME)
 CC				= c++
 FLAGS			= -Wall -Wextra -Werror -std=c++98
