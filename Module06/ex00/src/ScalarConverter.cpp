@@ -211,7 +211,7 @@ static void	convertFromFloat(const std::string& str)
 		std::cout << "char: " << static_cast<char>(value) << std::endl;
 	std::cout << "int: " << static_cast<int>(value) << std::endl;
 	std::cout << "float: " << value << std::endl;
-	std::cout << "double: " << static_cast<double>(value) << ".0" << std::endl;
+	std::cout << "double: " << static_cast<double>(value) << std::endl;
 }
 
 static void	convertFromDouble(const std::string& str)
