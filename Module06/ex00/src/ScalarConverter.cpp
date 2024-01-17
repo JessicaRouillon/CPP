@@ -21,6 +21,12 @@ ScalarConverter	&ScalarConverter::operator=(const ScalarConverter &src)
 
 /*********************************** Getters ************************************/
 
+ScalarConverter&	ScalarConverter::getInstance()
+{
+	static ScalarConverter	instance;
+	return (instance);
+}
+
 std::string	ScalarConverter::getString() const { return (this->_string); }
 
 t_type	ScalarConverter::getType() const { return (this->_type); }

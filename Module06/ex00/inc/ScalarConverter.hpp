@@ -22,18 +22,17 @@ class ScalarConverter
 
 public:
 // Constructors & Destructor
-	ScalarConverter() {};
-	ScalarConverter(const std::string string);
 	ScalarConverter(const ScalarConverter& copy);
 	~ScalarConverter() {};
 
 	ScalarConverter& operator=(const ScalarConverter& src);
 
 // Getter & Setters
-	std::string		getString() const;
-	t_type			getType() const;
-	void			setString(std::string str);
-	void			setType(std::string str);
+	static ScalarConverter&		getInstance();
+	std::string					getString() const;
+	t_type						getType() const;
+	void						setString(std::string str);
+	void						setType(std::string str);
 
 // Assign Type Functions
 	t_type	assignType(const std::string& str) const;
@@ -56,6 +55,8 @@ public:
 
 
 private :
+	ScalarConverter() {};
+	ScalarConverter(const std::string string);
 	std::string	_string;
 	t_type		_type;
 
