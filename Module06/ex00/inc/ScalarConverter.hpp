@@ -5,6 +5,7 @@
 # include <cctype> // isprint
 # include <limits> // int min, int max
 # include <cstdlib> // strtol, strtof, strtod
+# include <cmath> // modf
 
 typedef enum	e_type
 {
@@ -46,12 +47,6 @@ public:
 	void	convert();
 
 // Exceptions
-	class Exception : public std::exception
-	{
-		public :
-			const char*	what() const throw();
-	};
-
 	class UnknownType : public std::exception
 	{
 		public :

@@ -4,11 +4,11 @@
 /*************************** CONSTRUCTOR / DESTRUCTOR ***************************/
 /********************************************************************************/
 
-ScalarConverter::ScalarConverter(const std::string string): _string(string) {}
+ScalarConverter::ScalarConverter(const std::string string) : _string(string) {}
 
-ScalarConverter::ScalarConverter(const ScalarConverter& copy): _string(copy.getString()), _type(copy.getType()) {}
+ScalarConverter::ScalarConverter(const ScalarConverter &copy) : _string(copy.getString()), _type(copy.getType()) {}
 
-ScalarConverter	&ScalarConverter::operator=(const ScalarConverter& src)
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &src)
 {
 	this->_string = src.getString();
 	this->_type = src.getType();
@@ -19,28 +19,27 @@ ScalarConverter	&ScalarConverter::operator=(const ScalarConverter& src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
-
 /*********************************** Getters ************************************/
 
-std::string		ScalarConverter::getString() const { return (this->_string); }
+std::string ScalarConverter::getString() const { return (this->_string); }
 
-t_type		ScalarConverter::getType() const { return (this->_type); }
+t_type ScalarConverter::getType() const { return (this->_type); }
 
-void		ScalarConverter::setString(std::string str)
+void ScalarConverter::setString(std::string str)
 {
 	this->_string = str;
 }
 
-void		ScalarConverter::setType(std::string str)
+void ScalarConverter::setType(std::string str)
 {
 	this->_type = assignType(str);
 }
 
 /**************************** Assign Type Functions *****************************/
 
-t_type		ScalarConverter::assignType(const std::string& str) const
+t_type ScalarConverter::assignType(const std::string &str) const
 {
-	t_type	exception = assignExceptionType(str);
+	t_type exception = assignExceptionType(str);
 
 	if (exception != UNKNOWN)
 		return (exception);
@@ -55,7 +54,7 @@ t_type		ScalarConverter::assignType(const std::string& str) const
 	return (UNKNOWN);
 }
 
-t_type	ScalarConverter::assignExceptionType(const std::string& str) const
+t_type ScalarConverter::assignExceptionType(const std::string &str) const
 {
 	if (str.compare("-inf") == 0 || str.compare("+inf") == 0 || str.compare("nan") == 0)
 		return (DOUBLE);
@@ -64,14 +63,14 @@ t_type	ScalarConverter::assignExceptionType(const std::string& str) const
 	return (UNKNOWN);
 }
 
-bool	ScalarConverter::assignCharType(const std::string& str) const
+bool ScalarConverter::assignCharType(const std::string &str) const
 {
 	return (str.length() == 1 && !isdigit(str[0]));
 }
 
-bool	ScalarConverter::assignIntType(const std::string& str) const
+bool ScalarConverter::assignIntType(const std::string &str) const
 {
-	size_t	i = 0;
+	size_t i = 0;
 
 	if (str.length() <= 1 && (str[0] == '+' || str[0] == '-'))
 		return (false);
@@ -85,10 +84,10 @@ bool	ScalarConverter::assignIntType(const std::string& str) const
 	return (true);
 }
 
-bool	ScalarConverter::assignFloatType(const std::string& str) const
+bool ScalarConverter::assignFloatType(const std::string &str) const
 {
-	size_t	i = 0;
-	bool	flag = false;
+	size_t i = 0;
+	bool decimal = false;
 
 	if (str.length() <= 1 && (str[0] == '+' || str[0] == '-'))
 		return (false);
@@ -102,21 +101,21 @@ bool	ScalarConverter::assignFloatType(const std::string& str) const
 				return (str[i] == 'f');
 			if (str[i] == '.' || str[i] == ',')
 			{
-				if (flag == true)
+				if (decimal == true)
 					return (false);
-				flag = true;
+				decimal = true;
 			}
 			else
 				return (false);
 		}
 	}
-	return (true);
+	return (false);
 }
 
-bool	ScalarConverter::assignDoubleType(const std::string& str) const
+bool ScalarConverter::assignDoubleType(const std::string &str) const
 {
-	size_t	i = 0;
-	bool	flag = false;
+	size_t i = 0;
+	bool decimal = false;
 
 	if (str.length() <= 1 && (str[0] == '+' || str[0] == '-'))
 		return (false);
@@ -128,9 +127,9 @@ bool	ScalarConverter::assignDoubleType(const std::string& str) const
 		{
 			if (str[i] == '.' || str[i] == ',')
 			{
-				if (flag == true)
+				if (decimal == true)
 					return (false);
-				flag = true;
+				decimal = true;
 			}
 			else
 				return (false);
@@ -139,45 +138,44 @@ bool	ScalarConverter::assignDoubleType(const std::string& str) const
 	return (true);
 }
 
-
 /**************************** Conversion Functions *****************************/
 
-static void	convertFromChar(const std::string& str)
+static void convertFromChar(const std::string &str)
 {
-	char	c = str[0];
+	char c = str[0];
 
 	if (isprint(c) == false)
 		std::cout << "char: Not printable" << std::endl;
 	else
 	{
-		std::cout << "char: " << c << std::endl;
+		std::cout << "char: " << static_cast<char>(c) << std::endl;
 		std::cout << "int: " << static_cast<int>(c) << std::endl;
 		std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
 		std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
 	}
 }
 
-static void	convertFromInt(const std::string& str)
+static void convertFromInt(const std::string &str)
 {
-	long int	value = std::strtol(str.c_str(), NULL, 10);
+	long int value = std::strtol(str.c_str(), NULL, 10);
 
 	if (value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min())
 	{
-		std::cout << "Int overflow error" << std::endl;
-		return ;
+		std::cout << "Error: Int overflow error" << std::endl;
+		return;
 	}
 	if (isprint(value) == false)
 		std::cout << "char: Not printable" << std::endl;
 	else
 		std::cout << "char: " << static_cast<char>(value) << std::endl;
-	std::cout << "int: " << value << std::endl;
+	std::cout << "int: " << static_cast<int>(value) << std::endl;
 	std::cout << "float: " << static_cast<float>(value) << ".0f" << std::endl;
 	std::cout << "double: " << static_cast<double>(value) << ".0" << std::endl;
 }
 
-static void	convertFromFloat(const std::string& str)
+static void convertFromFloat(const std::string &str)
 {
-	float	value = strtof(str.c_str(), NULL);
+	float value = strtof(str.c_str(), NULL);
 
 	if (str.compare("-inff") == 0 || str.compare("+inff") == 0 || str.compare("nanf") == 0)
 	{
@@ -198,25 +196,32 @@ static void	convertFromFloat(const std::string& str)
 			std::cout << "float: +inff" << std::endl;
 			std::cout << "double: +inf" << std::endl;
 		}
-		return ;
+		return;
 	}
 	if (value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min())
 	{
-		std::cout << "Float overflow error" << std::endl;
-		return ;
+		std::cout << "Error: Float overflow error" << std::endl;
+		return;
 	}
 	if (isprint(value) == false)
 		std::cout << "char: Not printable" << std::endl;
 	else
 		std::cout << "char: " << static_cast<char>(value) << std::endl;
 	std::cout << "int: " << static_cast<int>(value) << std::endl;
-	std::cout << "float: " << value << std::endl;
+	std::cout << "float: " << value;
+	
+	double	tmp;
+	if (modf(value, &tmp) == 0)
+		std::cout << ".0f" << std::endl;
+	else
+		std::cout << "f" << std::endl;
+
 	std::cout << "double: " << static_cast<double>(value) << std::endl;
 }
 
-static void	convertFromDouble(const std::string& str)
+static void convertFromDouble(const std::string &str)
 {
-	double	value = strtod(str.c_str(), NULL);
+	double value = strtod(str.c_str(), NULL);
 
 	if (str.compare("-inf") == 0 || str.compare("+inf") == 0 || str.compare("nan") == 0)
 	{
@@ -237,12 +242,12 @@ static void	convertFromDouble(const std::string& str)
 			std::cout << "float: +inff" << std::endl;
 			std::cout << "double: +inf" << std::endl;
 		}
-		return ;
+		return;
 	}
 	if (value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min())
 	{
-		std::cout << "Double overflow error" << std::endl;
-		return ;
+		std::cout << "Error: Double overflow error" << std::endl;
+		return;
 	}
 	if (isprint(value) == false)
 		std::cout << "char: Not printable" << std::endl;
@@ -250,15 +255,15 @@ static void	convertFromDouble(const std::string& str)
 		std::cout << "char: " << static_cast<char>(value) << std::endl;
 	std::cout << "int: " << static_cast<int>(value) << std::endl;
 	std::cout << "float: " << static_cast<float>(value) << ".0f" << std::endl;
-	std::cout << "double: " << value << std::endl;
+	std::cout << "double: " << static_cast<double>(value) << std::endl;
 }
 
-void	ScalarConverter::convert()
+void ScalarConverter::convert()
 {
-	conversions functions[] = { convertFromChar, convertFromInt, convertFromFloat, convertFromDouble};
+	conversions functions[] = {convertFromChar, convertFromInt, convertFromFloat, convertFromDouble};
 
 	if (_type == UNKNOWN)
-		throw (ScalarConverter::UnknownType());
+		throw(ScalarConverter::UnknownType());
 	else
 	{
 		functions[_type](_string);
@@ -267,12 +272,7 @@ void	ScalarConverter::convert()
 
 /******************************** Exceptions *********************************/
 
-const char*	ScalarConverter::Exception::what() const throw()
-{
-	return ("Cannot be converted");
-}
-
-const char*	ScalarConverter::UnknownType::what() const throw()
+const char *ScalarConverter::UnknownType::what() const throw()
 {
 	return ("Error: Unknown type");
 }
