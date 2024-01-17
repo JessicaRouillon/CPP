@@ -6,6 +6,7 @@
 # include <limits> // int min, int max
 # include <cstdlib> // strtol, strtof, strtod
 # include <cmath> // modf
+# include <iomanip> // precision
 
 typedef enum	e_type
 {

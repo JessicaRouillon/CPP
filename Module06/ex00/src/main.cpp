@@ -9,7 +9,6 @@ int	main(int ac, char **av)
 
 		converter.setString(str);
 		converter.setType(str);
-		std::cout << "Type = " << converter.getType() << std::endl;  // A retirer
 		try
 		{
 			converter.convert();
