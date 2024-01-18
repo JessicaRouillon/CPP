@@ -2,6 +2,7 @@
 # define BASE_HPP
 
 # include <iostream>
+# include <cstdlib> // rand, srand
 
 class Base
 {
