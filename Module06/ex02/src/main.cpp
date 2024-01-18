@@ -19,11 +19,11 @@ void	identify(Base* p)
 	try
 	{
 		if (dynamic_cast<A*>(p))
-			std::cout << "Type = A" << std::endl;
+			std::cout << "\033[32mType = A\033[0m" << std::endl;
 		else if (dynamic_cast<B*>(p))
-			std::cout << "Type = B" << std::endl;
+			std::cout << "\033[32mType = B\033[0m" << std::endl;
 		else if (dynamic_cast<C*>(p))
-			std::cout << "Type = C" << std::endl;
+			std::cout << "\033[32mType = C\033[0m" << std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -35,27 +35,45 @@ void	identify(Base& p)
 {
 	try
 	{
-		if (dynamic_cast<A*>(&p))
-			std::cout << "Type = A" << std::endl;
-		else if (dynamic_cast<B*>(&p))
-			std::cout << "Type = B" << std::endl;
-		else if (dynamic_cast<C*>(&p))
-			std::cout << "Type = C" << std::endl;
+		A& a = dynamic_cast<A &>(p);
+		std::cout << "\033[32mType A = good cast\033[0m" << std::endl;
+		(void)a;
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << std::endl;
+		std::cerr << "Type A = " << e.what() << std::endl;
+	}
+	try
+	{
+		B& b = dynamic_cast<B &>(p);
+		std::cout << "\033[32mType B = good cast\033[0m" << std::endl;
+		(void)b;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "Type B = " << e.what() << std::endl;
+	}
+	try
+	{
+		C& c = dynamic_cast<C &>(p);
+		std::cout << "\033[32mType C = good cast\033[0m" << std::endl;
+		(void)c;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << "Type C = " << e.what() << std::endl;
 	}
 }
 
 int	main()
 {
-	Base	*instance1 = generate();
+	Base	*instance = generate();
 
-	identify(instance1);
-	identify(*instance1);
+	std::cout << "\033[34mCast from pointer\033[0m" << std::endl;
+	identify(instance);
+	std::cout << "\033[34mCast from reference\033[0m" << std::endl;
+	identify(*instance);
 
-	delete instance1;
-
+	delete instance;
 	return (0);
 }
