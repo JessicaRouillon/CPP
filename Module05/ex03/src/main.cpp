@@ -8,7 +8,7 @@
 int	main()
 {
 	std::cout << "\033[34mConstructors\033[0m" << std::endl;
-	
+
 	Intern	intern;
 	AForm*	shrub;
 	AForm*	robot;

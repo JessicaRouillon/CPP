@@ -1,4 +1,4 @@
-#include "ScalarConverter.hpp"
+#include "../inc/ScalarConverter.hpp"
 
 /********************************************************************************/
 /*************************** CONSTRUCTOR / DESTRUCTOR ***************************/
