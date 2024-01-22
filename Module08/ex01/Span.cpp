@@ -1,30 +1,15 @@
 #include "Span.hpp"
 
 /********************************************************************************/
-/*************************** CONSTRUCTOR / DESTRUCTOR ***************************/
+/************************** COPY & ASSIGNMENT OPERATOR **************************/
 /********************************************************************************/
-
-Span::Span():_array(new T[0]), _nb(0) {}
-
-Span::Span(const unsigned int n): _array(new T[n]), _nb(n) {}
-
-Span::Span(const Span& copy): _array(new T[copy.size()]) 
-{
-	for (size_t i = 0; i < copy.size(); i++)
-		_array[i] = copy._array[i];
-}
-
-Span::~Span() { delete[] _array; }
 
 Span	&Span::operator=(const Span& src)
 {
 	if (this != &src)
 	{
-		delete[] _array;
-		_array = new T[src.size()];
-		_nb = src.size();
-		for (unsigned int i = 0; i < _nb; ++i)
-			_array[i] = src[i];
+		_nb = src._nb;
+		_array = src._array;
 	}
 	return (*this);
 }
@@ -35,30 +20,50 @@ Span	&Span::operator=(const Span& src)
 
 void	Span::addNumber(const int n)
 {
-	if (_array.size() >= _n)
+	if (_array.size() >= _nb)
 		throw (Span::InsufficientStorage());
 	else
 		_array.push_back(n);
 }
 
-int		Span::shortestSpan()
+size_t	Span::getSpan(const size_t nb1, const size_t nb2)
 {
-	if (_array.size() < 2)
-		throw (Span::NoSpanFound());
-	else
-	{
-		sort(_array.begin(), _array.end());
-		return (_array[1] - _array[0]);
-	}
+	if (nb1 - nb2 < 0)
+		return (nb2 - nb1);
+	return (nb1 - nb2);
 }
 
-int		Span::longestSpan()
+size_t	Span::shortestSpan()
+{
+	if (_array.size() < 2)
+	throw (Span::NoSpanFound());
+
+	size_t	shortest = std::numeric_limits<unsigned long>::max();
+	for (size_t i = 1; i < _array.size(); i++)
+	{
+		std::cout << "array[i] = " << _array[i] << std::endl;
+		std::cout << "array[i - 1] = " << _array[i - 1] << std::endl;
+		size_t	span = getSpan(_array[i], _array[i - 1]);
+		std::cout << "span = " << span << std::endl << std::endl;
+		if (shortest < span)
+			shortest = span;
+	}
+	return (shortest);
+}
+
+size_t	Span::longestSpan()
 {
 	if (_array.size() < 2)
 		throw (Span::NoSpanFound());
-	else
+
+	size_t	longest = std::numeric_limits<unsigned long>::min();
+	size_t	span;
+
+	for (size_t i = 1; i < _array.size(); i++)
 	{
-		sort(_array.begin(), _array.end());
-		return (_array[_array.size() - 1] - _array[0]);
+		span = _array[i] - _array[i - 1];
+		if (span > longest)
+			longest = span;
 	}
+	return (longest);
 }

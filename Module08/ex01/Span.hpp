@@ -2,26 +2,27 @@
 # define SPAN_HPP
 
 # include <iostream>
-
-template <typename T>
+# include <algorithm>
+# include <vector>
+# include <limits>
 
 class Span
 {
-
 	public:
 		//Constructors & Destructor
-		Span();
-		Span(const unsigned int n);
-		~Span();
+		Span():_array(0), _nb(0) {}
+		Span(const size_t n): _array(0), _nb(n) {}
+		~Span() {}
 
 		// Assignment operator & Copy
-		Span(const Span& copy);
+		Span(const Span& copy) { *this = copy; }
 		Span& operator=(const Span& src);
 
 		// Member functions
 		void	addNumber(const int n);
-		int		shortestSpan();
-		int		longestSpan();
+		size_t	getSpan(const size_t nb1, const size_t nb2);
+		size_t	shortestSpan();
+		size_t	longestSpan();
 
 		// Exceptions
 		class InsufficientStorage : public std::exception
@@ -41,8 +42,8 @@ class Span
 		};
 
 	private:
-		T*	_array;
-		unsigned int	_nb;
+		std::vector<long>	_array;
+		size_t				_nb;
 };
 
 #endif
