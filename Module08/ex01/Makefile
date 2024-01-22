@@ -36,7 +36,18 @@ $(NAME): $(OBJ)
 -include $(DEPS)
 
 $(OBJ) : $(OBJ_DIR)/%.o: %.cpp | dir
-	@$(CC) $(FLAGS) $(DFLAGS) $(\n\033[0m object files...\n"$(END)
+	@$(CC) $(FLAGS) $(DFLAGS) $(INCLUDES) -c $< -o $@
+	@mv $(basename $@).d $(DEPS_DIR)/$(notdir $(basename $@)).d && touch $@
+	@$(call PROGRESS_BAR, $(basename $(notdir $<)))
+
+dir: $(OBJ_DIR)
+
+$(OBJ_DIR):
+	@mkdir $(OBJ_DIR)
+	@mkdir $(DEPS_DIR)
+
+clean:
+	@echo $(ORANGE)"\nRemoving .o object files...\n"$(END)
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
