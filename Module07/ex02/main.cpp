@@ -3,8 +3,6 @@
 int	main()
 {
 	std::cout << std::endl << "\033[34m========== INT TESTS ==========\033[0m" << std::endl << std::endl;
-
-	std::cout << "\033[34mInt Constructors\033[0m" << std::endl;
 	Array<int>		array1;
 	Array<int>		array2(3);
 	Array<int>		array3(array2);
