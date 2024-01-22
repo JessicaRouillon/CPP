@@ -11,9 +11,19 @@ void	iter(T* array, const size_t len, void(*function)(T &))
 }
 
 template <typename T>
-void	print(T& instance)
+void	iter(const T* array, const size_t len, void(*function)(const T &))
 {
-	std::cout << instance << std::endl;
+	for(size_t i = 0; i < len; i++)
+		function(array[i]);
 }
+
+
+// Uncomment if using main.cpp
+
+// template <typename T>
+// void	print(T& instance)
+// {
+// 	std::cout << instance << std::endl;
+// }
 
 #endif
