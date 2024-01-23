@@ -5,6 +5,8 @@
 # include <algorithm>
 # include <vector>
 # include <limits>
+# include <cstdlib>
+# include <ctime>
 
 class Span
 {
@@ -20,7 +22,7 @@ class Span
 
 		// Member functions
 		void	addNumber(const int n);
-		size_t	getSpan(const size_t nb1, const size_t nb2);
+		size_t	getSpan(const long nb1, const long nb2);
 		size_t	shortestSpan();
 		size_t	longestSpan();
 

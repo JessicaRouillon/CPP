@@ -52,5 +52,6 @@ int	main()
 	easyfind(b, 7);
 	easyfind(b, -1);
 	easyfind(b, 42);
+
 	return (0);
 }
