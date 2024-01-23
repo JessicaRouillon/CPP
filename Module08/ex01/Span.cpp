@@ -28,6 +28,8 @@ void	Span::addNumber(const int n)
 
 size_t	Span::getSpan(const long nb1, const long nb2)
 {
+	// std::cout << "nb1 = " << nb1;
+	// std::cout << "  /   nb2 = " << nb2 << std::endl;
 	if (nb1 > nb2)
 		return (nb1 - nb2);
 	else
@@ -42,9 +44,13 @@ size_t	Span::shortestSpan()
 	size_t	shortest = std::numeric_limits<unsigned long>::max();
 	for (size_t i = 1; i < _array.size(); i++)
 	{
-		size_t	span = getSpan(_array[i], _array[i - 1]);
-		if (shortest > span)
-			shortest = span;
+		for (size_t	k = 0; k < _array.size() - 1; k++)
+		{
+			size_t	span = getSpan(_array[i], _array[k]);
+			if (shortest > span && span != 0)
+				shortest = span;
+		}
+		
 	}
 	return (shortest);
 }
@@ -57,9 +63,12 @@ size_t	Span::longestSpan()
 	size_t	longest = std::numeric_limits<unsigned long>::min();
 	for (size_t i = 1; i < _array.size(); i++)
 	{
-		size_t	span = getSpan(_array[i], _array[i - 1]);
-		if (span > longest)
+		for (size_t	k = 0; k < _array.size() - 1; k++)
+		{
+			size_t	span = getSpan(_array[i], _array[k]);
+		if (span > longest && span != 0)
 			longest = span;
+		}
 	}
 	return (longest);
 }

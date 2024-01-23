@@ -6,7 +6,10 @@
 # include <vector>
 # include <limits>
 # include <cstdlib>
-# include <ctime>
+
+#ifndef PRINT
+# define PRINT false
+#endif
 
 class Span
 {
@@ -20,6 +23,10 @@ class Span
 		Span(const Span& copy) { *this = copy; }
 		Span& operator=(const Span& src);
 
+		// Getters
+		size_t				getNumber() const { return (_nb); }
+		std::vector<long>	getArray() const { return (_array); }
+
 		// Member functions
 		void	addNumber(const int n);
 		size_t	getSpan(const long nb1, const long nb2);
@@ -31,7 +38,7 @@ class Span
 		{
 			public :
 				const char* what() const throw() {
-					return ("\033[0;31mError: Not enough storage to add a number.\n\033[0m");
+					return ("\033[0;31mError: Not enough storage to add a number.\033[0m");
 				}
 		};
 
@@ -39,7 +46,7 @@ class Span
 		{
 			public :
 				const char* what() const throw() {
-					return ("\033[0;31mError: Cannot find shortest/longest span. Check that you have more than one number in span.\n\033[0m");
+					return ("\033[0;31mError: Check that you have more than one number in span.\033[0m");
 				}
 		};
 
