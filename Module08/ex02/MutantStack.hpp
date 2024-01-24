@@ -4,6 +4,7 @@
 # include <iostream>
 # include <stack>
 # include <list>
+# include <vector>
 
 template <typename T>
 
@@ -13,9 +14,7 @@ class MutantStack : public std::stack<T>
 	public:
 		// Orthodox Canonical Form
 		MutantStack() {}
-		MutantStack(const MutantStack& copy) {
-			this = &copy;
-			return *this; }
+		MutantStack(const MutantStack& copy) { *this = copy; }
 		~MutantStack() {}
 
 		MutantStack& operator=(const MutantStack& src) {
