@@ -148,11 +148,7 @@ int main()
 
 	Span sp4 = Span(100);
 
-	for (size_t i = 0; i < sp4.getNumber(); i++)
-	{
-		long randValue = static_cast<long>(std::rand());
-		sp4.addNumber(randValue);
-	}
+	sp4.addManyNumbers();
 
 	if (PRINT == true)
 		printNumbers(sp4);
@@ -179,16 +175,11 @@ int main()
 
 	/**********************************************************************************************************/
 
-	std::cout << "\033[34m====== Test avec 10.000 RANDOM =======\033[0m" << std::endl
-			  << std::endl;
+	std::cout << "\033[34m====== Test avec 10.000 RANDOM =======\033[0m" << std::endl << std::endl;
 
 	Span sp5 = Span(10000);
 
-	for (size_t i = 0; i < sp5.getNumber(); i++)
-	{
-		long randValue = static_cast<long>(std::rand());
-		sp5.addNumber(randValue);
-	}
+	sp5.addManyNumbers();
 
 	if (PRINT == true)
 		printNumbers(sp5);

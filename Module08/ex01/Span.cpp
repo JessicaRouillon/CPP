@@ -22,14 +22,29 @@ void	Span::addNumber(const int n)
 {
 	if (_array.size() >= _nb)
 		throw (Span::InsufficientStorage());
-	else
-		_array.push_back(n);
+	_array.push_back(n);
+}
+
+void	Span::addManyNumbers()
+{
+	if (_array.size() >= _nb)
+		throw (Span::InsufficientStorage());
+	try
+	{
+		for (size_t i = 0; i < this->getNumber(); i++)
+		{
+			long randValue = static_cast<long>(std::rand());
+			this->addNumber(randValue);
+		}
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 }
 
 size_t	Span::getSpan(const long nb1, const long nb2)
 {
-	// std::cout << "nb1 = " << nb1;
-	// std::cout << "  /   nb2 = " << nb2 << std::endl;
 	if (nb1 > nb2)
 		return (nb1 - nb2);
 	else
