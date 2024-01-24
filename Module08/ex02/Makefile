@@ -1,6 +1,6 @@
 ##################################### VARIABLES #####################################
 
-PROJECT_NAME	= mutantstack
+PROJECT_NAME	= containers
 NAME			= ./$(PROJECT_NAME)
 CC				= c++
 FLAGS			= -Wall -Wextra -Werror -std=c++98
@@ -18,7 +18,7 @@ SRC			+= main.cpp
 OBJ_DIR		= ./obj
 OBJ			= $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRC))
 
-##################################### BUILD #####################################
+##################################### BUILD ######################################
 
 DEPS_DIR = $(OBJ_DIR)/.deps
 DEPS = $(SRC:%.cpp=$(DEPS_DIR)/%.d)
