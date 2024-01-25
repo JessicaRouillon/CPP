@@ -1,6 +1,6 @@
 ##################################### VARIABLES #####################################
 
-PROJECT_NAME	= easyfind
+PROJECT_NAME	= containers
 NAME			= ./$(PROJECT_NAME)
 CC				= c++
 FLAGS			= -Wall -Wextra -Werror -std=c++98
