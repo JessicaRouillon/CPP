@@ -14,8 +14,7 @@ static void printNumbers(Span &span)
 
 int main()
 {
-	std::cout << "\033[34m=========== Test du Sujet ===========\033[0m" << std::endl
-			  << std::endl;
+	std::cout << "\033[34m=========== Test du Sujet ===========\033[0m" << std::endl << std::endl;
 
 	Span sp1 = Span(5);
 
@@ -57,8 +56,7 @@ int main()
 
 	/**********************************************************************************************************/
 
-	std::cout << "\033[34m========= Test dans l'ordre =========\033[0m" << std::endl
-			  << std::endl;
+	std::cout << "\033[34m========= Test dans l'ordre =========\033[0m" << std::endl << std::endl;
 
 	Span sp2 = Span(5);
 
@@ -100,8 +98,7 @@ int main()
 
 	/**********************************************************************************************************/
 
-	std::cout << "\033[34m========= Test avec Négatif ==========\033[0m" << std::endl
-			  << std::endl;
+	std::cout << "\033[34m========= Test avec Négatif ==========\033[0m" << std::endl << std::endl;
 
 	Span sp3 = Span(5);
 
@@ -143,15 +140,11 @@ int main()
 
 	/**********************************************************************************************************/
 
-	std::cout << "\033[34m======== Test avec 100 RANDOM ========\033[0m" << std::endl
-			  << std::endl;
+	std::cout << "\033[34m======== Test avec 100 RANDOM ========\033[0m" << std::endl << std::endl;
 
 	Span sp4 = Span(100);
 
 	sp4.addManyNumbers();
-
-	if (PRINT == true)
-		printNumbers(sp4);
 
 	try
 	{
@@ -181,9 +174,6 @@ int main()
 
 	sp5.addManyNumbers();
 
-	if (PRINT == true)
-		printNumbers(sp5);
-
 	try
 	{
 		size_t shortest = sp5.shortestSpan();
@@ -206,8 +196,7 @@ int main()
 
 	/**********************************************************************************************************/
 
-	std::cout << "\033[34m=========== Test un nombre ===========\033[0m" << std::endl
-			  << std::endl;
+	std::cout << "\033[34m=========== Test un nombre ===========\033[0m" << std::endl << std::endl;
 
 	Span sp6 = Span(1);
 
@@ -245,8 +234,7 @@ int main()
 
 	/**********************************************************************************************************/
 
-	std::cout << "\033[34m=========== Test aucun nombre ===========\033[0m" << std::endl
-			  << std::endl;
+	std::cout << "\033[34m=========== Test aucun nombre ===========\033[0m" << std::endl << std::endl;
 
 	Span sp7 = Span();
 
@@ -284,8 +272,7 @@ int main()
 
 	/**********************************************************************************************************/
 
-	std::cout << "\033[34m=========== Test overflow ===========\033[0m" << std::endl
-			  << std::endl;
+	std::cout << "\033[34m=========== Test overflow ===========\033[0m" << std::endl << std::endl;
 
 	Span sp8 = Span(3);
 
