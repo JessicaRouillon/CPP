@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream> // ifstream, ofstream
+#include <string> // getline
 #include <map>
 
 # define DATA	"data.csv"
@@ -26,7 +27,7 @@ public:
 	// Getters
 	std::string						getInputFile() const { return (_inputFile); }
 	std::map<std::string, float>	getMyBitcoins() const { return (_myBitcoins); }
-	std::map<std::string, float>	getRates() const { return (_rates); }
+	// std::map<std::string, float>	getRates() const { return (_rates); }
 
 	// Exceptions
 	class InvalidNumberArgs : public std::exception
@@ -38,7 +39,8 @@ public:
 private:
 	std::string 					_inputFile;
 	std::map<std::string, float>	_myBitcoins;
-	std::map<std::string, float>	_rates;
+	std::string						_output;
+	// std::map<std::string, float>	_rates;
 };
 
 #endif

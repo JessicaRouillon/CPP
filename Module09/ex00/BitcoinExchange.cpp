@@ -38,12 +38,19 @@ BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange& src)
 
 std::map<std::string, float>	BitcoinExchange::setMyBitcoins(std::string const& inputfile)
 {
-	std::ifstream		input(this->getInputFile().c_str());
+	std::map<std::string, float>	res;
+	std::ifstream					input(this->getInputFile().c_str());
 
-	input.seekg(0, std::ios::end);					   // seekg moves the pointer to the end of the file
+	input.seekg(0, std::ios::end); // seekg moves the pointer to the end of the file
 	if (input.is_open() == true && input.tellg() != 0) // Check if file can be opened and where file pointer position is
 	{
 		input.seekg(0, std::ios::beg); // move the pointer back to the start of the file
-		
+
+		std::string	buffer;
+		char		delimiter = '|';
+		while (std::getline(input, buffer, delimiter));
+		{
+			
+		}
 	}
 }
