@@ -34,7 +34,7 @@ void	Span::addManyNumbers()
 		for (size_t i = 0; i < this->getNumber(); i++)
 		{
 			long randValue = static_cast<long>(std::rand());
-			this->addNumber(randValue);
+			_array.push_back(randValue);
 		}
 	}
 	catch(const std::exception& e)
