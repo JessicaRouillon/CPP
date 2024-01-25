@@ -1,12 +1,17 @@
 #include "BitcoinExchange.hpp"
 
-int	main(int ac, char **av)
+int main(int ac, char **av)
 {
-	if (ac == 2)
+	try
 	{
-		std::ifstream	inputfile = ;
-		return (EXIT_SUCCESS);
+		if (ac != 2)
+			BitcoinExchange	obj("", DATA);
+		else
+			BitcoinExchange	obj(av[1], DATA);
 	}
-	std::cout << RED << "Error: Invalid number of arguments." << NC << std::endl;
-	return (EXIT_FAILURE);
+	catch(const std::exception& e)
+	{
+		std::cerr << RED << "Error: " << e.what() << NC << std::endl;
+	}
+	return (0);
 }
