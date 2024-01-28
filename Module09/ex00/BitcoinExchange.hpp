@@ -2,6 +2,7 @@
 #define BITCOINEXCHANGE_HPP
 
 #include <iostream>
+// #include <cstdlib>
 #include <fstream> // ifstream, ofstream
 #include <string> // getline
 #include <map>
@@ -15,19 +16,28 @@ class BitcoinExchange
 
 public:
 	// Orthodox Canonical Form
-	BitcoinExchange(std::string const inputfile, std::string const datafile);
+	BitcoinExchange(std::string const inputfile);
 	BitcoinExchange(const BitcoinExchange &copy);
 	~BitcoinExchange(){};
 
 	BitcoinExchange &operator=(const BitcoinExchange &src);
 
 	// Setters
-	std::map<std::string, float>	setMyBitcoins(std::string const& inputfile);
+	std::map<std::string, std::string>	setData();
+	std::map<std::string, std::string>	setOutput(const std::string& inputfile);
 
 	// Getters
-	std::string						getInputFile() const { return (_inputFile); }
-	std::map<std::string, float>	getMyBitcoins() const { return (_myBitcoins); }
-	// std::map<std::string, float>	getRates() const { return (_rates); }
+	std::map<std::string, std::string>	getData() const { return (_data); }
+	std::map<std::string, std::string>	getOutput() const { return (_output); }
+
+
+private:
+	std::map<std::string, std::string>	_data;
+	std::map<std::string, std::string>	_output;
+
+	// Functions
+	void	printData(const std::map<std::string, std::string>& data);
+	void	printOutput(const std::map<std::string, std::string>& output);
 
 	// Exceptions
 	class InvalidNumberArgs : public std::exception
@@ -36,11 +46,29 @@ public:
 			const char*	what() const throw() { return ("\033[0;31mError: Invalid number of arguments.\033[0m"); }
 	};
 
-private:
-	std::string 					_inputFile;
-	std::map<std::string, float>	_myBitcoins;
-	std::string						_output;
-	// std::map<std::string, float>	_rates;
+	class CannotOpenFile : public std::exception
+	{
+		public:
+			const char*	what() const throw() { return ("\033[0;31mError: File could not be opened.\033[0m"); }
+	};
+
+	class EmptyFile : public std::exception
+	{
+		public:
+			const char*	what() const throw() { return ("\033[0;31mError: File is empty.\033[0m"); }
+	};
+
+	class WrongFormat : public std::exception
+	{
+		public:
+			const char*	what() const throw() { return ("\033[0;31mError: File format is wrong.\033[0m"); }
+	};
+
+	class CannotCloseFile : public std::exception
+	{
+		public:
+			const char*	what() const throw() { return ("\033[0;31mError: File could not be closed.\033[0m"); }
+	};
 };
 
 #endif
