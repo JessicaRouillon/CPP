@@ -2,8 +2,9 @@
 #define BITCOINEXCHANGE_HPP
 
 #include <iostream>
-// #include <cstdlib>
+#include <cstdlib> // atoi
 #include <fstream> // ifstream, ofstream
+// #include <sstream> // convert to int
 #include <string> // getline
 #include <map>
 
@@ -35,9 +36,11 @@ private:
 	std::map<std::string, std::string>	_data;
 	std::map<std::string, std::string>	_output;
 
-	// Functions
-	void	printData(const std::map<std::string, std::string>& data);
-	void	printOutput(const std::map<std::string, std::string>& output);
+	// Utility Functions
+	void		printData(const std::map<std::string, std::string>& data);
+	void		printOutput(const std::map<std::string, std::string>& output);
+	bool		isDateValid(const std::string& date);
+	bool		isValueValid(const std::string& value);
 
 	// Exceptions
 	class InvalidNumberArgs : public std::exception
@@ -68,6 +71,24 @@ private:
 	{
 		public:
 			const char*	what() const throw() { return ("\033[0;31mError: File could not be closed.\033[0m"); }
+	};
+
+	class BadFileInput : public std::exception
+	{
+		public:
+			const char*	what() const throw() { return ("\033[0;31mError: Bad file input.\033[0m"); }
+	};
+
+	class BadDate : public std::exception
+	{
+		public:
+			const char*	what() const throw() { return ("\033[0;31mError: Bad file input.\033[0m"); }
+	};
+
+	class BadValue : public std::exception
+	{
+		public:
+			const char*	what() const throw() { return ("\033[0;31mError: Bad value input.\033[0m"); }
 	};
 };
 

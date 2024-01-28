@@ -80,8 +80,17 @@ std::map<std::string, std::string>	BitcoinExchange::setData()
 	while (std::getline(datafile, line))
 	{
 		delimiter = line.find(',');
+		if (delimiter == std::string::npos)
+			throw(BitcoinExchange::BadFileInput());
+
 		date = line.substr(0, delimiter);
+		if (isDateValid(date) == false)
+			throw(BitcoinExchange::BadDate());
+
 		value = line.substr(delimiter + 1);
+		if (isValueValid(value) == false)
+			throw(BitcoinExchange::BadValue());
+
 		res.insert(std::make_pair(date, value));
 	}
 
@@ -120,20 +129,23 @@ std::map<std::string, std::string>	BitcoinExchange::setOutput(const std::string&
 	size_t			delimiter;
 	std::string		date;
 	std::string		value;
-	size_t i = 0;
 	std::map<std::string, std::string>	res;
 
 	while (std::getline(input, line))
 	{
 		delimiter = line.find('|');
+		if (delimiter == std::string::npos)
+			throw(BitcoinExchange::BadFileInput());
+
 		date = line.substr(0, delimiter - 1);
-		std::cout << i << "/" << std::endl;
+		if (isDateValid(date) == false)
+			throw(BitcoinExchange::BadDate());
+
 		value = line.substr(delimiter + 2);
-		std::cout << date << ": " << value << std::endl << std::endl;
+		if (isValueValid(value) == false)
+			throw(BitcoinExchange::BadValue());
+
 		res.insert(std::make_pair(date, value));
-		printOutput(res);
-		std::cout << std::endl;
-		i++;
 	}
 
 	// printOutput(res);
@@ -144,6 +156,11 @@ std::map<std::string, std::string>	BitcoinExchange::setOutput(const std::string&
 	return (res);
 }
 
+
+
+/********************************************************************************/
+/***************************** UTILITY FUNCTIONS ********************************/
+/********************************************************************************/
 
 void	BitcoinExchange::printData(const std::map<std::string, std::string>& data)
 {
@@ -163,4 +180,40 @@ void	BitcoinExchange::printOutput(const std::map<std::string, std::string>& outp
 	{
 		std::cout << it->first << ": " << it->second << std::endl;
 	}
+}
+
+bool	BitcoinExchange::isDateValid(const std::string& date)
+{
+	if (date.length() != 10)
+		return (false);
+	
+	if (date[4] != '-' || date[7] != '-')
+		return (false);
+	
+	std::string	year = date.substr(0, 4);
+	std::string	month = date.substr(5, 2);
+	std::string	day = date.substr(8, 2);
+
+	// check if digits only
+
+	int 	intYear = atoi(year.c_str());
+	int 	intMonth = atoi(month.c_str());
+	int 	intDay = atoi(day.c_str());
+
+	if (intYear < 2009 || intYear > 2022)
+		return (false);
+	if (intMonth < 1 || intMonth > 12)
+		return (false);
+	if (intDay < 1 || intDay > 31)
+		return (false);
+
+	
+
+
+	// check the dates for the specific months (february, 30 or 31)
+}
+
+bool	BitcoinExchange::isValueValid(const std::string& value)
+{
+	
 }
