@@ -9,7 +9,6 @@ BitcoinExchange::BitcoinExchange()
 	try
 	{
 		_data = setData();
-		// _output = setOutput(inputfile);
 	}
 	catch(const std::exception& e)
 	{
@@ -20,17 +19,13 @@ BitcoinExchange::BitcoinExchange()
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& copy)
 {
 	_data = copy.getData();
-	// _output = copy.getOutput();
 	*this = copy;
 }
 
 BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange& src)
 {
 	if (this != &src)
-	{
 		_data = src.getData();
-		// _output = src.getOutput();
-	}
 	return (*this);
 }
 
@@ -38,27 +33,6 @@ BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange& src)
 /********************************************************************************/
 /***************************** UTILITY FUNCTIONS ********************************/
 /********************************************************************************/
-
-void	BitcoinExchange::printData(const std::map<std::string, std::string>& data)
-{
-	std::cout << "data.csv" << std::endl;
-	std::map<std::string, std::string>::const_iterator it;
-	for (it = data.begin(); it != data.end(); ++it)
-	{
-		std::cout << it->first << ": " << it->second << std::endl;
-	}
-}
-
-// void	BitcoinExchange::printOutput(const std::map<std::string, std::string>& output)
-// {
-// 	std::cout << "input.txt" << std::endl;
-// 	std::map<std::string, std::string>::const_iterator it;
-// 	for (it = output.begin(); it != output.end(); ++it)
-// 	{
-// 		std::cout << it->first << ": " << it->second << std::endl;
-// 	}
-// }
-
 
 
 static bool		isLeapYear(const int& year)
@@ -96,6 +70,8 @@ static bool		ft_isDigit(const std::string& str, const int type)
 			it++;
 		for (; it < str.end(); it++)
 		{
+			if (isdigit(*it) == false && *it != '-' && *it != '+' && *it != '.')
+				return (false);
 			if (*it == '-' || *it == '+')
 				return (false);
 			if (isdigit(*it) == false && flag == 1)
@@ -156,18 +132,12 @@ bool	BitcoinExchange::isValueValid(const std::string& value)
 
 
 
-// static double		finalValue(const std::string& datavalue, const std::string& inputvalue)
-// {
-// 	return
-	
-// }
-
-
 /********************************************************************************/
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
-// Setters
+
+
 
 std::map<std::string, std::string>	BitcoinExchange::setData()
 {
@@ -186,7 +156,7 @@ std::map<std::string, std::string>	BitcoinExchange::setData()
 		datafile.seekg(0, std::ios::beg); // move the pointer back to the start of the file
 
 	std::getline(datafile, line);
-	
+
 	if (line != "date,exchange_rate")
 		throw (BitcoinExchange::WrongFormat());
 
@@ -207,17 +177,15 @@ std::map<std::string, std::string>	BitcoinExchange::setData()
 			throw(BitcoinExchange::BadFileInput());
 
 		date = line.substr(0, delimiter);
-		if (isDateValid(date) == false)
+		if (date.empty() || isDateValid(date) == false)
 			throw(BitcoinExchange::BadDate());
 
 		value = line.substr(delimiter + 1);
-		if (isValueValid(value) == false)
+		if (value.empty() || isValueValid(value) == false)
 			throw(BitcoinExchange::BadValue());
 
 		res.insert(std::make_pair(date, value));
 	}
-
-	// printData(res);
 
 	/***************************** CLOSE FILE *****************************/
 
@@ -320,23 +288,37 @@ void	BitcoinExchange::execute(const std::string& inputfile)
 	std::string		dataValue;
 	double			final;
 
-	std::cout << "date       | value" << std::endl;
+	std::cout << "DATE       | VALUE" << std::endl;
+	std::cout << "----------------------------" << std::endl;
 	while (std::getline(input, line))
 	{
 		if (*line.begin() == '\n')
-			throw(BitcoinExchange::BadFileInput());
+		{
+			std::cout << RED << "Error: Newline" << NC << std::endl;
+			continue;
+		}
 
 		delimiter = line.find('|');
 		if (delimiter == std::string::npos)
-			throw(BitcoinExchange::BadFileInput());
+		{
+			std::cout << RED << "Error: No separator" << NC << std::endl;
+			continue;
+		}
 
 		date = line.substr(0, delimiter - 1);
 		if (isDateValid(date) == false)
-			throw(BitcoinExchange::BadDate());
+		{
+			std::cout << RED << "Error: Bad input => " << date << NC << std::endl;
+			continue;
+		}
 
-		value = line.substr(delimiter + 2);
-		if (isValueValid(value) == false)
-			throw(BitcoinExchange::BadValue());
+		value = line.substr(delimiter + 1);
+		value.erase(std::remove_if(value.begin(), value.end(), ::isspace), value.end());
+		if (value.empty() || isValueValid(value) == false)
+		{
+			std::cout << RED << "Error: Bad value input" << NC << std::endl;
+			continue;
+		}
 
 		dataValue = getDataValue(date);
 		final = strtod(dataValue.c_str(), NULL) * strtod(value.c_str(), NULL);
@@ -350,66 +332,3 @@ void	BitcoinExchange::execute(const std::string& inputfile)
 	}
 	input.close();
 }
-
-
-
-
-
-// std::map<std::string, std::string>	BitcoinExchange::setOutput(const std::string& inputfile)
-// {
-// 	/***************************** VERIFY FILE *****************************/
-
-// 	std::ifstream	input(inputfile.c_str());
-// 	std::string		line;
-
-// 	input.seekg(0, std::ios::end); // seekg moves the pointer to the end of the file
-// 	if (input.is_open() == false)
-// 		throw (BitcoinExchange::CannotOpenFile());
-
-// 	if (input.tellg() == 0) // Check where file pointer position is
-// 		throw (BitcoinExchange::EmptyFile());
-// 	else
-// 		input.seekg(0, std::ios::beg); // move the pointer back to the start of the file
-
-// 	std::getline(input, line);
-	
-// 	if (line != "date | value")
-// 		throw (BitcoinExchange::WrongFormat());
-
-// 	/***************************** SET OUTPUT *****************************/
-
-// 	size_t			delimiter;
-// 	std::string		date;
-// 	std::string		value;
-// 	std::map<std::string, std::string>	res;
-
-// 	while (std::getline(input, line))
-// 	{
-// 		if (*line.begin() == '\n')
-// 			throw(BitcoinExchange::BadFileInput());
-
-// 		delimiter = line.find('|');
-// 		if (delimiter == std::string::npos)
-// 			throw(BitcoinExchange::BadFileInput());
-
-// 		date = line.substr(0, delimiter - 1);
-// 		if (isDateValid(date) == false)
-// 			throw(BitcoinExchange::BadDate());
-
-// 		value = line.substr(delimiter + 2);
-// 		if (isValueValid(value) == false)
-// 			throw(BitcoinExchange::BadValue());
-
-// 		res.insert(std::make_pair(date, value));
-// 	}
-
-// 	printOutput(res);
-
-// 	/***************************** CLOSE FILE *****************************/
-
-// 	input.close();
-// 	return (res);
-// }
-
-
-

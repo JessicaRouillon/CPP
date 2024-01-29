@@ -2,11 +2,13 @@
 #define BITCOINEXCHANGE_HPP
 
 #include <iostream>
+#include <algorithm> // remove_if
 # include <iomanip> // precision
 #include <cstdlib> // atoi
 #include <fstream> // ifstream, ofstream
 #include <sstream> // type conversion
 #include <string> // getline
+#include <cctype> // isspace
 #include <map>
 
 # define DATA	"data.csv"
@@ -26,22 +28,20 @@ public:
 
 	// Setters
 	std::map<std::string, std::string>	setData();
-	// std::map<std::string, std::string>	setOutput(const std::string& inputfile);
 
 	// Getters
 	std::map<std::string, std::string>	getData() const { return (_data); }
 	std::string							getDataValue(const std::string& date);
-	// std::map<std::string, std::string>	getOutput() const { return (_output); }
 
 	void	execute(const std::string& inputfile);
 
+
+
 private:
 	std::map<std::string, std::string>	_data;
-	std::map<std::string, std::string>	_output;
 
 	// Utility Functions
 	void		printData(const std::map<std::string, std::string>& data);
-	// void		printOutput(const std::map<std::string, std::string>& output);
 	bool		isDateValid(const std::string& date);
 	bool		isValueValid(const std::string& value);
 	std::string	findPreviousDate(const std::string& date);
@@ -56,9 +56,6 @@ private:
 	class WrongFormat : public std::exception {
 		const char*	what() const throw() { return ("\033[0;31mError: File format is wrong.\033[0m"); } };
 
-	class CannotCloseFile : public std::exception {
-		const char*	what() const throw() { return ("\033[0;31mError: File could not be closed.\033[0m"); } };
-
 	class BadFileInput : public std::exception {
 		const char*	what() const throw() { return ("\033[0;31mError: Bad file input.\033[0m"); } };
 
@@ -68,8 +65,6 @@ private:
 	class BadValue : public std::exception {
 		const char*	what() const throw() { return ("\033[0;31mError: Invalid value in file.\033[0m"); } };
 
-	class NegativeValue : public std::exception {
-		const char*	what() const throw() { return ("\033[0;31mError: Not a positive number.\033[0m"); } };
 };
 
 #endif
