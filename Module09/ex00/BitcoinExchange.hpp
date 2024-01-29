@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <algorithm> // remove_if
-# include <iomanip> // precision
+#include <iomanip> // precision
 #include <cstdlib> // atoi
 #include <fstream> // ifstream, ofstream
 #include <sstream> // type conversion
@@ -27,12 +27,9 @@ public:
 
 	BitcoinExchange &operator=(const BitcoinExchange &src);
 
-	// Setters
+	// Functions
 	std::map<std::string, std::string>	setData();
-
-	// Getters
 	std::map<std::string, std::string>	getData() const { return (_data); }
-	std::string							getDataValue(const std::string& date);
 
 	void	execute(const std::string& inputfile);
 
@@ -45,6 +42,7 @@ private:
 	void		printData(const std::map<std::string, std::string>& data);
 	bool		isDateValid(const std::string& date);
 	bool		isValueValid(const std::string& value);
+	std::string	getDataValue(const std::string& date);
 	std::string	findPreviousDate(const std::string& date);
 
 	// Exceptions
