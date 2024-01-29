@@ -34,6 +34,128 @@ BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange& src)
 	return (*this);
 }
 
+
+/********************************************************************************/
+/***************************** UTILITY FUNCTIONS ********************************/
+/********************************************************************************/
+
+void	BitcoinExchange::printData(const std::map<std::string, std::string>& data)
+{
+	std::cout << "data.csv" << std::endl;
+	std::map<std::string, std::string>::const_iterator it;
+	for (it = data.begin(); it != data.end(); ++it)
+	{
+		std::cout << it->first << ": " << it->second << std::endl;
+	}
+}
+
+// void	BitcoinExchange::printOutput(const std::map<std::string, std::string>& output)
+// {
+// 	std::cout << "input.txt" << std::endl;
+// 	std::map<std::string, std::string>::const_iterator it;
+// 	for (it = output.begin(); it != output.end(); ++it)
+// 	{
+// 		std::cout << it->first << ": " << it->second << std::endl;
+// 	}
+// }
+
+
+
+static bool		isLeapYear(const int& year)
+{
+	int		base;
+
+	for (base = 2012; base <= 2024; base += 4)
+	{
+		if (year == base)
+			return (true);
+	}
+	return (false);
+}
+
+
+
+static bool		ft_isDigit(const std::string& str, const int type)
+{
+	std::string::const_iterator	it;
+
+	if (type == 0)
+	{
+		for (it = str.begin(); it < str.end(); it++)
+		{
+			if (isdigit(*it) == false)
+				return (false);
+		}
+	}
+	else if (type == 1)
+	{
+		int		flag = 0;
+		it = str.begin();
+
+		if (*it == '-' || *it == '+')
+			it++;
+		for (; it < str.end(); it++)
+		{
+			if (*it == '-' || *it == '+')
+				return (false);
+			if (isdigit(*it) == false && flag == 1)
+				return (false);
+			else if (isdigit(*it) == false && *it == '.' && flag == 0)
+				flag = 1;
+		}
+	}
+	return (true);
+}
+
+
+
+bool	BitcoinExchange::isDateValid(const std::string& date)
+{
+	if (date.length() != 10)
+		return (false);
+	
+	if (date[4] != '-' || date[7] != '-')
+		return (false);
+	
+	std::string	year = date.substr(0, 4);
+	std::string	month = date.substr(5, 2);
+	std::string	day = date.substr(8, 2);
+
+	if (ft_isDigit(year, 0) == false || ft_isDigit(month, 0) == false || ft_isDigit(day, 0) == false)
+		return (false);
+
+	int 	intYear = atoi(year.c_str());
+	int 	intMonth = atoi(month.c_str());
+	int 	intDay = atoi(day.c_str());
+
+	if (intYear < 2009 || intYear > 2024)
+		return (false);
+	if (intMonth < 1 || intMonth > 12)
+		return (false);
+	if (intDay < 1 || intDay > 31)
+		return (false);
+
+	if ((intMonth == 4 || intMonth == 6 || intMonth == 9 || intMonth == 11) && intDay > 30 )
+		return (false);
+	if (intMonth == 2 && isLeapYear(intYear) == true && intDay > 29)
+		return (false);
+	if (intMonth == 2 && isLeapYear(intYear) == false && intDay > 28)
+		return (false);
+
+	return (true);
+}
+
+
+
+bool	BitcoinExchange::isValueValid(const std::string& value)
+{
+	if (ft_isDigit(value, 1) == false)
+		return (false);
+	return (true);
+}
+
+
+
 /********************************************************************************/
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
@@ -97,6 +219,59 @@ std::map<std::string, std::string>	BitcoinExchange::setData()
 }
 
 
+
+std::string		BitcoinExchange::findPreviousDate(const std::string& date)
+{
+	std::string	year = date.substr(0, 4);
+	std::string	month = date.substr(5, 2);
+	std::string	day = date.substr(8, 2);
+
+	int 	intYear = atoi(year.c_str());
+	int 	intMonth = atoi(month.c_str());
+	int 	intDay = atoi(day.c_str());
+
+	int		daysInMonths[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+	intDay -= 1;
+	if (intDay == 0)
+	{
+		intMonth -= 1;
+		if (intMonth == 0)
+		{
+			intMonth = 12;
+			intYear--;
+		}
+		if (isLeapYear(intYear) == true)
+			intDay = 29;
+		else
+			intDay = daysInMonths[intMonth - 1];
+	}
+
+	std::ostringstream ossDay;
+	std::ostringstream ossMonth;
+	std::ostringstream ossYear;
+
+	ossDay << intDay;
+	ossMonth << intMonth;
+	ossYear << intYear;
+
+	std::string	prevDay = ossDay.str();
+	std::string	prevMonth = ossMonth.str();
+	std::string	prevYear = ossYear.str();
+	std::string	res = prevYear + "-" + prevMonth + "-" + prevDay;
+
+	std::map<std::string, std::string>::const_iterator it;
+
+	it = this->_data.find(res);
+	if (it != this->_data.end())
+		return ((*it).first);
+	else
+		res = findPreviousDate(res);
+	return (res);
+}
+
+
+
 std::string		BitcoinExchange::getDataValue(const std::string& date)
 {
 	std::map<std::string, std::string>::const_iterator it;
@@ -104,11 +279,15 @@ std::string		BitcoinExchange::getDataValue(const std::string& date)
 	it = this->_data.find(date);
 	if (it != this->_data.end())
 		return ((*it).second);
-	else // find closest date before
+	else
 	{
-
+		std::string	prevDate = this->findPreviousDate(date);
+		while (it == this->_data.end())
+			date = prevDate;
 	}
+	
 }
+
 
 
 void	BitcoinExchange::execute(const std::string& inputfile)
@@ -222,113 +401,3 @@ void	BitcoinExchange::execute(const std::string& inputfile)
 
 
 
-/********************************************************************************/
-/***************************** UTILITY FUNCTIONS ********************************/
-/********************************************************************************/
-
-void	BitcoinExchange::printData(const std::map<std::string, std::string>& data)
-{
-	std::cout << "data.csv" << std::endl;
-	std::map<std::string, std::string>::const_iterator it;
-	for (it = data.begin(); it != data.end(); ++it)
-	{
-		std::cout << it->first << ": " << it->second << std::endl;
-	}
-}
-
-// void	BitcoinExchange::printOutput(const std::map<std::string, std::string>& output)
-// {
-// 	std::cout << "input.txt" << std::endl;
-// 	std::map<std::string, std::string>::const_iterator it;
-// 	for (it = output.begin(); it != output.end(); ++it)
-// 	{
-// 		std::cout << it->first << ": " << it->second << std::endl;
-// 	}
-// }
-
-static bool		isLeapYear(const int& year)
-{
-	int		base;
-
-	for (base = 2012; base <= 2024; base += 4)
-	{
-		if (year == base)
-			return (true);
-	}
-	return (false);
-}
-
-static bool		ft_isDigit(const std::string& str, const int type)
-{
-	std::string::const_iterator	it;
-
-	if (type == 0)
-	{
-		for (it = str.begin(); it < str.end(); it++)
-		{
-			if (isdigit(*it) == false)
-				return (false);
-		}
-	}
-	else if (type == 1)
-	{
-		int		flag = 0;
-		it = str.begin();
-
-		if (*it == '-' || *it == '+')
-			it++;
-		for (; it < str.end(); it++)
-		{
-			if (*it == '-' || *it == '+')
-				return (false);
-			if (isdigit(*it) == false && flag == 1)
-				return (false);
-			else if (isdigit(*it) == false && *it == '.' && flag == 0)
-				flag = 1;
-		}
-	}
-	return (true);
-}
-
-bool	BitcoinExchange::isDateValid(const std::string& date)
-{
-	if (date.length() != 10)
-		return (false);
-	
-	if (date[4] != '-' || date[7] != '-')
-		return (false);
-	
-	std::string	year = date.substr(0, 4);
-	std::string	month = date.substr(5, 2);
-	std::string	day = date.substr(8, 2);
-
-	if (ft_isDigit(year, 0) == false || ft_isDigit(month, 0) == false || ft_isDigit(day, 0) == false)
-		return (false);
-
-	int 	intYear = atoi(year.c_str());
-	int 	intMonth = atoi(month.c_str());
-	int 	intDay = atoi(day.c_str());
-
-	if (intYear < 2009 || intYear > 2024)
-		return (false);
-	if (intMonth < 1 || intMonth > 12)
-		return (false);
-	if (intDay < 1 || intDay > 31)
-		return (false);
-
-	if ((intMonth == 4 || intMonth == 6 || intMonth == 9 || intMonth == 11) && intDay > 30 )
-		return (false);
-	if (intMonth == 2 && isLeapYear(intYear) == true && intDay > 29)
-		return (false);
-	if (intMonth == 2 && isLeapYear(intYear) == false && intDay > 28)
-		return (false);
-
-	return (true);
-}
-
-bool	BitcoinExchange::isValueValid(const std::string& value)
-{
-	if (ft_isDigit(value, 1) == false)
-		return (false);
-	return (true);
-}

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstdlib> // atoi
 #include <fstream> // ifstream, ofstream
+#include <sstream> // type conversion
 #include <string> // getline
 #include <map>
 
@@ -42,6 +43,7 @@ private:
 	// void		printOutput(const std::map<std::string, std::string>& output);
 	bool		isDateValid(const std::string& date);
 	bool		isValueValid(const std::string& value);
+	std::string	findPreviousDate(const std::string& date);
 
 	// Exceptions
 	class CannotOpenFile : public std::exception {
