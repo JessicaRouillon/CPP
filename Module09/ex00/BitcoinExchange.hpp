@@ -2,6 +2,7 @@
 #define BITCOINEXCHANGE_HPP
 
 #include <iostream>
+# include <iomanip> // precision
 #include <cstdlib> // atoi
 #include <fstream> // ifstream, ofstream
 #include <sstream> // type conversion
@@ -66,6 +67,9 @@ private:
 
 	class BadValue : public std::exception {
 		const char*	what() const throw() { return ("\033[0;31mError: Invalid value in file.\033[0m"); } };
+
+	class NegativeValue : public std::exception {
+		const char*	what() const throw() { return ("\033[0;31mError: Not a positive number.\033[0m"); } };
 };
 
 #endif

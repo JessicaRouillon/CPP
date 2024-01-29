@@ -156,6 +156,13 @@ bool	BitcoinExchange::isValueValid(const std::string& value)
 
 
 
+// static double		finalValue(const std::string& datavalue, const std::string& inputvalue)
+// {
+// 	return
+	
+// }
+
+
 /********************************************************************************/
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
@@ -255,19 +262,11 @@ std::string		BitcoinExchange::findPreviousDate(const std::string& date)
 	ossMonth << intMonth;
 	ossYear << intYear;
 
-	std::string	prevDay = ossDay.str();
-	std::string	prevMonth = ossMonth.str();
+	std::string	prevDay = (intDay < 10) ? "0" + ossDay.str(): ossDay.str();
+	std::string	prevMonth = (intMonth < 10) ? "0" + ossMonth.str(): ossMonth.str();
 	std::string	prevYear = ossYear.str();
-	std::string	res = prevYear + "-" + prevMonth + "-" + prevDay;
 
-	std::map<std::string, std::string>::const_iterator it;
-
-	it = this->_data.find(res);
-	if (it != this->_data.end())
-		return ((*it).first);
-	else
-		res = findPreviousDate(res);
-	return (res);
+	return (prevYear + "-" + prevMonth + "-" + prevDay);
 }
 
 
@@ -275,17 +274,19 @@ std::string		BitcoinExchange::findPreviousDate(const std::string& date)
 std::string		BitcoinExchange::getDataValue(const std::string& date)
 {
 	std::map<std::string, std::string>::const_iterator it;
-	
+	std::string		res;
+
 	it = this->_data.find(date);
 	if (it != this->_data.end())
+	{
 		return ((*it).second);
+	}
 	else
 	{
 		std::string	prevDate = this->findPreviousDate(date);
-		while (it == this->_data.end())
-			date = prevDate;
+		res = getDataValue(prevDate);
+		return (res);
 	}
-	
 }
 
 
@@ -317,7 +318,9 @@ void	BitcoinExchange::execute(const std::string& inputfile)
 	std::string		date;
 	std::string		value;
 	std::string		dataValue;
+	double			final;
 
+	std::cout << "date       | value" << std::endl;
 	while (std::getline(input, line))
 	{
 		if (*line.begin() == '\n')
@@ -336,7 +339,16 @@ void	BitcoinExchange::execute(const std::string& inputfile)
 			throw(BitcoinExchange::BadValue());
 
 		dataValue = getDataValue(date);
+		final = strtod(dataValue.c_str(), NULL) * strtod(value.c_str(), NULL);
+		if (final < 0)
+			std::cout << RED << "Error: Not a positive number" << NC << std::endl;
+		else
+		{
+			std::cout << line << " * " << dataValue << " = ";
+			std::cout << std::fixed << std::setprecision(2)	<< final << std::endl;
+		}
 	}
+	input.close();
 }
 
 
