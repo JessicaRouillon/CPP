@@ -324,6 +324,8 @@ void	BitcoinExchange::execute(const std::string& inputfile)
 		final = strtod(dataValue.c_str(), NULL) * strtod(value.c_str(), NULL);
 		if (final < 0)
 			std::cout << RED << "Error: Not a positive number" << NC << std::endl;
+		else if (final > std::numeric_limits<int>::max())
+			std::cout << RED << "Error: Number too big" << NC << std::endl;
 		else
 		{
 			std::cout << line << " * " << dataValue << " = ";

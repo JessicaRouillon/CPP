@@ -9,6 +9,7 @@
 #include <sstream> // type conversion
 #include <string> // getline
 #include <cctype> // isspace
+#include <limits>
 #include <map>
 
 # define DATA	"data.csv"
