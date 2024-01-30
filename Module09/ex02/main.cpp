@@ -1,6 +1,7 @@
 #include "PmergeMe.hpp"
 
-/* STD::VECTOR >> main_chain
+/*
+	STD::VECTOR >> main_chain
 	- Insertions and deletions at the end are efficient (middle and beginning not so much)
 
 	STD::DEQUE >> store b numbers
