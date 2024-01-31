@@ -21,14 +21,11 @@ public:
 	PMergeMe(const PMergeMe &copy) { *this = copy; };
 	~PMergeMe(){};
 
-	PMergeMe &operator=(const PMergeMe &src)
-	{
-		if (this != &src)
-			*this = src;
-		return (*this);
-	};
+	PMergeMe &operator=(const PMergeMe &src);
 
-	bool isValidInput(const int ac, const char **av);
+
+	bool	isValidInput(const int ac, const char **av);
+	void	sort(const int ac,  const char **av);
 
 private:
 

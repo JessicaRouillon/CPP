@@ -29,7 +29,7 @@ int main(int ac, char **av)
 			std::cout << RED << "Error: invalid input" << NC << std::endl;
 			return (EXIT_FAILURE);
 		}
-
+		obj.sort(ac, av);
 		return (EXIT_SUCCESS);
 	}
 	else
