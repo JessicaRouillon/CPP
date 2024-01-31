@@ -16,6 +16,8 @@ PMergeMe &PMergeMe::operator=(const PMergeMe &src)
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
+// PUBLIC
+
 bool	PMergeMe::isValidInput(const int ac, const char **av)
 {
 	for (size_t i = 1; i < ac; i++)
@@ -26,6 +28,28 @@ bool	PMergeMe::isValidInput(const int ac, const char **av)
 	return (true);
 }
 
+
+void	PMergeMe::sort(const int ac, const char **av)
+{
+	std::vector<int>	vec;
+	std::deque<int>		deq;
+
+	std::cout << "Before : ";
+	for (size_t i = 0; i < ac; i++)
+	{
+		vec.push_back(atoi(av[i]));
+		deq.push_back(atoi(av[i]));
+
+		std::cout << av[i];
+		if (i < ac - 1)
+			std::cout << " ";
+		else
+			std::cout << std::endl;
+	}
+}
+
+
+// PRIVATE
 
 bool	PMergeMe::isValidArg(const char *av)
 {

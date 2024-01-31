@@ -20,22 +20,21 @@
 
 int main(int ac, char **av)
 {
-	if (ac > 1)
-	{
-		PMergeMe obj;
-
-		if (obj.isValidInput(ac, av) == false)
-		{
-			std::cout << RED << "Error: invalid input" << NC << std::endl;
-			return (EXIT_FAILURE);
-		}
-		obj.sort(ac, av);
-		return (EXIT_SUCCESS);
-	}
-	else
+	if (ac < 2)
 	{
 		std::cout << RED << "Error: Invalid number of arguments." << NC << std::endl;
 		return (EXIT_FAILURE);
 	}
+
+	PMergeMe obj;
+
+	if (obj.isValidInput(ac, av) == false)
+	{
+		std::cout << RED << "Error: invalid input" << NC << std::endl;
+		return (EXIT_FAILURE);
+	}
+
+	obj.sort(ac, av);
+
 	return (EXIT_SUCCESS);
 }
