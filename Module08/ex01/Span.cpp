@@ -54,18 +54,17 @@ size_t	Span::getSpan(const long nb1, const long nb2)
 size_t	Span::shortestSpan()
 {
 	if (_array.size() < 2)
-	throw (Span::NoSpanFound());
+		throw (Span::NoSpanFound());
+	
+	std::vector<long>	sortedArray = _array;
+	std::sort(sortedArray.begin(), sortedArray.end());
 
 	size_t	shortest = std::numeric_limits<unsigned long>::max();
-	for (size_t i = 1; i < _array.size(); i++)
+	for (size_t i = 1; i < sortedArray.size(); i++)
 	{
-		for (size_t	k = 0; k < _array.size() - 1; k++)
-		{
-			size_t	span = getSpan(_array[i], _array[k]);
-			if (shortest > span && span != 0)
-				shortest = span;
-		}
-		
+		size_t	current = sortedArray[i] - sortedArray[i - 1];
+		if (current < shortest)
+			shortest = current;
 	}
 	return (shortest);
 }
@@ -74,16 +73,10 @@ size_t	Span::longestSpan()
 {
 	if (_array.size() < 2)
 		throw (Span::NoSpanFound());
+	
+	std::vector<long>	sortedArray = _array;
+	
+	std::sort(sortedArray.begin(), sortedArray.end());
 
-	size_t	longest = std::numeric_limits<unsigned long>::min();
-	for (size_t i = 1; i < _array.size(); i++)
-	{
-		for (size_t	k = 0; k < _array.size() - 1; k++)
-		{
-			size_t	span = getSpan(_array[i], _array[k]);
-		if (span > longest && span != 0)
-			longest = span;
-		}
-	}
-	return (longest);
+	return (static_cast<size_t>(sortedArray.back() - sortedArray.front()));
 }
