@@ -1,6 +1,7 @@
 #ifndef PMERGEME_HPP
 #define PMERGEME_HPP
 
+#include <algorithm>
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
@@ -17,7 +18,8 @@ class PMergeMe
 {
 
 public:
-	PMergeMe(){};
+
+	PMergeMe() {}
 	PMergeMe(const PMergeMe &copy) { *this = copy; };
 	~PMergeMe(){};
 
@@ -29,7 +31,12 @@ public:
 
 private:
 
-	bool	isValidArg(const char *av);
+	bool						isValidArg(const char *av);
+	bool						isOddArgs(const int& ac);
+	std::deque<std::deque<int>>	createPairs(const std::vector<int>& vec);
+
+	bool	_isOdd;
+	int		_straggler;
 };
 
 #endif
