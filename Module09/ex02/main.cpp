@@ -4,19 +4,26 @@ int main(int ac, char **av)
 {
 	if (ac < 2)
 	{
-		std::cout << RED << "Error: Invalid number of arguments." << NC << std::endl;
+		std::cout << RED << "Error: Please insert positive int sequence." << NC << std::endl;
 		return (EXIT_FAILURE);
 	}
 
-	PMergeMe obj;
+	try {
+		PMergeMe<std::vector> vec(av + 1);
 
-	if (obj.isValidInput(ac, av) == false)
-	{
-		std::cout << RED << "Error: invalid input" << NC << std::endl;
-		return (EXIT_FAILURE);
+		std::cout << "Before : ";
+		vec.printData();
+		vec.sort();
+
+		std::cout << "After : ";
+		vec.printData();
+
+		PMergeMe<std::deque> deq(av + 1);
+		deq.sort();
 	}
-
-	obj.sort(ac, av);
+	catch(const std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
 
 	return (EXIT_SUCCESS);
 }

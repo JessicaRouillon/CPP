@@ -5,38 +5,44 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
+#include <cctype>
 #include <vector>
 #include <deque>
 #include <ctime>
 
+
 #define RED "\033[0;31m"
 #define NC "\033[0m"
 
-// template<typename Container>
 
+template <template<typename, typename> class Container>
 class PMergeMe
 {
 
 public:
 
-	PMergeMe() {}
-	PMergeMe(const PMergeMe &copy) { *this = copy; };
-	~PMergeMe(){};
+	PMergeMe(char **av);
+	PMergeMe(const PMergeMe &copy);
+	~PMergeMe() {}
 
 	PMergeMe &operator=(const PMergeMe &src);
 
 
-	bool	isValidInput(const int ac, const char **av);
-	void	sort(const int ac,  const char **av);
+	bool	isValidArg(const char *av);
+	void	printData() const;
+	void	sort();
+
 
 private:
 
-	bool						isValidArg(const char *av);
-	bool						isOddArgs(const int& ac);
-	std::deque<std::deque<int>>	createPairs(const std::vector<int>& vec);
+	PMergeMe(): _data(), _time(0), _straggler(-1) {}
 
-	bool	_isOdd;
+
+	Container< int, std::allocator<int> >	_data;
+	double	_time; // double elapsedTime = static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC;
 	int		_straggler;
 };
+
+#include "PmergeMe.cpp"
 
 #endif

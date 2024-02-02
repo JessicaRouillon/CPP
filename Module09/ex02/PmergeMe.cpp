@@ -4,11 +4,50 @@
 /*************************** CONSTRUCTOR / DESTRUCTOR ***************************/
 /********************************************************************************/
 
+#ifndef PMERGEME_CPP
+#define PMERGEME_CPP
 
-PMergeMe &PMergeMe::operator=(const PMergeMe &src)
+#include "PmergeMe.hpp"
+
+template <template<typename, typename> class Container>
+PMergeMe<Container>::PMergeMe(char **av): _time(0)
+{
+	for(size_t i = 0; av[i]; i++)
+	{
+		if (isValidArg(av[i]) == false)
+			throw (std::invalid_argument("\033[0;31mError: Invalid input\033[0m"));
+		_data.push_back(atoi(av[i]));
+	}
+	std::cout << "size = " << _data.size() << std::endl;
+	if ((_data.size() % 2) != 0)
+	{
+		_straggler = _data.back();
+		_data.pop_back();
+	}
+	else
+		_straggler = -1;
+	std::cout << "Size = " << _data.size() << std::endl;
+}
+
+
+template <template<typename, typename> class Container>
+PMergeMe<Container>::PMergeMe(const PMergeMe<Container> &copy)
+{
+	_data = copy._data;
+	_time = copy._time;
+	_straggler = copy._straggler;
+}
+
+
+template <template<typename, typename> class Container>
+PMergeMe<Container> &PMergeMe<Container>::operator=(const PMergeMe<Container> &src)
 {
 	if (this != &src)
-		*this = src;
+	{
+		_data = src._data;
+		_time = src._time;
+		_straggler = src._straggler;
+	}
 	return (*this);
 }
 
@@ -20,92 +59,59 @@ PMergeMe &PMergeMe::operator=(const PMergeMe &src)
 
 // PRIVATE
 
-bool	PMergeMe::isValidArg(const char *av)
+template <template<typename, typename> class Container>
+bool	PMergeMe<Container>::isValidArg(const char *av)
 {
 	const char*	base = "0123456789";
 
-	for(size_t i = 0; i != '\0'; i++)
+	for(size_t i = 0; i < _data.size(); i++)
 	{
-		if (strchr(base, av[i]) == false)
+		if (!strchr(base, av[i]))
 			return (false);
 	}
 	return (true);
 }
 
 
-bool		PMergeMe::isOddArgs(const int& ac)
-{
-	if ((ac - 1) % 2 != 0)
-	{
-		_isOdd = true;
-		return (true);
-	}
-	_isOdd = false;
-	return (false);
-}
-
-
-std::deque<std::deque<int>>	PMergeMe::createPairs(const std::vector<int>& vec)
-{
-	std::deque<std::deque<int>>		pairedArray;
-	std::deque<int>					tmpArray;
-
-	for (size_t i = 0; i < vec.size(); i++)
-	{
-		size_t	tmpSize = tmpArray.size();
-		if (tmpArray.size() == 1)
-		{
-			
-		}
-
-	}
-}
 
 
 
 // PUBLIC
 
-bool	PMergeMe::isValidInput(const int ac, const char **av)
+
+
+template <template<typename, typename> class Container>
+void	PMergeMe<Container>::printData() const
 {
-	for (size_t i = 1; i < ac; i++)
-	{
-		if (this->isValidArg(av[i]) == false)
-			return (false);
-	}
-	return (true);
+	for(size_t i = 0; _data[i]; i++)
+		std::cout << _data[i] << " ";
+	std::cout << std::endl;
 }
 
 
-void	PMergeMe::sort(const int ac, const char **av)
+
+template <template<typename, typename> class Container>
+void	PMergeMe<Container>::sort()
 {
-
-	/******************************* INITIALIZATION *******************************/
-
-	std::vector<int>	vec;
-
-	std::cout << "Before : ";
-	for (size_t i = 1; i < ac; i++)
-	{
-		vec.push_back(atoi(av[i]));
-
-		std::cout << av[i];
-		if (i < ac - 1)
-			std::cout << " ";
-		else
-			std::cout << std::endl;
-	}
-
-	/******************************* FIND STRAGGLER *******************************/
-
-	bool	isOddArgs = this->isOddArgs(ac);
-	if (isOddArgs == true)
-	{
-		_straggler = vec.back();
-		vec.pop_back();
-	}
+	// clock_t	startTime = clock();
 
 	/******************************** CREATE PAIRS ********************************/
 
-	std::deque<std::deque<int>>		deq = this->createPairs(vec);
+	typename	Container< int, std::allocator<int> >::iterator	it;
+
+	for (it = _data.begin(); it != _data.end(); it++)
+	{
+		if (it[0] > it[1])
+			std::iter_swap(it, it + 1);
+	}
+
+	/************************* SORT PAIRS BY GREATER VALUE ************************/
+
 	
 }
+
+
+// template class PMergeMe< std::vector >;
+// template class PMergeMe< std::deque >;
+
+#endif
