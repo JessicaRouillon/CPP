@@ -14,6 +14,9 @@
 #define RED "\033[0;31m"
 #define NC "\033[0m"
 
+typedef enum {
+
+};
 
 template <template<typename, typename> class Container>
 class PMergeMe
@@ -30,13 +33,14 @@ public:
 
 	bool	isValidArg(const char *av);
 	void	printData() const;
+	void	printSorted() const;
+	int		jacobsthal(const int n);
 	void	sort();
 
 
 private:
 
 	PMergeMe(): _data(), _time(0), _straggler(-1) {}
-
 
 	Container< int, std::allocator<int> >	_data;
 	Container< int, std::allocator<int> >	_sorted;

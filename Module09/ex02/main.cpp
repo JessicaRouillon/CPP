@@ -17,6 +17,8 @@ int main(int ac, char **av)
 
 		std::cout << "After : ";
 		vec.printData();
+		std::cout << "Sorted : ";
+		vec.printSorted();
 
 		PMergeMe<std::deque> deq(av + 1);
 		deq.sort();

@@ -54,7 +54,6 @@ PMergeMe<Container> &PMergeMe<Container>::operator=(const PMergeMe<Container> &s
 /********************************************************************************/
 
 
-
 template <template<typename, typename> class Container>
 bool	PMergeMe<Container>::isValidArg(const char *av)
 {
@@ -69,12 +68,9 @@ bool	PMergeMe<Container>::isValidArg(const char *av)
 }
 
 
-
-
 /********************************************************************************/
 /************************* PUBLIC MEMBER FUNCTIONS ******************************/
 /********************************************************************************/
-
 
 
 template <template<typename, typename> class Container>
@@ -85,6 +81,29 @@ void	PMergeMe<Container>::printData() const
 	if (_straggler >= 0)
 		std::cout << _straggler;
 	std::cout << std::endl;
+}
+
+
+template <template<typename, typename> class Container>
+void	PMergeMe<Container>::printSorted() const
+{
+	for(size_t i = 0; i < _sorted.size(); i++)
+		std::cout << _sorted[i] << " ";
+	if (_straggler >= 0)
+		std::cout << _straggler;
+	std::cout << std::endl;
+}
+
+
+
+template <template<typename, typename> class Container>
+int	PMergeMe<Container>::jacobsthal(const int n)
+{
+	if (n == 0)
+		return (0);
+	if (n == 1)
+		return (1);
+	return (jacobsthal(n - 1) + 2 * jacobsthal(n - 2));
 }
 
 
@@ -127,7 +146,7 @@ void	PMergeMe<Container>::sort()
 	}
 
 	/*********************** CREATE 'S' SEQUENCE (_sorted) ***********************/
-	
+
 
 	/* Begin with first value because we know it is the smallest */
 	_sorted.push_back(*_data.begin());
@@ -135,7 +154,7 @@ void	PMergeMe<Container>::sort()
 
 	/* Push greater values into 'S' sequence */
 	it = _data.begin();
-	for (size_t i = 1;  it != _data.end(); i++, it++)
+	for (size_t i = 2;  it != _data.end(); i++, it++)
 	{
 		if (i % 2 != 0)
 			_sorted.push_back(*it);
@@ -152,7 +171,7 @@ void	PMergeMe<Container>::sort()
 
 	/******************* INSERT REST IN 'S' SEQUENCE (_sorted) *******************/
 
-	
+
 }
 
 
