@@ -130,16 +130,29 @@ void	PMergeMe<Container>::sort()
 	
 
 	/* Begin with first value because we know it is the smallest */
-	_sorted.push_back(_data.begin());
+	_sorted.push_back(*_data.begin());
 
 
 	/* Push greater values into 'S' sequence */
-	for (it = _data.begin() + 1; size_t i = 1;  it != _data.end(); i++, it++)
+	it = _data.begin();
+	for (size_t i = 1;  it != _data.end(); i++, it++)
 	{
 		if (i % 2 != 0)
 			_sorted.push_back(*it);
 	}
 
+
+	/* Keep only small values in _data */
+	size_t size = 0;
+	for (size_t i = 2; i < _data.size(); i += 2) {
+		_data[size++] = _data[i];
+	}
+	_data.resize(size);
+
+
+	/******************* INSERT REST IN 'S' SEQUENCE (_sorted) *******************/
+
+	
 }
 
 
