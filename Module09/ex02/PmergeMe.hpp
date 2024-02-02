@@ -39,6 +39,7 @@ private:
 
 
 	Container< int, std::allocator<int> >	_data;
+	Container< int, std::allocator<int> >	_sorted;
 	double	_time; // double elapsedTime = static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC;
 	int		_straggler;
 };

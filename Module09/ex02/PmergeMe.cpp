@@ -1,13 +1,12 @@
+#ifndef PMERGEME_CPP
+#define PMERGEME_CPP
+
 #include "PmergeMe.hpp"
 
 /********************************************************************************/
 /*************************** CONSTRUCTOR / DESTRUCTOR ***************************/
 /********************************************************************************/
 
-#ifndef PMERGEME_CPP
-#define PMERGEME_CPP
-
-#include "PmergeMe.hpp"
 
 template <template<typename, typename> class Container>
 PMergeMe<Container>::PMergeMe(char **av): _time(0)
@@ -93,6 +92,9 @@ void	PMergeMe<Container>::printData() const
 template <template<typename, typename> class Container>
 void	PMergeMe<Container>::sort()
 {
+	if (_data.size() <= 1)
+		return ;
+
 	// clock_t	startTime = clock();
 
 	/******************************** CREATE PAIRS ********************************/
@@ -107,7 +109,37 @@ void	PMergeMe<Container>::sort()
 
 	/************************* SORT PAIRS BY GREATER VALUE ************************/
 
+	typename	Container< int, std::allocator<int> >::iterator		it1;
+
+	for (it = _data.begin(); it < _data.end(); it += 2)
+	{
+		typename	Container< int, std::allocator<int> >::iterator	itMin = it;
+		for (it1 = it + 2; it1 < _data.end(); it1 += 2)
+		{
+			if (itMin[1] > it1[1])
+				itMin = it1;
+		}
+		if (itMin != it1)
+		{
+			std::iter_swap(it, itMin);
+			std::iter_swap(it + 1, itMin + 1);
+		}
+	}
+
+	/*********************** CREATE 'S' SEQUENCE (_sorted) ***********************/
 	
+
+	/* Begin with first value because we know it is the smallest */
+	_sorted.push_back(_data.begin());
+
+
+	/* Push greater values into 'S' sequence */
+	for (it = _data.begin() + 1; size_t i = 1;  it != _data.end(); i++, it++)
+	{
+		if (i % 2 != 0)
+			_sorted.push_back(*it);
+	}
+
 }
 
 
