@@ -12,22 +12,19 @@
 template <template<typename, typename> class Container>
 PMergeMe<Container>::PMergeMe(char **av): _time(0)
 {
+	_straggler = -1;
+
 	for(size_t i = 0; av[i]; i++)
 	{
 		if (isValidArg(av[i]) == false)
 			throw (std::invalid_argument("\033[0;31mError: Invalid input\033[0m"));
 		_data.push_back(atoi(av[i]));
 	}
-	// std::cout << "size = " << _data.size() << std::endl;
 	if ((_data.size() % 2) != 0)
 	{
 		_straggler = _data.back();
-		// std::cout << "  straggler = " << _straggler << std::endl;
 		_data.erase(_data.end() - 1);
 	}
-	else
-		_straggler = -1;
-	// std::cout << "  Size = " << _data.size() << std::endl;
 }
 
 
@@ -54,11 +51,10 @@ PMergeMe<Container> &PMergeMe<Container>::operator=(const PMergeMe<Container> &s
 
 
 /********************************************************************************/
-/***************************** MEMBER FUNCTIONS *********************************/
+/************************* PRIVATE MEMBER FUNCTIONS *****************************/
 /********************************************************************************/
 
 
-// PRIVATE
 
 template <template<typename, typename> class Container>
 bool	PMergeMe<Container>::isValidArg(const char *av)
@@ -76,16 +72,19 @@ bool	PMergeMe<Container>::isValidArg(const char *av)
 
 
 
-
-// PUBLIC
+/********************************************************************************/
+/************************* PUBLIC MEMBER FUNCTIONS ******************************/
+/********************************************************************************/
 
 
 
 template <template<typename, typename> class Container>
 void	PMergeMe<Container>::printData() const
 {
-	for(size_t i = 0; _data[i]; i++)
+	for(size_t i = 0; i < _data.size(); i++)
 		std::cout << _data[i] << " ";
+	if (_straggler >= 0)
+		std::cout << _straggler;
 	std::cout << std::endl;
 }
 
@@ -100,7 +99,7 @@ void	PMergeMe<Container>::sort()
 
 	typename	Container< int, std::allocator<int> >::iterator	it;
 
-	for (it = _data.begin(); it != _data.end(); it++)
+	for (it = _data.begin(); it != _data.end(); it += 2)
 	{
 		if (it[0] > it[1])
 			std::iter_swap(it, it + 1);
