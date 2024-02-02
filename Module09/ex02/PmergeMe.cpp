@@ -18,15 +18,16 @@ PMergeMe<Container>::PMergeMe(char **av): _time(0)
 			throw (std::invalid_argument("\033[0;31mError: Invalid input\033[0m"));
 		_data.push_back(atoi(av[i]));
 	}
-	std::cout << "size = " << _data.size() << std::endl;
+	// std::cout << "size = " << _data.size() << std::endl;
 	if ((_data.size() % 2) != 0)
 	{
 		_straggler = _data.back();
-		_data.pop_back();
+		// std::cout << "  straggler = " << _straggler << std::endl;
+		_data.erase(_data.end() - 1);
 	}
 	else
 		_straggler = -1;
-	std::cout << "Size = " << _data.size() << std::endl;
+	// std::cout << "  Size = " << _data.size() << std::endl;
 }
 
 
@@ -62,9 +63,9 @@ PMergeMe<Container> &PMergeMe<Container>::operator=(const PMergeMe<Container> &s
 template <template<typename, typename> class Container>
 bool	PMergeMe<Container>::isValidArg(const char *av)
 {
-	const char*	base = "0123456789";
+	const char	*base = "0123456789";
 
-	for(size_t i = 0; i < _data.size(); i++)
+	for(size_t i = 0; av[i]; i++)
 	{
 		if (!strchr(base, av[i]))
 			return (false);
