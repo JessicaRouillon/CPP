@@ -14,9 +14,6 @@
 #define RED "\033[0;31m"
 #define NC "\033[0m"
 
-typedef enum {
-
-};
 
 template <template<typename, typename> class Container>
 class PMergeMe
@@ -35,8 +32,9 @@ public:
 	void	printData() const;
 	void	printSorted() const;
 	void	printTime(const std::string str) const;
-	int		jacobsthal(const int n);
 	void	sort();
+	int		jacobsthal(const int n);
+	const Container< int, std::allocator<int> >	buildJacobsthalSequence();
 
 
 private:

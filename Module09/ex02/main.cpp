@@ -8,7 +8,8 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 	}
 
-	try {
+	try
+	{
 		PMergeMe<std::vector> vec(av + 1);
 
 		std::cout << "Before : ";
@@ -16,15 +17,15 @@ int main(int ac, char **av)
 		vec.sort();
 
 		std::cout << "After : ";
-		vec.printData();
-		std::cout << "Sorted : ";
+		// vec.printData();
+		// std::cout << "Sorted : ";
 		vec.printSorted();
 
-		PMergeMe<std::deque> deq(av + 1);
-		deq.sort();
+		// PMergeMe<std::deque> deq(av + 1);
+		// deq.sort();
 
 		vec.printTime("vector");
-		deq.printTime("deque");
+		// deq.printTime("deque");
 	}
 	catch(const std::exception& e) {
 		std::cout << e.what() << std::endl;

@@ -73,6 +73,8 @@ bool	PMergeMe<Container>::isValidArg(const char *av)
 /********************************************************************************/
 
 
+// Print functions
+
 template <template<typename, typename> class Container>
 void	PMergeMe<Container>::printData() const
 {
@@ -105,6 +107,8 @@ void	PMergeMe<Container>::printTime(const std::string str) const
 
 
 
+// Sort functions
+
 template <template<typename, typename> class Container>
 int	PMergeMe<Container>::jacobsthal(const int n)
 {
@@ -118,12 +122,28 @@ int	PMergeMe<Container>::jacobsthal(const int n)
 
 
 template <template<typename, typename> class Container>
+const Container< int, std::allocator<int> >	PMergeMe<Container>::buildJacobsthalSequence()
+{
+	Container< int, std::allocator<int> >	seq;
+	size_t				size =_data.size();
+	int					jacobIndex = 3; // The first one that matters
+
+	while (jacobsthal(jacobIndex) < static_cast<int>(size) - 1) {
+		seq.push_back(jacobsthal(jacobIndex));
+		++jacobIndex;
+	}
+	return (seq);
+}
+
+
+
+template <template<typename, typename> class Container>
 void	PMergeMe<Container>::sort()
 {
 	if (_data.size() <= 1)
 		return ;
 
-	// clock_t	startTime = clock();
+	clock_t	startTime = clock();
 
 	/******************************** CREATE PAIRS ********************************/
 
@@ -178,9 +198,61 @@ void	PMergeMe<Container>::sort()
 	_data.resize(size);
 
 
-	/******************* INSERT REST IN 'S' SEQUENCE (_sorted) *******************/
+	/***************** BUILD INSERTION SEQUENCE USING JACOBSTHAL *****************/
 
 
+	Container< int, std::allocator<int> >	JacobsthalSequence = buildJacobsthalSequence();
+	std::vector<int>	indexSequence(1, 1); // Index sequence for reporting purposes
+
+	size_t	iterator = 0; // Already added one
+	bool	last = false;
+	int		jacobIndex = 3; // Already inserted 1 and skip beginning of sequence
+	int		item;
+	std::cout << "Initialisation des variables" << std::endl;	// IMPRESSION
+
+	// Build the valid Jacobsthal sequence, then we can fill in the rest
+	while (iterator <= _data.size())
+	{
+		std::cout << "Entrée dans while avec " << iterator << std::endl;	// IMPRESSION
+		if (!JacobsthalSequence.empty() && last == false) // Use Jacobsthal index if it is valid
+		{
+			std::cout << "   Entrée dans if" << std::endl;	// IMPRESSION
+			indexSequence.push_back(JacobsthalSequence[0]);
+			item = _data[JacobsthalSequence[0] - 1];
+
+			JacobsthalSequence.erase(JacobsthalSequence.begin());
+			last = true;
+		}
+		else
+		{
+			std::cout << "   Entrée dans else" << std::endl;	// IMPRESSION
+			if (std::find(indexSequence.begin(), indexSequence.end(), iterator) != indexSequence.end())
+				iterator++;
+			item = _data[iterator - 1];
+			indexSequence.push_back(iterator);
+			last = false;
+		}
+
+		std::cout << ">> Insertion" << std::endl;	// IMPRESSION
+		typename	Container< int, std::allocator<int> >::iterator	insertionPoint = std::lower_bound(_sorted.begin(), _sorted.end(), item);
+		_sorted.insert(insertionPoint, item);
+
+		iterator++;
+		jacobIndex++;
+	}
+
+	std::cout << "Après la boucle while" << std::endl;	// IMPRESSION
+
+	if (_straggler >= 0)
+	{
+		typename	Container< int, std::allocator<int> >::iterator	insertionPoint = std::lower_bound(_sorted.begin(), _sorted.end(), _straggler);
+		_sorted.insert(insertionPoint, _straggler);
+		_straggler = -1;
+	}
+
+	std::cout << "Après straggler" << std::endl;	// IMPRESSION
+
+	/********************************* GET TIME **********************************/
 
 	clock_t	endTime = clock();
 	_time = static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC;
