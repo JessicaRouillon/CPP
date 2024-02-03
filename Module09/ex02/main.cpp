@@ -22,6 +22,9 @@ int main(int ac, char **av)
 
 		PMergeMe<std::deque> deq(av + 1);
 		deq.sort();
+
+		vec.printTime("vector");
+		deq.printTime("deque");
 	}
 	catch(const std::exception& e) {
 		std::cout << e.what() << std::endl;

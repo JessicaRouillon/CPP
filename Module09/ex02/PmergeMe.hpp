@@ -34,6 +34,7 @@ public:
 	bool	isValidArg(const char *av);
 	void	printData() const;
 	void	printSorted() const;
+	void	printTime(const std::string str) const;
 	int		jacobsthal(const int n);
 	void	sort();
 
@@ -44,7 +45,7 @@ private:
 
 	Container< int, std::allocator<int> >	_data;
 	Container< int, std::allocator<int> >	_sorted;
-	double	_time; // double elapsedTime = static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC;
+	double	_time;
 	int		_straggler;
 };
 

@@ -97,6 +97,15 @@ void	PMergeMe<Container>::printSorted() const
 
 
 template <template<typename, typename> class Container>
+void	PMergeMe<Container>::printTime(const std::string str) const
+{
+	std::cout << "Time to process a range of " << _sorted.size()
+			<< " elements with std::" << str << " : " << _time << std::endl;
+}
+
+
+
+template <template<typename, typename> class Container>
 int	PMergeMe<Container>::jacobsthal(const int n)
 {
 	if (n == 0)
@@ -171,6 +180,10 @@ void	PMergeMe<Container>::sort()
 
 	/******************* INSERT REST IN 'S' SEQUENCE (_sorted) *******************/
 
+
+
+	clock_t	endTime = clock();
+	_time = static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC;
 
 }
 
