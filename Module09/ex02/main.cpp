@@ -14,15 +14,16 @@ int main(int ac, char **av)
 
 		std::cout << "Before : ";
 		vec.printData();
-		vec.sort();
+		// vec.sort();
 
 		std::cout << "After : ";
 		// vec.printData();
 		// std::cout << "Sorted : ";
 		vec.printSorted();
 
-		// PMergeMe<std::deque> deq(av + 1);
-		// deq.sort();
+		PMergeMe<std::deque> deq(av + 1);
+		deq.sort();
+		deq.printSorted();
 
 		vec.printTime("vector");
 		// deq.printTime("deque");
