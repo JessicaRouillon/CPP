@@ -128,10 +128,10 @@ template <template<typename, typename> class Container>
 const Container< int, std::allocator<int> >	PMergeMe<Container>::buildJacobsthalSequence()
 {
 	Container< int, std::allocator<int> >	seq;
-	size_t				size =_data.size();
-	int					jacobIndex = 3; // The first one that matters
+	int		size =_data.size();
+	int		jacobIndex = 3; // The first one that matters
 
-	while (jacobsthal(jacobIndex) < static_cast<int>(size) - 1) {
+	while (jacobsthal(jacobIndex) < size - 1) {
 		seq.push_back(jacobsthal(jacobIndex));
 		++jacobIndex;
 	}
@@ -151,7 +151,6 @@ void	PMergeMe<Container>::sort()
 
 	/******************************** CREATE PAIRS ********************************/
 
-	std::cout << "1/ Before create pairs" << std::endl;
 	typename	Container< int, std::allocator<int> >::iterator	it;
 
 	for (it = _data.begin(); it != _data.end(); it += 2)
@@ -159,12 +158,10 @@ void	PMergeMe<Container>::sort()
 		if (it[0] > it[1])
 			std::iter_swap(it, it + 1);
 	}
-	std::cout << "2/ After create pairs" << std::endl;
 
 
 	/************************* SORT PAIRS BY GREATER VALUE ************************/
 
-	std::cout << "3/ Before sort pairs by greater value" << std::endl;
 	typename	Container< int, std::allocator<int> >::iterator		it1;
 
 	for (it = _data.begin(); it < _data.end(); it += 2)
@@ -181,12 +178,10 @@ void	PMergeMe<Container>::sort()
 			std::iter_swap(it + 1, itMin + 1);
 		}
 	}
-	std::cout << "4/ After sort pairs by greater value" << std::endl;
 
 
 	/*********************** CREATE 'S' SEQUENCE (_sorted) ***********************/
 
-	std::cout << "5/ Before create S sequence " << std::endl;
 	/* Begin with first value because we know it is the smallest */
 	_sorted.push_back(*_data.begin());
 
@@ -206,30 +201,22 @@ void	PMergeMe<Container>::sort()
 		_data[size++] = _data[i];
 	}
 	_data.resize(size);
-	std::cout << "6/ After create S sequence " << std::endl;
 
 	/***************** BUILD INSERTION SEQUENCE USING JACOBSTHAL *****************/
 
-	std::cout << "7/ Before build insertion sequence using jacobsthal" << std::endl;
 	Container< int, std::allocator<int> >	JacobsthalSequence = buildJacobsthalSequence();
-	for(size_t i = 0; i < JacobsthalSequence.size(); i++)
-		std::cout << JacobsthalSequence[i] << " ";
-	std::cout << std::endl;
 	Container< int, std::allocator<int> >	indexSequence(1, 1); // Index sequence for reporting purposes
 
 	size_t	iterator = 0; // Already added one
 	bool	last = false;
 	int		jacobIndex = 3; // Already inserted 1 and skip beginning of sequence
 	int		item;
-	// std::cout << "Initialisation des variables" << std::endl;	// IMPRESSION
 
 	// Build the valid Jacobsthal sequence, then we can fill in the rest
 	while (iterator <= _data.size())
 	{
-		std::cout << "Entrée dans while avec " << iterator << std::endl;	// IMPRESSION
 		if (JacobsthalSequence.size() != 0 && last == false) // Use Jacobsthal index if it is valid
 		{
-			std::cout << "   Entrée dans if" << std::endl;	// IMPRESSION
 			indexSequence.push_back(JacobsthalSequence[0]);
 			item = _data[JacobsthalSequence[0] - 1];
 
@@ -238,15 +225,16 @@ void	PMergeMe<Container>::sort()
 		}
 		else
 		{
-			std::cout << "   Entrée dans else" << std::endl;	// IMPRESSION
 			if (std::find(indexSequence.begin(), indexSequence.end(), iterator) != indexSequence.end())
 				iterator++;
-			item = _data[iterator - 1];
+			if (!iterator)
+				item = _data[iterator];
+			else
+				item = _data[iterator - 1];
 			indexSequence.push_back(iterator);
 			last = false;
 		}
 
-		std::cout << ">> Insertion" << std::endl;	// IMPRESSION
 		typename	Container< int, std::allocator<int> >::iterator	insertionPoint = std::lower_bound(_sorted.begin(), _sorted.end(), item);
 		_sorted.insert(insertionPoint, item);
 
@@ -254,7 +242,6 @@ void	PMergeMe<Container>::sort()
 		jacobIndex++;
 	}
 
-	// std::cout << "Après la boucle while" << std::endl;	// IMPRESSION
 
 	if (_straggler >= 0)
 	{
@@ -263,9 +250,6 @@ void	PMergeMe<Container>::sort()
 		_straggler = -1;
 	}
 
-	// std::cout << "Après straggler" << std::endl;	// IMPRESSION
-
-	std::cout << "8/ After build insertion sequence using jacobsthal" << std::endl;
 
 	/********************************* GET TIME **********************************/
 

@@ -10,23 +10,33 @@ int main(int ac, char **av)
 
 	try
 	{
+		std::cout << std::endl << "\033[34m============= VECTOR TESTS =============\033[0m" << std::endl << std::endl;
 		PMergeMe<std::vector> vec(av + 1);
 
 		std::cout << "Before : ";
 		vec.printData();
-		// vec.sort();
+	
+		vec.sort();
 
-		std::cout << "After : ";
-		// vec.printData();
-		// std::cout << "Sorted : ";
+		std::cout << "After  : ";
 		vec.printSorted();
 
+		vec.printTime("vector");
+
+	/***********************************************************************************************************************/
+
+		std::cout << std::endl << "\033[34m============= DEQUE TESTS =============\033[0m" << std::endl << std::endl;
 		PMergeMe<std::deque> deq(av + 1);
+
+		std::cout << "Before : ";
+		deq.printData();
+	
 		deq.sort();
+
+		std::cout << "After  : ";
 		deq.printSorted();
 
-		vec.printTime("vector");
-		// deq.printTime("deque");
+		deq.printTime("deque");
 	}
 	catch(const std::exception& e) {
 		std::cout << e.what() << std::endl;
