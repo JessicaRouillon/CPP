@@ -212,6 +212,9 @@ void	PMergeMe<Container>::sort()
 
 	std::cout << "7/ Before build insertion sequence using jacobsthal" << std::endl;
 	Container< int, std::allocator<int> >	JacobsthalSequence = buildJacobsthalSequence();
+	for(size_t i = 0; i < JacobsthalSequence.size(); i++)
+		std::cout << JacobsthalSequence[i] << " ";
+	std::cout << std::endl;
 	Container< int, std::allocator<int> >	indexSequence(1, 1); // Index sequence for reporting purposes
 
 	size_t	iterator = 0; // Already added one
