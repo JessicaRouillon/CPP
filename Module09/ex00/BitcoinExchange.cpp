@@ -213,7 +213,7 @@ std::map<std::string, std::string>	BitcoinExchange::setData()
 		res.insert(std::make_pair(date, value));
 	}
 
-	if (!_data.size())
+	if (res.size() < 1)
 	{
 		_error = true;
 		throw (BitcoinExchange::EmptyFile());

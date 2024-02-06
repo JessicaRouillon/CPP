@@ -13,6 +13,7 @@
 #include <map>
 
 # define DATA	"data.csv"
+
 # define RED	"\033[0;31m"
 # define NC		"\033[0m"
 
