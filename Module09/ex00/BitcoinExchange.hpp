@@ -30,13 +30,16 @@ public:
 	// Functions
 	std::map<std::string, std::string>	setData();
 	std::map<std::string, std::string>	getData() const { return (_data); }
+	bool	getError() const { return (_error); }
 
+	// bool	dataError();
 	void	execute(const std::string& inputfile);
 
 
 
 private:
 	std::map<std::string, std::string>	_data;
+	bool	_error;
 
 	// Utility Functions
 	void		printData(const std::map<std::string, std::string>& data);
