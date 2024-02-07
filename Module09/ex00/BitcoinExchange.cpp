@@ -11,20 +11,20 @@ BitcoinExchange::BitcoinExchange()
 	{
 		_data = setData();
 	}
-	catch(const std::exception& e)
+	catch (const std::exception &e)
 	{
 		std::cout << e.what() << std::endl;
 	}
 }
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange& copy)
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
 {
 	_data = copy.getData();
 	_error = copy._error;
 	*this = copy;
 }
 
-BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange& src)
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &src)
 {
 	if (this != &src)
 	{
@@ -34,16 +34,13 @@ BitcoinExchange	&BitcoinExchange::operator=(const BitcoinExchange& src)
 	return (*this);
 }
 
-
 /********************************************************************************/
 /***************************** UTILITY FUNCTIONS ********************************/
 /********************************************************************************/
 
-
-
-static bool		isLeapYear(const int& year)
+static bool isLeapYear(const int &year)
 {
-	int		base;
+	int base;
 
 	for (base = 2012; base <= 2024; base += 4)
 	{
@@ -53,11 +50,9 @@ static bool		isLeapYear(const int& year)
 	return (false);
 }
 
-
-
-static bool		ft_isDigit(const std::string& str, const int type)
+static bool ft_isDigit(const std::string &str, const int type)
 {
-	std::string::const_iterator	it;
+	std::string::const_iterator it;
 
 	if (type == 0)
 	{
@@ -69,7 +64,7 @@ static bool		ft_isDigit(const std::string& str, const int type)
 	}
 	else if (type == 1)
 	{
-		int		flag = 0;
+		int flag = 0;
 		it = str.begin();
 
 		if (*it == '-' || *it == '+')
@@ -89,26 +84,24 @@ static bool		ft_isDigit(const std::string& str, const int type)
 	return (true);
 }
 
-
-
-bool	BitcoinExchange::isDateValid(const std::string& date)
+bool BitcoinExchange::isDateValid(const std::string &date)
 {
 	if (date.length() != 10)
 		return (false);
-	
+
 	if (date[4] != '-' || date[7] != '-')
 		return (false);
-	
-	std::string	year = date.substr(0, 4);
-	std::string	month = date.substr(5, 2);
-	std::string	day = date.substr(8, 2);
+
+	std::string year = date.substr(0, 4);
+	std::string month = date.substr(5, 2);
+	std::string day = date.substr(8, 2);
 
 	if (ft_isDigit(year, 0) == false || ft_isDigit(month, 0) == false || ft_isDigit(day, 0) == false)
 		return (false);
 
-	int 	intYear = atoi(year.c_str());
-	int 	intMonth = atoi(month.c_str());
-	int 	intDay = atoi(day.c_str());
+	int intYear = atoi(year.c_str());
+	int intMonth = atoi(month.c_str());
+	int intDay = atoi(day.c_str());
 
 	if (intYear < 2009 || intYear > 2024)
 		return (false);
@@ -117,7 +110,7 @@ bool	BitcoinExchange::isDateValid(const std::string& date)
 	if (intDay < 1 || intDay > 31)
 		return (false);
 
-	if ((intMonth == 4 || intMonth == 6 || intMonth == 9 || intMonth == 11) && intDay > 30 )
+	if ((intMonth == 4 || intMonth == 6 || intMonth == 9 || intMonth == 11) && intDay > 30)
 		return (false);
 	if (intMonth == 2 && isLeapYear(intYear) == true && intDay > 29)
 		return (false);
@@ -127,41 +120,35 @@ bool	BitcoinExchange::isDateValid(const std::string& date)
 	return (true);
 }
 
-
-
-bool	BitcoinExchange::isValueValid(const std::string& value)
+bool BitcoinExchange::isValueValid(const std::string &value)
 {
 	if (ft_isDigit(value, 1) == false)
 		return (false);
 	return (true);
 }
 
-
-
 /********************************************************************************/
 /***************************** MEMBER FUNCTIONS *********************************/
 /********************************************************************************/
 
-
-
-std::map<std::string, std::string>	BitcoinExchange::setData()
+std::map<std::string, std::string> BitcoinExchange::setData()
 {
 	/***************************** VERIFY FILE *****************************/
 
-	std::ifstream	datafile(DATA);
-	std::string		line;
+	std::ifstream datafile(DATA);
+	std::string line;
 
 	datafile.seekg(0, std::ios::end); // seekg moves the pointer to the end of the file
 	if (datafile.is_open() == false)
 	{
 		_error = true;
-		throw (BitcoinExchange::CannotOpenFile());
+		throw(BitcoinExchange::CannotOpenFile());
 	}
 
 	if (datafile.tellg() == 0) // Check where file pointer position is
 	{
 		_error = true;
-		throw (BitcoinExchange::EmptyFile());
+		throw(BitcoinExchange::EmptyFile());
 	}
 	else
 		datafile.seekg(0, std::ios::beg); // move the pointer back to the start of the file
@@ -171,24 +158,18 @@ std::map<std::string, std::string>	BitcoinExchange::setData()
 	if (line != "date,exchange_rate")
 	{
 		_error = true;
-		throw (BitcoinExchange::WrongFormat());
+		throw(BitcoinExchange::WrongFormat());
 	}
 
 	/***************************** SET DATA *****************************/
 
-	size_t			delimiter;
-	std::string		date;
-	std::string		value;
-	std::map<std::string, std::string>	res;
+	size_t delimiter;
+	std::string date;
+	std::string value;
+	std::map<std::string, std::string> res;
 
 	while (std::getline(datafile, line))
 	{
-		if (*line.begin() == '\n')
-		{
-			_error = true;
-			throw(BitcoinExchange::BadFileInput());
-		}
-
 		delimiter = line.find(',');
 		if (delimiter == std::string::npos)
 		{
@@ -216,7 +197,7 @@ std::map<std::string, std::string>	BitcoinExchange::setData()
 	if (res.size() < 1)
 	{
 		_error = true;
-		throw (BitcoinExchange::EmptyFile());
+		throw(BitcoinExchange::EmptyFile());
 	}
 
 	/***************************** CLOSE FILE *****************************/
@@ -225,19 +206,17 @@ std::map<std::string, std::string>	BitcoinExchange::setData()
 	return (res);
 }
 
-
-
-std::string		BitcoinExchange::findPreviousDate(const std::string& date)
+std::string BitcoinExchange::findPreviousDate(const std::string &date)
 {
-	std::string	year = date.substr(0, 4);
-	std::string	month = date.substr(5, 2);
-	std::string	day = date.substr(8, 2);
+	std::string year = date.substr(0, 4);
+	std::string month = date.substr(5, 2);
+	std::string day = date.substr(8, 2);
 
-	int 	intYear = atoi(year.c_str());
-	int 	intMonth = atoi(month.c_str());
-	int 	intDay = atoi(day.c_str());
+	int intYear = atoi(year.c_str());
+	int intMonth = atoi(month.c_str());
+	int intDay = atoi(day.c_str());
 
-	int		daysInMonths[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	int daysInMonths[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 	intDay -= 1;
 	if (intDay == 0)
@@ -262,19 +241,17 @@ std::string		BitcoinExchange::findPreviousDate(const std::string& date)
 	ossMonth << intMonth;
 	ossYear << intYear;
 
-	std::string	prevDay = (intDay < 10) ? "0" + ossDay.str(): ossDay.str();
-	std::string	prevMonth = (intMonth < 10) ? "0" + ossMonth.str(): ossMonth.str();
-	std::string	prevYear = ossYear.str();
+	std::string prevDay = (intDay < 10) ? "0" + ossDay.str() : ossDay.str();
+	std::string prevMonth = (intMonth < 10) ? "0" + ossMonth.str() : ossMonth.str();
+	std::string prevYear = ossYear.str();
 
 	return (prevYear + "-" + prevMonth + "-" + prevDay);
 }
 
-
-
-std::string		BitcoinExchange::getDataValue(const std::string& date)
+std::string BitcoinExchange::getDataValue(const std::string &date)
 {
 	std::map<std::string, std::string>::const_iterator it;
-	std::string		res;
+	std::string res;
 
 	it = this->_data.find(date);
 	if (it != this->_data.end())
@@ -283,54 +260,46 @@ std::string		BitcoinExchange::getDataValue(const std::string& date)
 	}
 	else
 	{
-		std::string	prevDate = this->findPreviousDate(date);
+		std::string prevDate = this->findPreviousDate(date);
 		res = getDataValue(prevDate);
 		return (res);
 	}
 }
 
-
-
-void	BitcoinExchange::execute(const std::string& inputfile)
+void BitcoinExchange::execute(const std::string &inputfile)
 {
 
 	/***************************** VERIFY FILE *****************************/
 
-	std::ifstream	input(inputfile.c_str());
-	std::string		line;
+	std::ifstream input(inputfile.c_str());
+	std::string line;
 
 	input.seekg(0, std::ios::end); // seekg moves the pointer to the end of the file
 	if (input.is_open() == false)
-		throw (BitcoinExchange::CannotOpenFile());
+		throw(BitcoinExchange::CannotOpenFile());
 
 	if (input.tellg() == 0) // Check where file pointer position is
-		throw (BitcoinExchange::EmptyFile());
+		throw(BitcoinExchange::EmptyFile());
 	else
 		input.seekg(0, std::ios::beg); // move the pointer back to the start of the file
 
 	std::getline(input, line);
-	
+
 	if (line != "date | value")
-		throw (BitcoinExchange::WrongFormat());
+		throw(BitcoinExchange::WrongFormat());
 
 	/***************************** EXECUTE *****************************/
 
-	size_t			delimiter;
-	std::string		date;
-	std::string		value;
-	std::string		dataValue;
-	double			final;
+	size_t delimiter;
+	std::string date;
+	std::string value;
+	std::string dataValue;
+	double final;
 
 	std::cout << "DATE       | VALUE" << std::endl;
 	std::cout << "----------------------------" << std::endl;
 	while (std::getline(input, line))
 	{
-		if (*line.begin() == '\n')
-		{
-			std::cout << RED << "Error: Newline" << NC << std::endl;
-			continue;
-		}
-
 		delimiter = line.find('|');
 		if (delimiter == std::string::npos)
 		{
@@ -362,18 +331,11 @@ void	BitcoinExchange::execute(const std::string& inputfile)
 		else
 		{
 			std::cout << line << " * " << dataValue << " = ";
-			std::cout << std::fixed << std::setprecision(2)	<< final << std::endl;
+			std::cout << std::fixed << std::setprecision(2) << final << std::endl;
 		}
 	}
 	input.close();
 }
-
-
-
-
-
-
-
 
 
 
