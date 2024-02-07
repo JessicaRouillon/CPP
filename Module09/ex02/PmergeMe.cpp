@@ -53,6 +53,58 @@ PMergeMe<Container> &PMergeMe<Container>::operator=(const PMergeMe<Container> &s
 /************************* PRIVATE MEMBER FUNCTIONS *****************************/
 /********************************************************************************/
 
+template <template<typename, typename> class Container>
+void	PMergeMe<Container>::addMissingValue(const int i)
+{
+	int item = _data[i - 1];
+	typename	Container< int, std::allocator<int> >::iterator	insertionPoint = std::lower_bound(_sorted.begin(), _sorted.end(), item);
+		_sorted.insert(insertionPoint, item);
+}
+
+
+
+template <template<typename, typename> class Container>
+static bool	isInSequence(const int nb, Container< int, std::allocator<int> > sorted)
+{
+	for(size_t i = 0; i < sorted.size(); i++)
+	{
+		if (nb == sorted[i])
+			return (true);
+	}
+	return (false);
+}
+
+
+template <template<typename, typename> class Container>
+void	PMergeMe<Container>::isCompleteSequence()
+{
+	for(size_t i = 0; i < _data.size(); i++)
+	{
+		std::cout << _data[i] << std::endl;
+		if (isInSequence(_data[i], _sorted) == false)
+			this->addMissingValue(i);
+	}
+}
+
+
+
+template <template<typename, typename> class Container>
+bool	PMergeMe<Container>::isSorted()
+{
+	for(size_t i = 1; i < _sorted.size(); i++)
+	{
+		if (_sorted[i] < _sorted[i - 1])
+			return (false);
+	}
+	return (true);
+}
+
+
+/********************************************************************************/
+/************************* PUBLIC MEMBER FUNCTIONS ******************************/
+/********************************************************************************/
+
+
 
 template <template<typename, typename> class Container>
 bool	PMergeMe<Container>::isValidArg(const char *av)
@@ -67,10 +119,6 @@ bool	PMergeMe<Container>::isValidArg(const char *av)
 	return (true);
 }
 
-
-/********************************************************************************/
-/************************* PUBLIC MEMBER FUNCTIONS ******************************/
-/********************************************************************************/
 
 
 // Print functions
@@ -159,6 +207,9 @@ void	PMergeMe<Container>::sort()
 			std::iter_swap(it, it + 1);
 	}
 
+	std::cout << "After pair creation" << std::endl;
+	printData();
+	std::cout << std::endl;
 
 	/************************* SORT PAIRS BY GREATER VALUE ************************/
 
@@ -179,8 +230,14 @@ void	PMergeMe<Container>::sort()
 		}
 	}
 
+	std::cout << "After sort pair by greater values" << std::endl;
+	printData();
+	std::cout << std::endl;
+
+
 
 	/*********************** CREATE 'S' SEQUENCE (_sorted) ***********************/
+
 
 	/* Begin with first value because we know it is the smallest */
 	_sorted.push_back(*_data.begin());
@@ -202,14 +259,22 @@ void	PMergeMe<Container>::sort()
 	}
 	_data.resize(size);
 
+	std::cout << "After S sequence creation" << std::endl;
+	std::cout << "data = ";
+	printData();
+	std::cout << "sorted = ";
+	printSorted();
+	std::cout << std::endl;
+
+
+
 	/***************** BUILD INSERTION SEQUENCE USING JACOBSTHAL *****************/
 
 	Container< int, std::allocator<int> >	JacobsthalSequence = buildJacobsthalSequence();
 	Container< int, std::allocator<int> >	indexSequence(1, 1); // Index sequence for reporting purposes
 
-	size_t	iterator = 0; // Already added one
+	size_t	iterator = 1; // Already added one
 	bool	last = false;
-	int		jacobIndex = 3; // Already inserted 1 and skip beginning of sequence
 	int		item;
 
 	// Build the valid Jacobsthal sequence, then we can fill in the rest
@@ -219,18 +284,19 @@ void	PMergeMe<Container>::sort()
 		{
 			indexSequence.push_back(JacobsthalSequence[0]);
 			item = _data[JacobsthalSequence[0] - 1];
+			std::cout << "item = " << item << std::endl;
 
 			JacobsthalSequence.erase(JacobsthalSequence.begin());
 			last = true;
 		}
 		else
 		{
+			// std::cout << "iterator = " << iterator << std::endl;
+			// std::cout << "indexSequence begin = " << indexSequence.begin() << std::endl;
+			// std::cout << "indexSequence end = " << indexSequence.end() << std::endl;
 			if (std::find(indexSequence.begin(), indexSequence.end(), iterator) != indexSequence.end())
 				iterator++;
-			if (!iterator)
-				item = _data[iterator];
-			else
-				item = _data[iterator - 1];
+			item = _data[iterator - 1];
 			indexSequence.push_back(iterator);
 			last = false;
 		}
@@ -238,8 +304,14 @@ void	PMergeMe<Container>::sort()
 		typename	Container< int, std::allocator<int> >::iterator	insertionPoint = std::lower_bound(_sorted.begin(), _sorted.end(), item);
 		_sorted.insert(insertionPoint, item);
 
+		std::cout << "===============================\n" << "After insert" << std::endl;
+		std::cout << "data = ";
+		printData();
+		std::cout << "sorted = ";
+		printSorted();
+		std::cout << std::endl;
+
 		iterator++;
-		jacobIndex++;
 	}
 
 
@@ -249,6 +321,13 @@ void	PMergeMe<Container>::sort()
 		_sorted.insert(insertionPoint, _straggler);
 		_straggler = -1;
 	}
+
+
+	/*************************** CHECKING 'S' SEQUENCE ***************************/
+
+	// isCompleteSequence();
+	// if (this->isSorted() == false)
+	// 	this->sort();
 
 
 	/********************************* GET TIME **********************************/
