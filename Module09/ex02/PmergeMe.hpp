@@ -34,17 +34,11 @@ public:
 	void	printSorted() const;
 	void	printTime(const std::string str) const;
 	void	sort();
-	int		jacobsthal(const int n);
-	const Container< int, std::allocator<int> >	buildJacobsthalSequence();
 
 
 private:
 
 	PMergeMe(): _data(), _time(0), _straggler(-1) {}
-
-	void	addMissingValue(const int i);
-	void	isCompleteSequence();
-	bool	isSorted();
 
 	Container< int, std::allocator<int> >	_data;
 	Container< int, std::allocator<int> >	_sorted;
