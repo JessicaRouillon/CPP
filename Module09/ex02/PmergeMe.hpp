@@ -29,24 +29,31 @@ public:
 	PMergeMe &operator=(const PMergeMe &src);
 
 
-	bool	isValidArg(const char *av);
+	void	sort();
 	void	printData() const;
 	void	printSorted() const;
 	void	printTime(const std::string str) const;
-	void	sort();
 
 
 private:
 
 	PMergeMe(): _data(), _time(0), _straggler(-1) {}
 
+	// Sort functions
 	void	createPairs();
 	void	sortPairsByGreaterValues();
 	void	createMainChain();
 	void	resizePendChain();
 	void	mergeInsertSort();
 	void	insertStraggler();
+
+	// Utils
+	bool	isValidArg(const char *av);
 	void	getTime(const clock_t startTime);
+	int		binarySearch(const int size, const int n);
+	int 	findLowerBound(const std::vector<int> sequence);
+	int 	getLowestValue(const int nb, const size_t size);
+	const std::vector<int>	buildJacobsthalSequence();
 
 	Container< int, std::allocator<int> >	_data;
 	Container< int, std::allocator<int> >	_sorted;
