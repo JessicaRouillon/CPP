@@ -7,6 +7,7 @@
 /*************************** CONSTRUCTOR / DESTRUCTOR ***************************/
 /********************************************************************************/
 
+
 template <template <typename, typename> class Container>
 PMergeMe<Container>::PMergeMe(char **av) : _time(0)
 {
@@ -25,6 +26,8 @@ PMergeMe<Container>::PMergeMe(char **av) : _time(0)
 	}
 }
 
+
+
 template <template <typename, typename> class Container>
 PMergeMe<Container>::PMergeMe(const PMergeMe<Container> &copy)
 {
@@ -33,6 +36,8 @@ PMergeMe<Container>::PMergeMe(const PMergeMe<Container> &copy)
 	_time = copy._time;
 	_straggler = copy._straggler;
 }
+
+
 
 template <template <typename, typename> class Container>
 PMergeMe<Container> &PMergeMe<Container>::operator=(const PMergeMe<Container> &src)
@@ -47,9 +52,12 @@ PMergeMe<Container> &PMergeMe<Container>::operator=(const PMergeMe<Container> &s
 	return (*this);
 }
 
+
+
 /********************************************************************************/
 /******************************* PRINT FUNCTIONS ********************************/
 /********************************************************************************/
+
 
 template <template <typename, typename> class Container>
 bool PMergeMe<Container>::isValidArg(const char *av)
@@ -63,6 +71,8 @@ bool PMergeMe<Container>::isValidArg(const char *av)
 	return (true);
 }
 
+
+
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::printData() const
 {
@@ -72,6 +82,8 @@ void PMergeMe<Container>::printData() const
 		std::cout << _straggler;
 	std::cout << std::endl;
 }
+
+
 
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::printSorted() const
@@ -83,6 +95,8 @@ void PMergeMe<Container>::printSorted() const
 	std::cout << std::endl;
 }
 
+
+
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::printTime(const std::string str) const
 {
@@ -91,9 +105,12 @@ void PMergeMe<Container>::printTime(const std::string str) const
 			  << std::fixed << std::setprecision(5) << _time << "ms" << std::endl;
 }
 
+
+
 /********************************************************************************/
 /******************************** SORT FUNCTIONS ********************************/
 /********************************************************************************/
+
 
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::createPairs()
@@ -105,6 +122,8 @@ void PMergeMe<Container>::createPairs()
 			std::iter_swap(it, it + 1);
 	}
 }
+
+
 
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::sortPairsByGreaterValues()
@@ -126,6 +145,8 @@ void PMergeMe<Container>::sortPairsByGreaterValues()
 	}
 }
 
+
+
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::createMainChain()
 {
@@ -142,6 +163,8 @@ void PMergeMe<Container>::createMainChain()
 	}
 }
 
+
+
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::resizePendChain()
 {
@@ -152,6 +175,8 @@ void PMergeMe<Container>::resizePendChain()
 	}
 	_data.resize(size);
 }
+
+
 
 template <template <typename, typename> class Container>
 int PMergeMe<Container>::binarySearch(const int size, const int n)
@@ -172,6 +197,8 @@ int PMergeMe<Container>::binarySearch(const int size, const int n)
 	return (min);
 }
 
+
+
 template <template <typename, typename> class Container>
 const std::vector<int> PMergeMe<Container>::buildJacobsthalSequence()
 {
@@ -184,12 +211,16 @@ const std::vector<int> PMergeMe<Container>::buildJacobsthalSequence()
 	return (res);
 }
 
+
+
 template <template <typename, typename> class Container>
 int PMergeMe<Container>::getLowestValue(const int nb, const size_t size)
 {
 	int result = std::min(nb, static_cast<int>(size));
 	return (result);
 }
+
+
 
 template <template <typename, typename> class Container>
 int PMergeMe<Container>::findLowerBound(const std::vector<int> sequence)
@@ -202,6 +233,8 @@ int PMergeMe<Container>::findLowerBound(const std::vector<int> sequence)
 	}
 	return (index);
 }
+
+
 
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::mergeInsertSort()
@@ -234,6 +267,8 @@ void PMergeMe<Container>::mergeInsertSort()
 	}
 }
 
+
+
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::insertStraggler()
 {
@@ -245,12 +280,16 @@ void PMergeMe<Container>::insertStraggler()
 	}
 }
 
+
+
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::getTime(const clock_t startTime)
 {
 	clock_t endTime = clock();
 	_time = static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC;
 }
+
+
 
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::sort()
@@ -268,6 +307,7 @@ void PMergeMe<Container>::sort()
 	insertStraggler();
 	getTime(startTime);
 }
+
 
 // template class PMergeMe< std::vector >;
 // template class PMergeMe< std::deque >;
