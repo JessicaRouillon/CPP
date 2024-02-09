@@ -40,6 +40,14 @@ private:
 
 	PMergeMe(): _data(), _time(0), _straggler(-1) {}
 
+	void	createPairs();
+	void	sortPairsByGreaterValues();
+	void	createMainChain();
+	void	resizePendChain();
+	void	mergeInsertSort();
+	void	insertStraggler();
+	void	getTime(const clock_t startTime);
+
 	Container< int, std::allocator<int> >	_data;
 	Container< int, std::allocator<int> >	_sorted;
 	double	_time;

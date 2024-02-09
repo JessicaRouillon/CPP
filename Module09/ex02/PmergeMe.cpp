@@ -3,7 +3,6 @@
 
 #include "PmergeMe.hpp"
 
-
 /********************************************************************************/
 /*************************** CONSTRUCTOR / DESTRUCTOR ***************************/
 /********************************************************************************/
@@ -14,7 +13,7 @@ PMergeMe<Container>::PMergeMe(char **av) : _time(0)
 {
 	_straggler = -1;
 
-	for (size_t i = 0; av[i]; i++)
+	for (size_t i = 0; av[i]; ++i)
 	{
 		if (isValidArg(av[i]) == false)
 			throw(std::invalid_argument("\033[0;31mError: Invalid input\033[0m"));
@@ -28,17 +27,14 @@ PMergeMe<Container>::PMergeMe(char **av) : _time(0)
 }
 
 
-
-
 template <template <typename, typename> class Container>
 PMergeMe<Container>::PMergeMe(const PMergeMe<Container> &copy)
 {
 	_data = copy._data;
+	_sorted = copy._sorted;
 	_time = copy._time;
 	_straggler = copy._straggler;
 }
-
-
 
 
 template <template <typename, typename> class Container>
@@ -47,6 +43,7 @@ PMergeMe<Container> &PMergeMe<Container>::operator=(const PMergeMe<Container> &s
 	if (this != &src)
 	{
 		_data = src._data;
+		_sorted = src._sorted;
 		_time = src._time;
 		_straggler = src._straggler;
 	}
@@ -54,12 +51,9 @@ PMergeMe<Container> &PMergeMe<Container>::operator=(const PMergeMe<Container> &s
 }
 
 
-
-
 /********************************************************************************/
-/************************* PUBLIC MEMBER FUNCTIONS ******************************/
+/******************************* PRINT FUNCTIONS ********************************/
 /********************************************************************************/
-
 
 
 template <template <typename, typename> class Container>
@@ -67,7 +61,7 @@ bool PMergeMe<Container>::isValidArg(const char *av)
 {
 	const char *base = "0123456789";
 
-	for (size_t i = 0; av[i]; i++)
+	for (size_t i = 0; av[i]; ++i)
 	{
 		if (!strchr(base, av[i]))
 			return (false);
@@ -77,12 +71,10 @@ bool PMergeMe<Container>::isValidArg(const char *av)
 
 
 
-// Print functions
-
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::printData() const
 {
-	for (size_t i = 0; i < _data.size(); i++)
+	for (size_t i = 0; i < _data.size(); ++i)
 		std::cout << _data[i] << " ";
 	if (_straggler >= 0)
 		std::cout << _straggler;
@@ -94,7 +86,7 @@ void PMergeMe<Container>::printData() const
 template <template <typename, typename> class Container>
 void PMergeMe<Container>::printSorted() const
 {
-	for (size_t i = 0; i < _sorted.size(); i++)
+	for (size_t i = 0; i < _sorted.size(); ++i)
 		std::cout << _sorted[i] << " ";
 	if (_straggler >= 0)
 		std::cout << _straggler;
@@ -113,22 +105,14 @@ void PMergeMe<Container>::printTime(const std::string str) const
 
 
 
-
-// Sort function
+/********************************************************************************/
+/******************************** SORT FUNCTIONS ********************************/
+/********************************************************************************/
 
 
 template <template <typename, typename> class Container>
-void PMergeMe<Container>::sort()
+void	PMergeMe<Container>::createPairs()
 {
-	if (_data.size() <= 1)
-		return;
-
-	clock_t startTime = clock();
-
-
-	/******************************** CREATE PAIRS ********************************/
-
-
 	typename Container< int, std::allocator<int> >::iterator it;
 
 	for (it = _data.begin(); it != _data.end(); it += 2)
@@ -136,11 +120,14 @@ void PMergeMe<Container>::sort()
 		if (it[0] > it[1])
 			std::iter_swap(it, it + 1);
 	}
+}
 
 
-	/************************* SORT PAIRS BY GREATER VALUE ************************/
 
-
+template <template <typename, typename> class Container>
+void	PMergeMe<Container>::sortPairsByGreaterValues()
+{
+	typename Container< int, std::allocator<int> >::iterator it;
 	typename Container< int, std::allocator<int> >::iterator it1;
 
 	for (it = _data.begin(); it < _data.end(); it += 2)
@@ -157,59 +144,93 @@ void PMergeMe<Container>::sort()
 			std::iter_swap(it + 1, itMin + 1);
 		}
 	}
+}
 
 
-	/*********************** CREATE 'S' SEQUENCE (_sorted) ***********************/
 
+template <template <typename, typename> class Container>
+void	PMergeMe<Container>::createMainChain()
+{
+	typename Container< int, std::allocator<int> >::iterator it;
 
 	/* Begin with first value because we know it is the smallest */
 	_sorted.push_back(*_data.begin());
 
-	/* Push greater values into 'S' sequence */
+	/* Push greater values into main chain */
 	it = _data.begin();
-	for (size_t i = 2; it != _data.end(); i++, it++)
+	for (size_t i = 2; it != _data.end(); ++i, ++it)
 	{
 		if (i % 2 != 0)
 			_sorted.push_back(*it);
 	}
+}
 
-	/* Keep only small values in _data */
+
+
+template <template <typename, typename> class Container>
+void	PMergeMe<Container>::resizePendChain()
+{
 	size_t size = 0;
+
 	for (size_t i = 2; i < _data.size(); i += 2)
 	{
 		_data[size++] = _data[i];
 	}
 	_data.resize(size);
+}
 
 
-	/******************************** MERGE INSERT ********************************/
 
-
+template <template <typename, typename> class Container>
+void	PMergeMe<Container>::mergeInsertSort()
+{
 	for (size_t i = 0; i < _data.size(); ++i)
 	{
 		typename Container< int, std::allocator<int> >::iterator insertionPoint = std::upper_bound(_sorted.begin(), _sorted.end(), _data[i]);
 		_sorted.insert(insertionPoint, _data[i]);
 	}
+}
 
 
+
+template <template <typename, typename> class Container>
+void	PMergeMe<Container>::insertStraggler()
+{
 	if (_straggler >= 0)
 	{
 		typename Container< int, std::allocator<int> >::iterator insertionPoint = std::lower_bound(_sorted.begin(), _sorted.end(), _straggler);
 		_sorted.insert(insertionPoint, _straggler);
 		_straggler = -1;
 	}
-
-
-	/********************************* GET TIME **********************************/
-
-
-	clock_t endTime = clock();
-	_time = static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC;
-
-
 }
 
 
+
+template <template <typename, typename> class Container>
+void	PMergeMe<Container>::getTime(const clock_t startTime)
+{
+	clock_t endTime = clock();
+	_time = static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC;
+}
+
+
+
+template <template <typename, typename> class Container>
+void PMergeMe<Container>::sort()
+{
+	if (_data.size() <= 1)
+		return;
+
+	clock_t startTime = clock();
+
+	createPairs();
+	sortPairsByGreaterValues();
+	createMainChain();
+	resizePendChain();
+	mergeInsertSort();
+	insertStraggler();
+	getTime(startTime);
+}
 
 // template class PMergeMe< std::vector >;
 // template class PMergeMe< std::deque >;
